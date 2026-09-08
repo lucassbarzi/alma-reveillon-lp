@@ -11,6 +11,7 @@ import CircularMenu from './components/ui/circular-menu'
 
 const TICKETS = 'https://www.sympla.com.br/evento/a-l-m-a-reveillon-2027-boipeba/3254347?referrer=www.google.com'
 const INSTAGRAM = 'https://www.instagram.com/almareveillonboipeba/'
+const asset = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
 const nights = [
   ['27.12', 'Roda de Praia', '+5521'],
   ['28.12', 'Isso Não É Um Sunrise', 'Uma noite que atravessa a madrugada'],
@@ -19,16 +20,16 @@ const nights = [
   ['31.12', 'ALMA Réveillon', 'A virada, à beira-mar'],
 ]
 const gallery = [
-  ['/media/curadoria/slideshow-mare-aerea.webp', 'Recifes e águas claras vistos do alto em Boipeba'],
-  ['/media/curadoria/slideshow-ilha-aerea.webp', 'Praia e coqueiral vistos do alto'],
-  ['/media/curadoria/slideshow-praia.webp', 'Faixa de areia e mar azul na ilha'],
-  ['/media/curadoria/slideshow-reflexo.webp', 'Coqueiros refletidos nas águas da ilha'],
+  [asset('/media/curadoria/slideshow-mare-aerea.webp'), 'Recifes e águas claras vistos do alto em Boipeba'],
+  [asset('/media/curadoria/slideshow-ilha-aerea.webp'), 'Praia e coqueiral vistos do alto'],
+  [asset('/media/curadoria/slideshow-praia.webp'), 'Faixa de areia e mar azul na ilha'],
+  [asset('/media/curadoria/slideshow-reflexo.webp'), 'Coqueiros refletidos nas águas da ilha'],
 ]
 const experienceCards = [
-  { title: 'O caminho', subtitle: 'Chegar a Boipeba já muda o ritmo. O trecho final acontece entre estrada, mar e caminhos de areia.', image: '/media/curadoria/carrossel-caminho.webp', alt: 'Chegada à ilha pelo cais e pelo mar' },
-  { title: 'O dia', subtitle: 'Praias, mata e água morna antes de a primeira batida atravessar a noite.', image: '/media/curadoria/carrossel-dia.webp', alt: 'Praia de areia clara, coqueiros e mar azul' },
-  { title: 'A noite', subtitle: 'Luzes, música e o mar como cenário até o amanhecer.', image: '/media/curadoria/card-noite.webp', alt: 'Pista do ALMA iluminada à noite, vista de cima' },
-  { title: 'A virada', subtitle: 'Fogos sobre a Praia da Cueira para brindar a chegada de 2027.', image: '/media/curadoria/card-virada-fogos.webp', alt: 'Fogos de artifício sobre a festa do ALMA na praia' },
+  { title: 'O caminho', subtitle: 'Chegar a Boipeba já muda o ritmo. O trecho final acontece entre estrada, mar e caminhos de areia.', image: asset('/media/curadoria/carrossel-caminho.webp'), alt: 'Chegada à ilha pelo cais e pelo mar' },
+  { title: 'O dia', subtitle: 'Praias, mata e água morna antes de a primeira batida atravessar a noite.', image: asset('/media/curadoria/carrossel-dia.webp'), alt: 'Praia de areia clara, coqueiros e mar azul' },
+  { title: 'A noite', subtitle: 'Luzes, música e o mar como cenário até o amanhecer.', image: asset('/media/curadoria/card-noite.webp'), alt: 'Pista do ALMA iluminada à noite, vista de cima' },
+  { title: 'A virada', subtitle: 'Fogos sobre a Praia da Cueira para brindar a chegada de 2027.', image: asset('/media/curadoria/card-virada-fogos.webp'), alt: 'Fogos de artifício sobre a festa do ALMA na praia' },
 ]
 const stayAreas = [
   { title: 'Velha Boipeba', text: 'A vila com mais estrutura, restaurantes, comércio e opções de hospedagem. Uma base prática para organizar a chegada e os deslocamentos.', href: 'https://www.openstreetmap.org/search?query=Velha%20Boipeba' },
@@ -71,14 +72,14 @@ function App() {
   return <main>
     <header className="nav">
       <a className="wordmark" href="#top" aria-label="ALMA, início">
-        <img src="/brand/alma-logo-trimmed-dark.png" alt="ALMA Réveillon 2027" />
+        <img src={asset('/brand/alma-logo-trimmed-dark.png')} alt="ALMA Réveillon 2027" />
       </a>
       <CircularMenu ticketsUrl={TICKETS} instagramUrl={INSTAGRAM} />
     </header>
 
     <section className="hero" id="top" ref={heroRef}>
-      <video autoPlay muted loop playsInline preload="auto" poster="/media/alma-hero-poster.jpg" aria-label="Paisagens de Boipeba entre nuvens ensolaradas">
-        <source src="/media/alma-hero-web.mp4" type="video/mp4" />
+      <video autoPlay muted loop playsInline preload="auto" poster={asset('/media/alma-hero-poster.jpg')} aria-label="Paisagens de Boipeba entre nuvens ensolaradas">
+        <source src={asset('/media/alma-hero-web.mp4')} type="video/mp4" />
       </video>
       <motion.div className="cloud cloud-a" style={{ y: cloudY }}/><motion.div className="cloud cloud-b" style={{ y: cloudY }}/>
       <div className="hero-wash" />

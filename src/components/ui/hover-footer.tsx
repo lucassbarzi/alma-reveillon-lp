@@ -196,7 +196,7 @@ export default function HoverFooter() {
             <div className="hover-footer-brand">
               <div className="hover-footer-logo-row">
                 <img
-                  src="/brand/alma-logo-trimmed.png"
+                  src={`${import.meta.env.BASE_URL}brand/alma-logo-trimmed.png`}
                   alt="ALMA Réveillon"
                   className="hover-footer-logo"
                 />
@@ -291,7 +291,7 @@ export default function HoverFooter() {
             >
               <span className="text-xs text-white/50">Vendas oficiais por</span>
               <img
-                src="/brand/sympla-logo.png"
+                src={`${import.meta.env.BASE_URL}brand/sympla-logo.png`}
                 alt="Sympla"
                 className="hover-footer-sympla-img"
               />

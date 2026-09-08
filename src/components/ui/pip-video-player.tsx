@@ -15,17 +15,18 @@ const VIDEOS: VideoItem[] = [
     id: 'aftermovie-geral',
     title: 'Aftermovie Oficial',
     year: 'Edição Especial',
-    src: '/media/pip/aftermovie-geral.mp4',
-    poster: '/media/pip/aftermovie-geral-poster.jpg'
+    src: `${import.meta.env.BASE_URL}media/pip/aftermovie-geral.mp4`,
+    poster: `${import.meta.env.BASE_URL}media/pip/aftermovie-geral-poster.jpg`
   },
   {
     id: 'alma-2024',
     title: 'ALMA Highlights',
     year: 'Edição 2025',
-    src: '/media/pip/alma-2024-reels.mp4',
-    poster: '/media/pip/alma-2024-reels-poster.jpg'
+    src: `${import.meta.env.BASE_URL}media/pip/alma-2024-reels.mp4`,
+    poster: `${import.meta.env.BASE_URL}media/pip/alma-2024-reels-poster.jpg`
   }
 ]
+const asset = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
 
 export default function PipVideoPlayer() {
   const [isOpen, setIsOpen] = useState(true)
