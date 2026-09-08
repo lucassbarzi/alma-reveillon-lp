@@ -312,13 +312,14 @@ export default function WavesShader({ className = '' }: WavesShaderProps) {
     const uSpace = gl.getUniformLocation(program, 'u_space')
     const uCursor = gl.getUniformLocation(program, 'u_cursor')
 
-    // Waves Colours: #06858E, #1E9EA6, #37B6BE, #5DC7CE, #8AD8DD
+    // ALMA Brand Colours (Deep Navy, Dark Cyan, Ocean Blue, Lagoon Cyan, Soft Mist)
+    // #071A24, #143847, #2B829D, #57D2F4, #EBF6FA
     const colors = [
-      0.024, 0.522, 0.557,
-      0.118, 0.620, 0.651,
-      0.216, 0.714, 0.745,
-      0.365, 0.780, 0.808,
-      0.541, 0.847, 0.867,
+      0.027, 0.102, 0.141, // #071A24 Deep Navy
+      0.078, 0.220, 0.278, // #143847 Brand Dark Cyan
+      0.169, 0.510, 0.616, // #2B829D Ocean Blue
+      0.341, 0.824, 0.957, // #57D2F4 Lagoon Cyan
+      0.922, 0.965, 0.980, // #EBF6FA Soft Mist
       0, 0, 0, 0, 0, 0, 0, 0, 0
     ]
     gl.uniform3fv(uColors, colors)

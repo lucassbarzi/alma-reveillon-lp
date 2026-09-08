@@ -105,9 +105,10 @@ export default function CircularMenu({
   }
 
   const isMobile = windowWidth <= 780
+  const panelWidth = isMobile ? windowWidth : Math.min(windowWidth, 640)
   const openOffset = isMobile
-    ? -(windowWidth - 16 - 24 - 44)
-    : -(Math.min(windowWidth, 640) - windowWidth * 0.04 - 88)
+    ? -(windowWidth - 16 - 20 - 44)
+    : -(panelWidth - (windowWidth * 0.04) - 48)
 
   return (
     <>
@@ -121,13 +122,13 @@ export default function CircularMenu({
           className={`circular-menu-btn ${isOpen ? 'circular-menu-btn--active' : ''}`}
           animate={{
             x: isOpen ? openOffset : 0,
-            y: isOpen ? (isMobile ? 0 : 8) : 0,
+            y: isOpen ? (isMobile ? 2 : 12) : 0,
           }}
           transition={{
             type: 'spring',
-            stiffness: 340,
-            damping: 30,
-            mass: 0.8,
+            stiffness: 280,
+            damping: 26,
+            mass: 0.7,
           }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.94 }}
@@ -140,7 +141,7 @@ export default function CircularMenu({
                   initial={{ rotate: -90, opacity: 0 }}
                   animate={{ rotate: 0, opacity: 1 }}
                   exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                   className="flex items-center justify-center"
                 >
                   <X size={18} className="stroke-[2.2]" />
@@ -151,7 +152,7 @@ export default function CircularMenu({
                   initial={{ rotate: 90, opacity: 0 }}
                   animate={{ rotate: 0, opacity: 1 }}
                   exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
                   className="circular-menu-btn__hamburger"
                 >
                   <span className="circular-menu-btn__line" />

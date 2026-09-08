@@ -132,9 +132,44 @@ function App() {
     <section className="stories light" id="historias">
       <Reveal><span className="kicker">HISTÓRIAS DE OUTRAS MARÉS</span><h2>O que fica<br/><em>depois da virada.</em></h2></Reveal>
       <div className="story-grid">
-        <Reveal className="story-card"><span>CHEGADA</span><h3>A cidade termina no cais.</h3><p>O deslocamento não é um intervalo. É o primeiro capítulo: quando o caminho encontra o mar, a pressa começa a perder importância.</p></Reveal>
-        <Reveal className="story-card" delay={.1}><span>ENCONTRO</span><h3>A pista não tem paredes.</h3><p>A Praia da Cueira muda a escola da festa. O horizonte permanece à vista enquanto a música atravessa a madrugada.</p></Reveal>
-        <Reveal className="story-card" delay={.2}><span>MEMÓRIA</span><h3>O sol encerra a noite.</h3><p>As imagens de edições anteriores guardam o que uma lista de atrações não explica: gente que chegou para uma festa e saiu levando uma paisagem inteira.</p></Reveal>
+        <Reveal className="story-card">
+          <div>
+            <div className="story-card__top">
+              <span className="story-card__tag">CHEGADA</span>
+              <span className="story-card__num">01 / 03</span>
+            </div>
+            <div className="story-card__header">
+              <h3>A cidade termina no cais.</h3>
+            </div>
+          </div>
+          <p>O deslocamento não é um intervalo. É o primeiro capítulo: quando o caminho encontra o mar, a pressa começa a perder importância.</p>
+        </Reveal>
+
+        <Reveal className="story-card" delay={.1}>
+          <div>
+            <div className="story-card__top">
+              <span className="story-card__tag">ENCONTRO</span>
+              <span className="story-card__num">02 / 03</span>
+            </div>
+            <div className="story-card__header">
+              <h3>A pista não tem paredes.</h3>
+            </div>
+          </div>
+          <p>A Praia da Cueira muda a escala da festa. O horizonte permanece à vista enquanto a música atravessa a madrugada.</p>
+        </Reveal>
+
+        <Reveal className="story-card" delay={.2}>
+          <div>
+            <div className="story-card__top">
+              <span className="story-card__tag">MEMÓRIA</span>
+              <span className="story-card__num">03 / 03</span>
+            </div>
+            <div className="story-card__header">
+              <h3>O sol encerra a noite.</h3>
+            </div>
+          </div>
+          <p>As imagens de edições anteriores guardam o que uma lista de atrações não explica: gente que chegou para uma festa e saiu levando uma paisagem inteira.</p>
+        </Reveal>
       </div>
       <p className="source-note">Storytelling editorial construído a partir do acervo visual local. Não representa depoimentos atribuídos a participantes.</p>
     </section>

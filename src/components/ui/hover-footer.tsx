@@ -280,9 +280,9 @@ export default function HoverFooter() {
           </div>
         </div>
 
-        {/* Text hover effect */}
-        <div className="hover-footer-huge-text">
-          <TextHoverEffect text="ALMA" className="z-20 w-full" />
+        {/* Text hover effect background watermark extrapolating card boundaries */}
+        <div className="hover-footer-huge-text-bg">
+          <TextHoverEffect text="ALMA" className="w-full h-full" />
         </div>
 
         <FooterBackgroundGradient />
