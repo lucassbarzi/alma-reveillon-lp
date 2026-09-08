@@ -284,7 +284,7 @@ em{font-style:normal;color:#2b829d}
 .hover-footer-sympla-img{height:46px;width:auto;max-width:150px;object-fit:contain;filter:brightness(0) invert(1);opacity:.95}
 
 /* Background Watermark Layer Extrapolating the Card Boundaries */
-.hover-footer-huge-text-bg{position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);width:130%;height:360px;pointer-events:none;z-index:2;display:flex;justify-content:center;align-items:flex-end;overflow:hidden;opacity:.95}
+.hover-footer-huge-text-bg{position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);width:130%;height:360px;pointer-events:none;z-index:2;display:flex;justify-content:center;align-items:flex-end;overflow:hidden;opacity:.35}
 
 /* PIP Video Player */
 .pip-player{position:fixed;right:24px;left:auto;bottom:24px;z-index:80;border:1px solid rgba(255,255,255,.2);border-radius:18px;background:#143847;box-shadow:0 20px 50px rgba(0,0,0,.45);color:#fff;touch-action:none;user-select:none}

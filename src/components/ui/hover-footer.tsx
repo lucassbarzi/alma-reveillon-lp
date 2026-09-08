@@ -105,9 +105,9 @@ export const TextHoverEffect = ({
         y="58%"
         textAnchor="middle"
         dominantBaseline="middle"
-        strokeWidth="1.4"
-        className="fill-transparent stroke-white/18 font-[Tusker,Impact,sans-serif] font-bold"
-        style={{ fontSize: '320px', letterSpacing: '0.04em', opacity: 0.55 }}
+        strokeWidth="1.2"
+        className="fill-transparent stroke-white/15 font-[Tusker,Impact,sans-serif] font-bold"
+        style={{ fontSize: '320px', letterSpacing: '0.04em', opacity: 0.4 }}
       >
         {text}
       </text>
@@ -118,8 +118,8 @@ export const TextHoverEffect = ({
         y="58%"
         textAnchor="middle"
         dominantBaseline="middle"
-        strokeWidth="1.6"
-        className="fill-transparent stroke-[#57d2f4]/60 font-[Tusker,Impact,sans-serif] font-bold"
+        strokeWidth="1.4"
+        className="fill-transparent stroke-[#57d2f4]/35 font-[Tusker,Impact,sans-serif] font-bold"
         style={{ fontSize: '320px', letterSpacing: '0.04em' }}
         initial={{ strokeDashoffset: 3000, strokeDasharray: 3000 }}
         animate={{
@@ -141,10 +141,10 @@ export const TextHoverEffect = ({
         textAnchor="middle"
         dominantBaseline="middle"
         stroke="url(#almaTextGradient)"
-        strokeWidth="2.8"
+        strokeWidth="2"
         mask="url(#almaTextMask)"
-        className="fill-white/10 font-[Tusker,Impact,sans-serif] font-bold"
-        style={{ fontSize: '320px', letterSpacing: '0.04em', opacity: hovered ? 1 : 0.4 }}
+        className="fill-white/5 font-[Tusker,Impact,sans-serif] font-bold"
+        style={{ fontSize: '320px', letterSpacing: '0.04em', opacity: hovered ? 0.6 : 0.2 }}
       >
         {text}
       </text>
