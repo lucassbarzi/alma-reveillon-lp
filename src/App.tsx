@@ -70,7 +70,7 @@ function App() {
   return <main>
     <header className="nav">
       <a className="wordmark" href="#top" aria-label="ALMA, início">
-        <img src={asset('/brand/alma-logo-trimmed-dark.png')} alt="ALMA Réveillon 2027" />
+        <img src={asset('/brand/alma-logo-trimmed.png')} alt="ALMA Réveillon 2027" />
       </a>
       <CircularMenu ticketsUrl={TICKETS} instagramUrl={INSTAGRAM} />
     </header>
