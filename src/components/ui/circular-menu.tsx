@@ -73,6 +73,16 @@ export default function CircularMenu({
     }
   }, [isOpen])
 
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== 'undefined' ? window.innerWidth : 1200
+  )
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   // Fecha no ESC
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -94,9 +104,14 @@ export default function CircularMenu({
     }
   }
 
+  const isMobile = windowWidth <= 780
+  const openOffset = isMobile
+    ? -(windowWidth - 16 - 24 - 44)
+    : -(Math.min(windowWidth, 640) - windowWidth * 0.04 - 88)
+
   return (
     <>
-      {/* Botão Gatilho Circular no Canto Superior Direito */}
+      {/* Botão Único que Transita e se Transforma no X de Fechar */}
       <div className="circular-menu-trigger-container">
         <motion.button
           type="button"
@@ -104,6 +119,16 @@ export default function CircularMenu({
           aria-label={isOpen ? 'Fechar menu de navegação' : 'Abrir menu de navegação'}
           aria-expanded={isOpen}
           className={`circular-menu-btn ${isOpen ? 'circular-menu-btn--active' : ''}`}
+          animate={{
+            x: isOpen ? openOffset : 0,
+            y: isOpen ? (isMobile ? 0 : 8) : 0,
+          }}
+          transition={{
+            type: 'spring',
+            stiffness: 340,
+            damping: 30,
+            mass: 0.8,
+          }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.94 }}
         >
@@ -115,7 +140,7 @@ export default function CircularMenu({
                   initial={{ rotate: -90, opacity: 0 }}
                   animate={{ rotate: 0, opacity: 1 }}
                   exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                   className="flex items-center justify-center"
                 >
                   <X size={18} className="stroke-[2.2]" />
@@ -126,7 +151,7 @@ export default function CircularMenu({
                   initial={{ rotate: 90, opacity: 0 }}
                   animate={{ rotate: 0, opacity: 1 }}
                   exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                   className="circular-menu-btn__hamburger"
                 >
                   <span className="circular-menu-btn__line" />
@@ -136,9 +161,19 @@ export default function CircularMenu({
               )}
             </AnimatePresence>
           </div>
-          <span className="circular-menu-btn__label pointer-events-none">
-            {isOpen ? 'FECHAR' : 'MENU'}
-          </span>
+          <AnimatePresence>
+            {!isOpen && (
+              <motion.span
+                className="circular-menu-btn__label pointer-events-none"
+                initial={{ opacity: 0, width: 0 }}
+                animate={{ opacity: 1, width: 'auto' }}
+                exit={{ opacity: 0, width: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                MENU
+              </motion.span>
+            )}
+          </AnimatePresence>
         </motion.button>
       </div>
 
@@ -182,16 +217,8 @@ export default function CircularMenu({
               <div className="circular-menu__glass-tint pointer-events-none" />
 
               <div className="circular-menu__content">
-                {/* Cabeçalho do Menu Lateral com botão fechar à esquerda */}
+                {/* Cabeçalho do Menu Lateral com espaço para o botão animado */}
                 <div className="circular-menu__header">
-                  <button
-                    type="button"
-                    onClick={() => setIsOpen(false)}
-                    className="circular-menu__close-inside-btn"
-                    aria-label="Fechar menu"
-                  >
-                    <X size={16} />
-                  </button>
                   <div className="circular-menu__badge">
                     <span>ALMA RÉVEILLON 2027 · BOIPEBA</span>
                   </div>
