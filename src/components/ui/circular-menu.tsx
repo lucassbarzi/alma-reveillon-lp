@@ -252,25 +252,7 @@ export default function CircularMenu({
                             }}
                             className={`circular-menu__link ${isHovered ? 'circular-menu__link--hovered' : ''}`}
                           >
-                            <motion.div
-                              className="circular-menu__arrow"
-                              animate={{
-                                x: isHovered ? 0 : 6,
-                                opacity: isHovered ? 1 : 0.3,
-                                scale: isHovered ? 1.05 : 0.9,
-                              }}
-                              transition={{ duration: 0.2 }}
-                            >
-                              <ArrowRight size={20} />
-                            </motion.div>
-
-                            <div className="circular-menu__link-right">
-                              <div className="circular-menu__titles">
-                                <span className="circular-menu__title">{item.label}</span>
-                                <span className="circular-menu__tagline">{item.tagline}</span>
-                              </div>
-                              <span className="circular-menu__number">{item.number}</span>
-                            </div>
+                            <span className="circular-menu__title">{item.label}</span>
                           </a>
                         </motion.li>
                       )
@@ -289,10 +271,10 @@ export default function CircularMenu({
                     href={ticketsUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="ticket w-full justify-between"
+                    className="ticket w-full justify-center relative text-center"
                   >
-                    <span className="ticket-label">VIVER O ALMA</span>
-                    <span className="ticket-icon-wrapper">
+                    <span className="ticket-label text-center">VIVER O ALMA</span>
+                    <span className="ticket-icon-wrapper absolute right-2">
                       <ArrowRight size={17} />
                     </span>
                   </a>
