@@ -298,5 +298,6 @@ export default function FlutedGlassShader({ className = '' }: FlutedGlassShaderP
     }
   }, [])
 
-  return <canvas ref={canvasRef} className={`absolute inset-0 w-full h-full ${className}`} />
+  return <canvas ref={canvasRef} className={`absolute inset-0 w-full h-full pointer-events-none ${className}`} />
 }
+

@@ -1,11 +1,12 @@
 import { useRef, useEffect, useState } from 'react'
 import { motion } from 'motion/react'
 import { FaInstagram } from 'react-icons/fa6'
+import { ArrowUpRight, Calendar, MapPin, Sparkles } from 'lucide-react'
 
 const TICKETS = 'https://www.sympla.com.br/evento/a-l-m-a-reveillon-2027-boipeba/3254347?referrer=www.google.com'
 const INSTAGRAM = 'https://www.instagram.com/almareveillonboipeba/'
 
-export function TextHoverEffect({
+export const TextHoverEffect = ({
   text,
   duration,
   className,
@@ -13,7 +14,7 @@ export function TextHoverEffect({
   text: string
   duration?: number
   className?: string
-}) {
+}) => {
   const svgRef = useRef<SVGSVGElement>(null)
   const [cursor, setCursor] = useState({ x: 0, y: 0 })
   const [hovered, setHovered] = useState(false)
@@ -45,22 +46,25 @@ export function TextHoverEffect({
     >
       <defs>
         <linearGradient
-          id="textGradient"
+          id="almaTextGradient"
           gradientUnits="userSpaceOnUse"
+          cx="50%"
+          cy="50%"
+          r="25%"
         >
           {hovered && (
             <>
-              <stop offset="0%" stopColor="#a7c5cf" />
-              <stop offset="25%" stopColor="#5d9fb4" />
-              <stop offset="50%" stopColor="#83b8c9" />
-              <stop offset="75%" stopColor="#a7c5cf" />
-              <stop offset="100%" stopColor="#143847" />
+              <stop offset="0%" stopColor="#57d2f4" />
+              <stop offset="25%" stopColor="#2b829d" />
+              <stop offset="50%" stopColor="#80eeb4" />
+              <stop offset="75%" stopColor="#57d2f4" />
+              <stop offset="100%" stopColor="#ffffff" />
             </>
           )}
         </linearGradient>
 
         <motion.radialGradient
-          id="revealMask"
+          id="almaRevealMask"
           gradientUnits="userSpaceOnUse"
           r="20%"
           initial={{ cx: '50%', cy: '50%' }}
@@ -70,13 +74,13 @@ export function TextHoverEffect({
           <stop offset="0%" stopColor="white" />
           <stop offset="100%" stopColor="black" />
         </motion.radialGradient>
-        <mask id="textMask">
+        <mask id="almaTextMask">
           <rect
             x="0"
             y="0"
             width="100%"
             height="100%"
-            fill="url(#revealMask)"
+            fill="url(#almaRevealMask)"
           />
         </mask>
       </defs>
@@ -86,7 +90,7 @@ export function TextHoverEffect({
         textAnchor="middle"
         dominantBaseline="middle"
         strokeWidth="0.3"
-        className="fill-transparent stroke-neutral-200 font-[helvetica] text-7xl font-bold"
+        className="fill-transparent stroke-white/20 font-[Tusker,Impact,sans-serif] text-8xl font-bold"
         style={{ opacity: hovered ? 0.7 : 0 }}
       >
         {text}
@@ -97,7 +101,7 @@ export function TextHoverEffect({
         textAnchor="middle"
         dominantBaseline="middle"
         strokeWidth="0.3"
-        className="fill-transparent stroke-[#a7c5cf] font-[helvetica] text-7xl font-bold"
+        className="fill-transparent stroke-[#57d2f4] font-[Tusker,Impact,sans-serif] text-8xl font-bold"
         initial={{ strokeDashoffset: 1000, strokeDasharray: 1000 }}
         animate={{
           strokeDashoffset: 0,
@@ -115,10 +119,10 @@ export function TextHoverEffect({
         y="50%"
         textAnchor="middle"
         dominantBaseline="middle"
-        stroke="url(#textGradient)"
+        stroke="url(#almaTextGradient)"
         strokeWidth="0.3"
-        mask="url(#textMask)"
-        className="fill-transparent font-[helvetica] text-7xl font-bold"
+        mask="url(#almaTextMask)"
+        className="fill-transparent font-[Tusker,Impact,sans-serif] text-8xl font-bold"
       >
         {text}
       </text>
@@ -126,13 +130,13 @@ export function TextHoverEffect({
   )
 }
 
-export function FooterBackgroundGradient() {
+export const FooterBackgroundGradient = () => {
   return (
     <div
-      className="absolute inset-0 z-0"
+      className="absolute inset-0 z-0 pointer-events-none"
       style={{
         background:
-          'radial-gradient(125% 125% at 50% 10%, #143847ee 50%, #a7c5cf33 100%)',
+          'radial-gradient(125% 125% at 50% 10%, rgba(20, 56, 71, 0.95) 40%, rgba(7, 26, 36, 0.98) 100%)',
       }}
     />
   )
@@ -144,124 +148,145 @@ const footerLinks = [
     links: [
       { label: 'Experiência', href: '#experiencia' },
       { label: 'Programação', href: '#programacao' },
-      { label: 'Boipeba', href: '#ilha' },
-      { label: 'Dúvidas', href: '#faq' },
+      { label: 'Boipeba, Bahia', href: '#ilha' },
+      { label: 'Open Bar Premium', href: '#openbar' },
     ],
   },
   {
     title: 'Informações',
     links: [
-      { label: 'FAQ', href: '#faq' },
-      { label: 'Hospedagem', href: '#' },
-      { label: 'Como chegar', href: '#' },
+      { label: 'Dúvidas Frequentes', href: '#faq' },
+      { label: 'Como Chegar', href: '#ilha' },
+      { label: 'Ingressos Sympla', href: TICKETS, pulse: true, external: true },
     ],
-  },
-]
-
-const contactInfo = [
-  {
-    text: '27 — 31 DEZ 2026',
-  },
-  {
-    text: 'Praia da Cueira, Boipeba',
-  },
-  {
-    text: 'Cairu, Bahia',
   },
 ]
 
 export default function HoverFooter() {
   return (
-    <footer className="relative h-fit rounded-t-3xl overflow-hidden" style={{ background: '#143847' }}>
-      <div className="max-w-7xl mx-auto p-14 z-40 relative">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 lg:gap-16 pb-12">
-          {/* Brand section */}
-          <div className="flex flex-col space-y-4">
-            <div className="flex items-center space-x-2">
-              <img src="/brand/alma-logo-trimmed.png" alt="ALMA" className="h-16 w-auto brightness-0 invert" />
+    <div className="hover-footer-container">
+      <footer className="hover-footer-card">
+        <div className="hover-footer-content">
+          <div className="hover-footer-grid">
+            {/* Brand section */}
+            <div className="hover-footer-brand">
+              <div className="hover-footer-logo-row">
+                <img
+                  src="/brand/alma-logo-trimmed.png"
+                  alt="ALMA Réveillon"
+                  className="hover-footer-logo"
+                />
+              </div>
+              <p className="hover-footer-desc">
+                Cinco noites na ilha. O mar por perto. O pé na areia. E a sensação rara de estar exatamente onde você queria estar.
+              </p>
+              <div className="hover-footer-badge">
+                <Sparkles size={13} className="text-[#57d2f4]" />
+                <span>PRAIA DA CUEIRA · BOIPEBA</span>
+              </div>
             </div>
-            <p className="text-sm leading-relaxed text-white/70">
-              Cinco noites na ilha. O mar por perto. O pé na areia. E a sensação rara de estar exatamente onde você queria estar.
-            </p>
-          </div>
 
-          {/* Footer link sections */}
-          {footerLinks.map((section) => (
-            <div key={section.title}>
-              <h4 className="text-white text-lg font-semibold mb-6">
-                {section.title}
-              </h4>
-              <ul className="space-y-3">
-                {section.links.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="text-white/70 hover:text-[#a7c5cf] transition-colors"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+            {/* Footer link sections */}
+            {footerLinks.map((section) => (
+              <div key={section.title} className="hover-footer-col">
+                <h4 className="hover-footer-title">{section.title}</h4>
+                <ul className="hover-footer-links">
+                  {section.links.map((link) => (
+                    <li key={link.label} className="hover-footer-item">
+                      <a
+                        href={link.href}
+                        target={link.external ? '_blank' : undefined}
+                        rel={link.external ? 'noreferrer' : undefined}
+                        className="hover-footer-link"
+                      >
+                        <span>{link.label}</span>
+                        {link.pulse && (
+                          <span className="hover-footer-pulse"></span>
+                        )}
+                        {link.external && (
+                          <ArrowUpRight size={13} className="opacity-60" />
+                        )}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
 
-          {/* Contact section */}
-          <div>
-            <h4 className="text-white text-lg font-semibold mb-6">
-              Quando e Onde
-            </h4>
-            <ul className="space-y-4">
-              {contactInfo.map((item, i) => (
-                <li key={i} className="flex items-center space-x-3 text-white/70">
-                  <span>{item.text}</span>
+            {/* Contact / Info section */}
+            <div className="hover-footer-col">
+              <h4 className="hover-footer-title">Quando & Onde</h4>
+              <ul className="hover-footer-info-list">
+                <li className="hover-footer-info-item">
+                  <Calendar size={17} className="text-[#57d2f4] shrink-0" />
+                  <span>27 — 31 de Dezembro de 2026</span>
                 </li>
-              ))}
-            </ul>
+                <li className="hover-footer-info-item">
+                  <MapPin size={17} className="text-[#57d2f4] shrink-0" />
+                  <span>Praia da Cueira, Cairu — Boipeba, BA</span>
+                </li>
+              </ul>
+              <div className="pt-3">
+                <a
+                  href={TICKETS}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover-footer-cta-btn"
+                >
+                  <span>Garantir Ingresso</span>
+                  <ArrowUpRight size={15} />
+                </a>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <hr className="border-t border-white/20 my-8" />
+          <hr className="hover-footer-divider" />
 
-        {/* Footer bottom */}
-        <div className="flex flex-col md:flex-row justify-between items-center text-sm space-y-4 md:space-y-0 text-white/70">
-          {/* Social icons */}
-          <div className="flex space-x-6">
+          {/* Footer bottom */}
+          <div className="hover-footer-bottom">
+            {/* Social icons */}
+            <div className="hover-footer-socials">
+              <a
+                href={INSTAGRAM}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram Oficial ALMA"
+                className="hover-footer-social-icon"
+              >
+                <FaInstagram size={18} />
+              </a>
+              <span className="text-xs text-white/60">@almareveillonboipeba</span>
+            </div>
+
+            {/* Sympla badge */}
             <a
-              href={INSTAGRAM}
+              href={TICKETS}
               target="_blank"
               rel="noreferrer"
-              aria-label="Instagram"
-              className="w-10 h-10 border border-white/30 rounded-full flex items-center justify-center hover:bg-[#a7c5cf] hover:text-[#143847] transition-colors"
+              className="hover-footer-sympla"
             >
-              <FaInstagram size={18} />
+              <span className="text-xs text-white/50">Vendas oficiais por</span>
+              <img
+                src="/brand/sympla-logo.png"
+                alt="Sympla"
+                className="hover-footer-sympla-img"
+              />
             </a>
+
+            {/* Copyright */}
+            <p className="hover-footer-copy">
+              &copy; {new Date().getFullYear()} ALMA Réveillon. Todos os direitos reservados.
+            </p>
           </div>
-
-          {/* Sympla */}
-          <a
-            href={TICKETS}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-3 hover:opacity-80 transition-opacity"
-          >
-            <span className="text-white/50 text-xs">Ingressos por</span>
-            <img className="h-5 brightness-0 invert opacity-70" src="/brand/sympla-logo.png" alt="Sympla" />
-          </a>
-
-          {/* Copyright */}
-          <p className="text-center md:text-left text-white/50">
-            &copy; {new Date().getFullYear()} ALMA Réveillon. Todos os direitos reservados.
-          </p>
         </div>
-      </div>
 
-      {/* Text hover effect */}
-      <div className="lg:flex hidden h-[30rem] -mt-52 -mb-36">
-        <TextHoverEffect text="ALMA" className="z-50" />
-      </div>
+        {/* Text hover effect */}
+        <div className="hover-footer-huge-text">
+          <TextHoverEffect text="ALMA" className="z-20 w-full" />
+        </div>
 
-      <FooterBackgroundGradient />
-    </footer>
+        <FooterBackgroundGradient />
+      </footer>
+    </div>
   )
 }

@@ -296,5 +296,6 @@ export default function SilkShader({ className = '' }: SilkShaderProps) {
     }
   }, [])
 
-  return <canvas ref={canvasRef} className={`absolute inset-0 w-full h-full ${className}`} />
+  return <canvas ref={canvasRef} className={`absolute inset-0 w-full h-full pointer-events-none ${className}`} />
 }
+

@@ -23,28 +23,28 @@ const INSTAGRAM_URL = 'https://www.instagram.com/almareveillonboipeba/'
 
 function CloudBackground() {
   return (
-    <div className="circular-menu__clouds-wrapper" aria-hidden="true">
+    <div className="circular-menu__clouds-wrapper pointer-events-none" aria-hidden="true">
       {/* Camada 1 de Nuvens Lentas */}
-      <div className="circular-menu__cloud-layer circular-menu__cloud-layer--1">
+      <div className="circular-menu__cloud-layer circular-menu__cloud-layer--1 pointer-events-none">
         <div className="circular-menu__cloud-blob cloud-blob-1" />
         <div className="circular-menu__cloud-blob cloud-blob-2" />
         <div className="circular-menu__cloud-blob cloud-blob-3" />
       </div>
 
       {/* Camada 2 de Nuvens Médias */}
-      <div className="circular-menu__cloud-layer circular-menu__cloud-layer--2">
+      <div className="circular-menu__cloud-layer circular-menu__cloud-layer--2 pointer-events-none">
         <div className="circular-menu__cloud-blob cloud-blob-4" />
         <div className="circular-menu__cloud-blob cloud-blob-5" />
       </div>
 
       {/* Camada 3 de Nuvens Rápidas e Suaves */}
-      <div className="circular-menu__cloud-layer circular-menu__cloud-layer--3">
+      <div className="circular-menu__cloud-layer circular-menu__cloud-layer--3 pointer-events-none">
         <div className="circular-menu__cloud-blob cloud-blob-6" />
         <div className="circular-menu__cloud-blob cloud-blob-7" />
       </div>
 
-      {/* Gradiente de luz solar suave da Bahia */}
-      <div className="circular-menu__sun-flare" />
+      {/* Gradiente de luz solar suave */}
+      <div className="circular-menu__sun-flare pointer-events-none" />
     </div>
   )
 }
@@ -90,7 +90,7 @@ export default function CircularMenu({
     if (target) {
       setTimeout(() => {
         target.scrollIntoView({ behavior: 'smooth' })
-      }, 350)
+      }, 100)
     }
   }
 
@@ -107,7 +107,7 @@ export default function CircularMenu({
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.94 }}
         >
-          <div className="circular-menu-btn__icon-wrapper">
+          <div className="circular-menu-btn__icon-wrapper pointer-events-none">
             <AnimatePresence mode="wait">
               {isOpen ? (
                 <motion.div
@@ -136,7 +136,7 @@ export default function CircularMenu({
               )}
             </AnimatePresence>
           </div>
-          <span className="circular-menu-btn__label">
+          <span className="circular-menu-btn__label pointer-events-none">
             {isOpen ? 'FECHAR' : 'MENU'}
           </span>
         </motion.button>
@@ -177,9 +177,9 @@ export default function CircularMenu({
               aria-modal="true"
               aria-label="Menu principal ALMA Réveillon"
             >
-              {/* Efeito de Nuvens em Movimento e Vidro Fosco Claro */}
+              {/* Efeito de Nuvens em Movimento e Vidro Fosco Claro (ambos com pointer-events-none) */}
               <CloudBackground />
-              <div className="circular-menu__glass-tint" />
+              <div className="circular-menu__glass-tint pointer-events-none" />
 
               <div className="circular-menu__content">
                 {/* Cabeçalho do Menu Lateral */}
