@@ -287,27 +287,15 @@ em{font-style:normal;color:#2b829d}
 .hover-footer-huge-text-bg{position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);width:130%;height:360px;pointer-events:none;z-index:2;display:flex;justify-content:center;align-items:flex-end;overflow:hidden;opacity:.95}
 
 /* PIP Video Player (Draggable & Resizable) */
-.pip-player{position:fixed;right:24px;left:auto;bottom:24px;z-index:80;border:1px solid rgba(255,255,255,.2);border-radius:18px;background:#143847;box-shadow:0 20px 50px rgba(0,0,0,.45);color:#fff;touch-action:none;user-select:none}
+/* Outer drag wrapper — no visual styles (they are inlined on the component) */
 .pip-player__video{display:block;width:100%;height:100%;object-fit:cover;pointer-events:none}
 .pip-player__track{height:100%;background:#57d2f4;transition:width .15s}
-.pip-player__controls{display:flex;align-items:center;justify-content:space-between;padding:8px 12px 10px;border-top:1px solid rgba(255,255,255,.18);background:linear-gradient(to top, rgba(7,26,36,.95), rgba(7,26,36,.5))}
-.pip-player__edge-button{display:inline-grid;place-items:center;width:24px;height:24px;border:1px solid rgba(255,255,255,.18);border-radius:50%;background:rgba(0,0,0,.3);color:#fff}
+.pip-player__controls{display:flex;align-items:center;justify-content:space-between;padding:8px 12px 10px;border-top:1px solid rgba(255,255,255,.18);background:linear-gradient(to top,rgba(7,26,36,.95),rgba(7,26,36,.5))}
+.pip-player__edge-button{display:inline-grid;place-items:center;width:24px;height:24px;border:1px solid rgba(255,255,255,.18);border-radius:50%;background:rgba(0,0,0,.3);color:#fff;cursor:pointer}
 .pip-player__mini-brand{display:flex;align-items:center;gap:6px;color:#fff;font-size:9.5px;font-weight:600;letter-spacing:.14em}
-.pip-player__mini-brand span:first-child{display:block;width:6px;height:6px;background:#57d2f4;border-radius:50%}
-.pip-player button{cursor:pointer}
-.pip-player__controls button{border:1px solid rgba(255,255,255,.15);border-radius:50%;background:rgba(255,255,255,.16);color:#fff;min-width:26px;min-height:26px;display:inline-grid;place-items:center}
+.pip-player__controls button{border:1px solid rgba(255,255,255,.15);border-radius:50%;background:rgba(255,255,255,.16);color:#fff;min-width:26px;min-height:26px;display:inline-grid;place-items:center;cursor:pointer}
 .pip-player__controls button:last-child{min-width:auto;border-radius:999px;padding:4px 8px;font-size:9.5px}
-.pip-reopen{position:fixed;left:20px;bottom:20px;z-index:80;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(20,56,71,.94);color:#fff;padding:8px 14px;font-size:11px}
-
-/* Resize Handles */
-.pip-resize-handle{position:absolute;z-index:30}
-.pip-resize-handle--left{top:0;left:0;bottom:0;width:12px;cursor:ew-resize}
-.pip-resize-handle--right{top:0;right:0;bottom:0;width:12px;cursor:ew-resize}
-.pip-resize-handle--top{top:0;left:0;right:0;height:12px;cursor:ns-resize}
-.pip-resize-handle--top-left{top:0;left:0;width:22px;height:22px;cursor:nwse-resize}
-.pip-resize-handle--top-right{top:0;right:0;width:22px;height:22px;cursor:nesw-resize}
-.pip-resize-corner-indicator{position:absolute;top:6px;left:6px;width:7px;height:7px;border-top:2px solid rgba(255,255,255,.7);border-left:2px solid rgba(255,255,255,.7);border-top-left-radius:3px;pointer-events:none;opacity:0;transition:opacity .2s}
-.pip-player:hover .pip-resize-corner-indicator{opacity:1}
+.pip-reopen{position:fixed;right:24px;bottom:24px;z-index:80;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(20,56,71,.94);color:#fff;padding:8px 14px;font-size:11px}
 
 @media(max-width:960px){
   .hover-footer-grid{grid-template-columns:1fr 1fr;gap:36px}
@@ -346,9 +334,7 @@ em{font-style:normal;color:#2b829d}
   .expandable-gallery__copy{left:22px;right:22px}
   .expandable-gallery__copy strong{font-size:3.2rem}
   .expandable-gallery__copy small{text-align:left;font-size:14px}
-  .pip-player{left:auto;right:12px;bottom:12px;width:150px!important;height:267px!important}
-  .pip-reopen{left:auto;right:12px;bottom:12px}
-  .pip-player .pip-player__controls button{min-width:32px;min-height:32px}
+  .pip-reopen{right:12px;bottom:12px}
 }
 @media(max-width:640px){
   .hover-footer-container{padding:12px 10px 20px}
