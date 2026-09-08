@@ -10,69 +10,83 @@ export const TextHoverEffect = ({
   text,
   duration,
   className,
+  containerRef,
 }: {
   text: string
   duration?: number
   className?: string
+  containerRef?: React.RefObject<HTMLElement | null>
 }) => {
   const svgRef = useRef<SVGSVGElement>(null)
-  const [cursor, setCursor] = useState({ x: 0, y: 0 })
   const [hovered, setHovered] = useState(false)
   const [maskPosition, setMaskPosition] = useState({ cx: '50%', cy: '50%' })
 
   useEffect(() => {
-    if (svgRef.current && cursor.x !== null && cursor.y !== null) {
-      const svgRect = svgRef.current.getBoundingClientRect()
-      const cxPercentage = ((cursor.x - svgRect.left) / svgRect.width) * 100
-      const cyPercentage = ((cursor.y - svgRect.top) / svgRect.height) * 100
+    const target = containerRef?.current || svgRef.current
+    if (!target) return
+
+    const handleMouseMove = (e: Event) => {
+      const mouseEvent = e as MouseEvent
+      setHovered(true)
+      const rect = target.getBoundingClientRect()
+      const cx = ((mouseEvent.clientX - rect.left) / rect.width) * 100
+      const cy = ((mouseEvent.clientY - rect.top) / rect.height) * 100
       setMaskPosition({
-        cx: `${cxPercentage}%`,
-        cy: `${cyPercentage}%`,
+        cx: `${cx}%`,
+        cy: `${cy}%`,
       })
     }
-  }, [cursor])
+
+    const handleMouseEnter = () => setHovered(true)
+    const handleMouseLeave = () => setHovered(false)
+
+    target.addEventListener('mousemove', handleMouseMove)
+    target.addEventListener('mouseenter', handleMouseEnter)
+    target.addEventListener('mouseleave', handleMouseLeave)
+
+    return () => {
+      target.removeEventListener('mousemove', handleMouseMove)
+      target.removeEventListener('mouseenter', handleMouseEnter)
+      target.removeEventListener('mouseleave', handleMouseLeave)
+    }
+  }, [containerRef])
 
   return (
     <svg
       ref={svgRef}
       width="100%"
       height="100%"
-      viewBox="0 0 300 100"
+      viewBox="0 0 1200 360"
+      preserveAspectRatio="xMidYMid meet"
       xmlns="http://www.w3.org/2000/svg"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onMouseMove={(e) => setCursor({ x: e.clientX, y: e.clientY })}
-      className={`select-none uppercase cursor-pointer ${className || ''}`}
+      className={`select-none uppercase pointer-events-none ${className || ''}`}
     >
       <defs>
         <linearGradient
           id="almaTextGradient"
           gradientUnits="userSpaceOnUse"
-          cx="50%"
-          cy="50%"
-          r="25%"
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="0%"
         >
-          {hovered && (
-            <>
-              <stop offset="0%" stopColor="#57d2f4" />
-              <stop offset="25%" stopColor="#2b829d" />
-              <stop offset="50%" stopColor="#80eeb4" />
-              <stop offset="75%" stopColor="#57d2f4" />
-              <stop offset="100%" stopColor="#ffffff" />
-            </>
-          )}
+          <stop offset="0%" stopColor="#57d2f4" />
+          <stop offset="25%" stopColor="#2b829d" />
+          <stop offset="50%" stopColor="#80eeb4" />
+          <stop offset="75%" stopColor="#57d2f4" />
+          <stop offset="100%" stopColor="#ffffff" />
         </linearGradient>
 
         <motion.radialGradient
           id="almaRevealMask"
           gradientUnits="userSpaceOnUse"
-          r="20%"
-          initial={{ cx: '50%', cy: '50%' }}
+          r="28%"
           animate={maskPosition}
-          transition={{ duration: duration ?? 0, ease: 'easeOut' }}
+          transition={{ duration: duration ?? 0.08, ease: 'easeOut' }}
         >
           <stop offset="0%" stopColor="white" />
-          <stop offset="100%" stopColor="black" />
+          <stop offset="60%" stopColor="white" stopOpacity="0.85" />
+          <stop offset="100%" stopColor="black" stopOpacity="0" />
         </motion.radialGradient>
         <mask id="almaTextMask">
           <rect
@@ -84,45 +98,53 @@ export const TextHoverEffect = ({
           />
         </mask>
       </defs>
+
+      {/* Base Outline & Soft Glow */}
       <text
         x="50%"
-        y="50%"
+        y="58%"
         textAnchor="middle"
         dominantBaseline="middle"
-        strokeWidth="0.3"
-        className="fill-transparent stroke-white/20 font-[Tusker,Impact,sans-serif] text-8xl font-bold"
-        style={{ opacity: hovered ? 0.7 : 0 }}
+        strokeWidth="1.4"
+        className="fill-transparent stroke-white/18 font-[Tusker,Impact,sans-serif] font-bold"
+        style={{ fontSize: '320px', letterSpacing: '0.04em', opacity: 0.55 }}
       >
         {text}
       </text>
+
+      {/* Ambient Neon Accent Stroke */}
       <motion.text
         x="50%"
-        y="50%"
+        y="58%"
         textAnchor="middle"
         dominantBaseline="middle"
-        strokeWidth="0.3"
-        className="fill-transparent stroke-[#57d2f4] font-[Tusker,Impact,sans-serif] text-8xl font-bold"
-        initial={{ strokeDashoffset: 1000, strokeDasharray: 1000 }}
+        strokeWidth="1.6"
+        className="fill-transparent stroke-[#57d2f4]/60 font-[Tusker,Impact,sans-serif] font-bold"
+        style={{ fontSize: '320px', letterSpacing: '0.04em' }}
+        initial={{ strokeDashoffset: 3000, strokeDasharray: 3000 }}
         animate={{
           strokeDashoffset: 0,
-          strokeDasharray: 1000,
+          strokeDasharray: 3000,
         }}
         transition={{
-          duration: 4,
+          duration: 3.5,
           ease: 'easeInOut',
         }}
       >
         {text}
       </motion.text>
+
+      {/* Interactive Cursor-Revealed Radiant Gradient Text */}
       <text
         x="50%"
-        y="50%"
+        y="58%"
         textAnchor="middle"
         dominantBaseline="middle"
         stroke="url(#almaTextGradient)"
-        strokeWidth="0.3"
+        strokeWidth="2.8"
         mask="url(#almaTextMask)"
-        className="fill-transparent font-[Tusker,Impact,sans-serif] text-8xl font-bold"
+        className="fill-white/10 font-[Tusker,Impact,sans-serif] font-bold"
+        style={{ fontSize: '320px', letterSpacing: '0.04em', opacity: hovered ? 1 : 0.4 }}
       >
         {text}
       </text>
@@ -163,9 +185,11 @@ const footerLinks = [
 ]
 
 export default function HoverFooter() {
+  const footerCardRef = useRef<HTMLElement>(null)
+
   return (
     <div className="hover-footer-container">
-      <footer className="hover-footer-card">
+      <footer ref={footerCardRef} className="hover-footer-card">
         <div className="hover-footer-content">
           <div className="hover-footer-grid">
             {/* Brand section */}
@@ -282,7 +306,7 @@ export default function HoverFooter() {
 
         {/* Text hover effect background watermark extrapolating card boundaries */}
         <div className="hover-footer-huge-text-bg">
-          <TextHoverEffect text="ALMA" className="w-full h-full" />
+          <TextHoverEffect text="ALMA" containerRef={footerCardRef} className="w-full h-full" />
         </div>
 
         <FooterBackgroundGradient />
