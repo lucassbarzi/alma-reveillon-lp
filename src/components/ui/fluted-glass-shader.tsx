@@ -15,12 +15,12 @@ precision mediump float;
 #endif
 
 uniform vec3 u_colors[8];
-uniform vec4 u_scene;
-uniform vec4 u_shape;
-uniform vec4 u_surface;
-uniform vec4 u_finish;
-uniform vec4 u_transform;
-uniform vec4 u_space;
+uniform vec4 u_scene;      // resolution.xy, time, colour count
+uniform vec4 u_shape;      // scale, intensity, paramA, warp
+uniform vec4 u_surface;    // detail, contrast, brightness, saturation
+uniform vec4 u_finish;     // hue, vignette, blur, grain
+uniform vec4 u_transform;  // seed, rotation, drift, OKLab toggle
+uniform vec4 u_space;      // offset.xy, pointer.xy
 uniform vec4 u_cursor;
 
 #define u_resolution u_scene.xy
@@ -47,6 +47,11 @@ uniform vec4 u_cursor;
 #define u_drift u_transform.z
 #define u_oklab u_transform.w
 #define u_offset u_space.xy
+#define u_mouse u_space.zw
+#define u_cursorPresence u_cursor.x
+#define u_cursorEffect u_cursor.y
+#define u_cursorStrength u_cursor.z
+#define u_cursorRadius u_cursor.w
 
 float hash21(vec2 p) {
 #ifndef GL_FRAGMENT_PRECISION_HIGH
@@ -61,6 +66,14 @@ float grainHash(vec2 p) {
   vec3 p3 = fract(vec3(p.xyx) * 0.1031);
   p3 += dot(p3, p3.yzx + 33.33);
   return fract((p3.x + p3.y) * p3.z);
+}
+
+vec2 hash22(vec2 p) {
+#ifndef GL_FRAGMENT_PRECISION_HIGH
+  p = mod(p, 31.0);
+#endif
+  float n = sin(dot(p, vec2(41.0, 289.0)));
+  return fract(vec2(15731.743, 7892.321) * n);
 }
 
 float noise(vec2 p) {
@@ -85,13 +98,13 @@ float fbm(vec2 p) {
 }
 
 vec3 srgbToLinear(vec3 c) {
-  return mix(c / 12.92, pow((c + 0.055) / 1.055, vec3(2.4)), step(0.04045, c));
+  return mix(c / 12.92, pow((c + 0.055) / 1.055, vec3(2.4)),
+    step(0.04045, c));
 }
-
 vec3 linearToSrgb(vec3 c) {
-  return mix(c * 12.92, 1.055 * pow(max(c, vec3(0.0)), vec3(1.0 / 2.4)) - 0.055, step(0.0031308, c));
+  return mix(c * 12.92, 1.055 * pow(max(c, vec3(0.0)), vec3(1.0 / 2.4)) - 0.055,
+    step(0.0031308, c));
 }
-
 vec3 linToOklab(vec3 c) {
   float l = 0.4122214708 * c.r + 0.5363325363 * c.g + 0.0514459929 * c.b;
   float m = 0.2119034982 * c.r + 0.6806995451 * c.g + 0.1073969566 * c.b;
@@ -104,7 +117,6 @@ vec3 linToOklab(vec3 c) {
     1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s,
     0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s);
 }
-
 vec3 oklabToLin(vec3 c) {
   float l = c.x + 0.3963377774 * c.y + 0.2158037573 * c.z;
   float m = c.x - 0.1055613458 * c.y - 0.0638541728 * c.z;
@@ -115,7 +127,6 @@ vec3 oklabToLin(vec3 c) {
     -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
     -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s);
 }
-
 vec3 mixColour(vec3 a, vec3 b, float t) {
   if (u_oklab > 0.5) {
     vec3 la = linToOklab(srgbToLinear(a));
@@ -131,14 +142,19 @@ vec3 palette(float x) {
   vec3 col = u_colors[0];
   for (int i = 0; i < 7; i++) {
     if (float(i) < n)
-      col = mixColour(col, u_colors[i + 1], smoothstep(0.0, 1.0, clamp(f - float(i), 0.0, 1.0)));
+      col = mixColour(col, u_colors[i + 1],
+        smoothstep(0.0, 1.0, clamp(f - float(i), 0.0, 1.0)));
   }
   return col;
 }
 
 vec3 hueRotate(vec3 col, float a) {
-  const mat3 toYIQ = mat3(0.299, 0.596, 0.211, 0.587, -0.274, -0.523, 0.114, -0.322, 0.312);
-  const mat3 toRGB = mat3(1.0, 1.0, 1.0, 0.956, -0.272, -1.106, 0.621, -0.647, 1.703);
+  const mat3 toYIQ = mat3(0.299, 0.596, 0.211,
+                          0.587, -0.274, -0.523,
+                          0.114, -0.322, 0.312);
+  const mat3 toRGB = mat3(1.0, 1.0, 1.0,
+                          0.956, -0.272, -1.106,
+                          0.621, -0.647, 1.703);
   vec3 yiq = toYIQ * col;
   float ca = cos(a), sa = sin(a);
   yiq = vec3(yiq.x, yiq.y * ca - yiq.z * sa, yiq.y * sa + yiq.z * ca);
@@ -146,26 +162,47 @@ vec3 hueRotate(vec3 col, float a) {
 }
 
 vec3 shade(vec2 uv, vec2 p, float t) {
-  float flutes = mix(42.0, 7.0, u_paramA);
-  float cell = fract((p.x + 1.0) * flutes) - 0.5;
-  float prism = sin(cell * 3.1415926) * (0.03 + u_intensity * 0.2);
-  vec2 samplePoint = p + vec2(prism, sin(p.x * flutes + t * 0.2) * prism * 0.35);
-  float field = fbm(samplePoint * 2.2 + vec2(t * 0.035, -t * 0.025) + u_seed);
-  field += 0.24 * sin(samplePoint.y * 3.0 + samplePoint.x * 1.3);
-  float highlight = pow(1.0 - abs(cell) * 2.0, mix(12.0, 2.0, u_intensity));
-  float shadow = smoothstep(0.18, 0.5, abs(cell));
-  vec3 glass = palette(clamp(field + highlight * 0.3, 0.0, 1.0));
-  return glass * (0.72 + highlight * 0.42 - shadow * 0.12);
+  float y = uv.y
+    + sin(uv.x * (3.0 + u_intensity * 9.0) + t * 0.8) * 0.08
+    + (fbm(p * 2.0 + t * 0.1) - 0.5) * u_intensity * 0.6;
+  return palette(y);
 }
 
 void main() {
   vec2 uv = gl_FragCoord.xy / u_resolution.xy;
   vec2 screenUv = uv;
-  vec2 p = (gl_FragCoord.xy - 0.5 * u_resolution.xy) / min(u_resolution.x, u_resolution.y);
-  
+  vec2 p = (gl_FragCoord.xy - 0.5 * u_resolution.xy)
+    / min(u_resolution.x, u_resolution.y);
+  float cursorMask = 0.0;
+
+  if (u_cursorPresence > 0.001) {
+    vec2 cursor = (0.5 * u_mouse * u_resolution.xy)
+      / min(u_resolution.x, u_resolution.y);
+    vec2 cursorDelta = p - cursor;
+    if (u_cursorEffect < 0.5) {
+      p += cursor * u_cursorPresence * u_cursorStrength * 0.55;
+    } else {
+      float cursorDistance = length(cursorDelta);
+      vec2 cursorDirection = cursorDelta / max(cursorDistance, 0.0001);
+      cursorMask = u_cursorPresence
+        * (1.0 - smoothstep(0.0, u_cursorRadius, cursorDistance));
+      if (u_cursorEffect < 1.5) {
+        p -= cursorDirection * cursorMask * u_cursorStrength * 0.24;
+      } else if (u_cursorEffect < 2.5) {
+        float cursorAngle = cursorMask * u_cursorStrength * 2.2;
+        float cc = cos(cursorAngle), cs = sin(cursorAngle);
+        p = cursor + mat2(cc, -cs, cs, cc) * cursorDelta;
+      } else if (u_cursorEffect < 3.5) {
+        float ripple = sin(
+          cursorDistance / max(u_cursorRadius, 0.001) * 18.0 - u_time * 5.0);
+        p -= cursorDirection * ripple * cursorMask * u_cursorStrength * 0.07;
+      }
+    }
+  }
+
   uv = p * min(u_resolution.x, u_resolution.y) / u_resolution.xy + 0.5;
   p *= u_scale;
-  
+
   if (abs(u_rotate) > 0.0001) {
     float cr = cos(u_rotate), sr = sin(u_rotate);
     p = mat2(cr, -sr, sr, cr) * p;
@@ -173,12 +210,27 @@ void main() {
   p += u_offset;
   if (u_drift > 0.0001)
     p += u_drift * vec2(sin(u_time * 0.31), cos(u_time * 0.23));
+
   if (u_warp > 0.0) {
-    p += u_warp * (vec2(fbm(p * u_detail + u_seed), fbm(p * u_detail + vec2(5.2, 1.3))) - 0.5);
+    p += u_warp * (vec2(
+      fbm(p * u_detail + u_seed),
+      fbm(p * u_detail + vec2(5.2, 1.3))) - 0.5);
   }
-  
-  vec3 col = shade(uv, p, u_time);
-  
+
+  vec3 col;
+  if (u_blur > 0.0) {
+    float e = u_blur;
+    float pe = e * u_scale;
+    vec2 uvE = vec2(e) * min(u_resolution.x, u_resolution.y) / u_resolution.xy;
+    col  = shade(uv, p, u_time) * 0.36;
+    col += shade(uv + vec2(uvE.x, 0.0), p + vec2(pe, 0.0), u_time) * 0.16;
+    col += shade(uv - vec2(uvE.x, 0.0), p - vec2(pe, 0.0), u_time) * 0.16;
+    col += shade(uv + vec2(0.0, uvE.y), p + vec2(0.0, pe), u_time) * 0.16;
+    col += shade(uv - vec2(0.0, uvE.y), p - vec2(0.0, pe), u_time) * 0.16;
+  } else {
+    col = shade(uv, p, u_time);
+  }
+
   if (abs(u_contrast - 1.0) > 0.0001)
     col = (col - 0.5) * u_contrast + 0.5;
   if (abs(u_saturation - 1.0) > 0.0001) {
@@ -193,18 +245,20 @@ void main() {
     float vd = length(screenUv - 0.5) * 1.41421356;
     col *= 1.0 - u_vignette * smoothstep(0.35, 1.0, vd);
   }
+  if (u_cursorPresence > 0.001 && u_cursorEffect > 3.5)
+    col += (vec3(0.18) + col * 0.12) * cursorMask * u_cursorStrength;
   if (u_grain > 0.0001)
-    col += (grainHash(gl_FragCoord.xy + vec2(u_seed * 17.0, u_seed * 31.0)) - 0.5) * u_grain;
-  
+    col += (grainHash(
+      gl_FragCoord.xy + vec2(u_seed * 17.0, u_seed * 31.0)) - 0.5) * u_grain;
   gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
 }
 `
 
-interface FlutedGlassShaderProps {
+interface WavesShaderProps {
   className?: string
 }
 
-export default function FlutedGlassShader({ className = '' }: FlutedGlassShaderProps) {
+export default function WavesShader({ className = '' }: WavesShaderProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const rafRef = useRef<number>(0)
   const startTimeRef = useRef<number>(0)
@@ -258,13 +312,14 @@ export default function FlutedGlassShader({ className = '' }: FlutedGlassShaderP
     const uSpace = gl.getUniformLocation(program, 'u_space')
     const uCursor = gl.getUniformLocation(program, 'u_cursor')
 
-    // Fluted Glass colors (Alma theme): teal/cyan palette
+    // Waves Colours: #06858E, #1E9EA6, #37B6BE, #5DC7CE, #8AD8DD
     const colors = [
-      0.027, 0.102, 0.141, // #071A24
-      0.082, 0.369, 0.459, // #155E75
-      0.000, 1.000, 0.851, // #00FFD9
-      0.941, 0.992, 0.980, // #F0FDFA
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+      0.024, 0.522, 0.557,
+      0.118, 0.620, 0.651,
+      0.216, 0.714, 0.745,
+      0.365, 0.780, 0.808,
+      0.541, 0.847, 0.867,
+      0, 0, 0, 0, 0, 0, 0, 0, 0
     ]
     gl.uniform3fv(uColors, colors)
     gl.uniform4f(uShape, 1.26, 0.35, 0.28, 0.00)
@@ -282,7 +337,7 @@ export default function FlutedGlassShader({ className = '' }: FlutedGlassShaderP
         return
       }
       const time = (performance.now() - startTimeRef.current) / 1000 * 0.57
-      gl.uniform4f(uScene, canvas.width, canvas.height, time, 4.0)
+      gl.uniform4f(uScene, canvas.width, canvas.height, time, 5.0)
       gl.drawArrays(gl.TRIANGLES, 0, 3)
       rafRef.current = requestAnimationFrame(render)
     }
@@ -315,5 +370,6 @@ export default function FlutedGlassShader({ className = '' }: FlutedGlassShaderP
     />
   )
 }
+
 
 

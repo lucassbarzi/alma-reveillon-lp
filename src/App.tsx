@@ -5,7 +5,7 @@ import ExpandableGallery from './components/ui/gallery-animation'
 import PipVideoPlayer from './components/ui/pip-video-player'
 import SilkShader from './components/ui/silk-shader'
 import MeshDriftShader from './components/ui/mesh-drift-shader'
-import FlutedGlassShader from './components/ui/fluted-glass-shader'
+import WavesShader from './components/ui/fluted-glass-shader'
 import HoverFooter from './components/ui/hover-footer'
 import CircularMenu from './components/ui/circular-menu'
 
@@ -45,8 +45,8 @@ function Reveal({ children, className = '', delay = 0 }: { children: React.React
 
 function SqueezeCarousel() {
   return <section className="squeeze-section relative-section" aria-labelledby="squeeze-title">
-    <FlutedGlassShader />
-    <div className="shader-bg-overlay" style={{ background: 'rgba(167, 197, 207, 0.72)' }} />
+    <WavesShader />
+    <div className="shader-bg-overlay" style={{ background: 'rgba(6, 133, 142, 0.32)' }} />
     <div className="shader-content-layer">
       <div className="squeeze-header">
         <Reveal><span className="kicker">A EXPERIÊNCIA EM QUATRO MOVIMENTOS</span><h2 id="squeeze-title">Antes da festa,<br/><em>já é ALMA.</em></h2></Reveal>
