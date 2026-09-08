@@ -16,6 +16,7 @@ const navItems: NavItem[] = [
   { number: '03', label: 'Programação', href: '#programacao', tagline: '5 noites · Open Bar Premium' },
   { number: '04', label: 'Histórias', href: '#historias', tagline: 'O que fica depois da virada' },
   { number: '05', label: 'Dúvidas', href: '#faq', tagline: 'Local, ingressos e transfer' },
+  { number: '06', label: 'Onde ficar', href: '#onde-ficar', tagline: 'Regiões e hospedagem em Boipeba' },
 ]
 
 const TICKETS_URL = 'https://www.sympla.com.br/evento/a-l-m-a-reveillon-2027-boipeba/3254347?referrer=www.google.com'
