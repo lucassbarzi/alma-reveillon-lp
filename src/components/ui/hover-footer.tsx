@@ -56,7 +56,7 @@ export const TextHoverEffect = ({
       ref={svgRef}
       width="100%"
       height="100%"
-      viewBox="0 0 1200 360"
+      viewBox="0 0 1200 480"
       preserveAspectRatio="xMidYMid meet"
       xmlns="http://www.w3.org/2000/svg"
       className={`select-none uppercase pointer-events-none ${className || ''}`}
@@ -80,7 +80,7 @@ export const TextHoverEffect = ({
         <motion.radialGradient
           id="almaRevealMask"
           gradientUnits="userSpaceOnUse"
-          r="28%"
+          r="30%"
           animate={maskPosition}
           transition={{ duration: duration ?? 0.08, ease: 'easeOut' }}
         >
@@ -102,12 +102,12 @@ export const TextHoverEffect = ({
       {/* Base Outline & Soft Glow */}
       <text
         x="50%"
-        y="58%"
+        y="54%"
         textAnchor="middle"
         dominantBaseline="middle"
         strokeWidth="1.2"
         className="fill-transparent stroke-white/15 font-[Tusker,Impact,sans-serif] font-bold"
-        style={{ fontSize: '320px', letterSpacing: '0.04em', opacity: 0.4 }}
+        style={{ fontSize: '460px', letterSpacing: '0.04em', opacity: 0.4 }}
       >
         {text}
       </text>
@@ -115,16 +115,16 @@ export const TextHoverEffect = ({
       {/* Ambient Neon Accent Stroke */}
       <motion.text
         x="50%"
-        y="58%"
+        y="54%"
         textAnchor="middle"
         dominantBaseline="middle"
         strokeWidth="1.4"
         className="fill-transparent stroke-[#57d2f4]/35 font-[Tusker,Impact,sans-serif] font-bold"
-        style={{ fontSize: '320px', letterSpacing: '0.04em' }}
-        initial={{ strokeDashoffset: 3000, strokeDasharray: 3000 }}
+        style={{ fontSize: '460px', letterSpacing: '0.04em' }}
+        initial={{ strokeDashoffset: 4000, strokeDasharray: 4000 }}
         animate={{
           strokeDashoffset: 0,
-          strokeDasharray: 3000,
+          strokeDasharray: 4000,
         }}
         transition={{
           duration: 3.5,
@@ -137,14 +137,14 @@ export const TextHoverEffect = ({
       {/* Interactive Cursor-Revealed Radiant Gradient Text */}
       <text
         x="50%"
-        y="58%"
+        y="54%"
         textAnchor="middle"
         dominantBaseline="middle"
         stroke="url(#almaTextGradient)"
         strokeWidth="2"
         mask="url(#almaTextMask)"
         className="fill-white/5 font-[Tusker,Impact,sans-serif] font-bold"
-        style={{ fontSize: '320px', letterSpacing: '0.04em', opacity: hovered ? 0.6 : 0.2 }}
+        style={{ fontSize: '460px', letterSpacing: '0.04em', opacity: hovered ? 0.6 : 0.2 }}
       >
         {text}
       </text>
