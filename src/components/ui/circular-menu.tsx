@@ -197,7 +197,7 @@ export default function CircularMenu({
                 opacity: 0.9,
               }}
               animate={{
-                clipPath: 'circle(160% at calc(100% - 44px) 44px)',
+                clipPath: 'circle(220% at calc(100% - 44px) 44px)',
                 opacity: 1,
               }}
               exit={{
@@ -205,7 +205,7 @@ export default function CircularMenu({
                 opacity: 0.7,
               }}
               transition={{
-                duration: 0.55,
+                duration: 0.82,
                 ease: [0.22, 1, 0.36, 1],
               }}
               onClick={(e) => e.stopPropagation()}
@@ -221,7 +221,10 @@ export default function CircularMenu({
                 {/* Cabeçalho do Menu Lateral com espaço para o botão animado */}
                 <div className="circular-menu__header">
                   <div className="circular-menu__badge">
-                    <span>ALMA RÉVEILLON 2027 · BOIPEBA</span>
+                    <div>
+                      <span>ALMA RÉVEILLON 2027 · BOIPEBA</span>
+                      <a className="circular-menu__header-instagram" href={instagramUrl} target="_blank" rel="noreferrer">@almareveillonboipeba</a>
+                    </div>
                   </div>
                 </div>
 
@@ -279,21 +282,7 @@ export default function CircularMenu({
                     </span>
                   </a>
 
-                  <div className="circular-menu__social-row">
-                    <a
-                      href={instagramUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="circular-menu__instagram"
-                      aria-label="Instagram Oficial ALMA"
-                    >
-                      <FaInstagram size={16} />
-                      <span>@almareveillonboipeba</span>
-                    </a>
-                    <span className="circular-menu__date-tag">
-                      27 — 31 DEZ 2026
-                    </span>
-                  </div>
+
                 </motion.div>
               </div>
             </motion.aside>

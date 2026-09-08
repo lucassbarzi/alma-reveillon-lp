@@ -48,7 +48,7 @@ export default function PipVideoPlayer() {
         })
       }
     }
-  }, [currentIdx, isMuted])
+  }, [currentIdx, isMuted, isPlaying])
 
   const togglePlay = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -83,7 +83,8 @@ export default function PipVideoPlayer() {
 
   const handleVideoEnded = () => {
     // Loop para o próximo vídeo automaticamente
-    nextVideo({ stopPropagation: () => {} } as React.MouseEvent)
+    setCurrentIdx((prev) => (prev + 1) % VIDEOS.length)
+    setProgress(0)
   }
 
   if (!isOpen) {
@@ -149,6 +150,7 @@ export default function PipVideoPlayer() {
             {/* Vídeo Tag */}
             <div className="absolute inset-0 z-0 bg-black">
               <video
+                key={activeVideo.id}
                 ref={videoRef}
                 src={activeVideo.src}
                 poster={activeVideo.poster}
