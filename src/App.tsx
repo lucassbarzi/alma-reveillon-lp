@@ -31,11 +31,7 @@ const experienceCards = [
   { title: 'A noite', subtitle: 'Luzes, música e o mar como cenário até o amanhecer.', image: asset('/media/curadoria/card-noite.webp'), alt: 'Pista do ALMA iluminada à noite, vista de cima' },
   { title: 'A virada', subtitle: 'Fogos sobre a Praia da Cueira para brindar a chegada de 2027.', image: asset('/media/curadoria/card-virada-fogos.webp'), alt: 'Fogos de artifício sobre a festa do ALMA na praia' },
 ]
-const stayAreas = [
-  { title: 'Velha Boipeba', text: 'A vila com mais estrutura, restaurantes, comércio e opções de hospedagem. Uma base prática para organizar a chegada e os deslocamentos.', href: 'https://www.openstreetmap.org/search?query=Velha%20Boipeba' },
-  { title: 'Praia da Cueira', text: 'A região do evento. Ficar por perto pode facilitar o acesso à festa e manter você conectado ao ritmo da praia.', href: 'https://www.openstreetmap.org/search?query=Praia%20da%20Cueira%20Boipeba' },
-  { title: 'Moreré', text: 'Uma alternativa mais reservada, com praias e clima de vila. Considere o deslocamento até a Praia da Cueira antes de reservar.', href: 'https://www.openstreetmap.org/search?query=Morer%C3%A9%20Boipeba' },
-]
+
 const faqs = [
   ['Onde e quando acontece o ALMA Réveillon 2027?', 'Na Praia da Cueira, em Cairu, Bahia, entre 27 e 31 de dezembro de 2026. A programação publicada começa às 23h nas quatro primeiras noites; no dia 31, às 22h.'],
   ['O passaporte inclui todas as noites?', 'A página oficial apresenta cinco festas Open Bar Premium. As categorias, lotes e disponibilidade devem ser conferidos no fluxo atualizado da Sympla antes da compra.'],
@@ -112,23 +108,6 @@ function App() {
     <section className="cinema" id="ilha">
       <div className="cinema-bg" />
       <Reveal className="cinema-copy"><span className="kicker">BOIPEBA, BAHIA</span><h2>Primeiro,<br/>o paraíso.</h2><p>Uma ilha alcançada pelo mar. Praia, mata, caminhos de areia e noites que começam quando o sol baixa.</p></Reveal>
-    </section>
-
-    <section className="stay-section light" id="onde-ficar">
-      <Reveal><span className="kicker">ONDE FICAR</span><h2>Escolha seu<br/><em>ponto na ilha.</em></h2></Reveal>
-      <div className="stay-layout">
-        <div className="stay-map-wrap">
-          <iframe title="ALMA Réveillon na Praia da Cueira, Boipeba" className="stay-map" src="https://www.openstreetmap.org/export/embed.html?bbox=-38.943%2C-13.612%2C-38.883%2C-13.573&amp;layer=mapnik&amp;marker=-13.592643%2C-38.913152" loading="lazy" />
-          <a className="stay-map-link" href="https://www.openstreetmap.org/?mlat=-13.592643&amp;mlon=-38.913152#map=16/-13.592643/-38.913152" target="_blank" rel="noreferrer">ALMA · Praia da Cueira <ArrowRight size={15}/></a>
-        </div>
-        <div className="stay-areas">
-          {stayAreas.map((area, index) => <Reveal className="stay-area" key={area.title} delay={index * .06}>
-            <span className="stay-area__number">0{index + 1}</span>
-            <div><h3>{area.title}</h3><p>{area.text}</p><a href={area.href} target="_blank" rel="noreferrer">Ver no mapa <ArrowRight size={14}/></a></div>
-          </Reveal>)}
-        </div>
-      </div>
-      <p className="source-note">As distâncias e opções variam conforme a hospedagem. Confirme disponibilidade, acesso e transporte diretamente com cada estabelecimento.</p>
     </section>
 
     <SqueezeCarousel />
