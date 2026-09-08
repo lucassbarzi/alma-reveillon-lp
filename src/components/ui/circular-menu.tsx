@@ -252,18 +252,10 @@ export default function CircularMenu({
                             }}
                             className={`circular-menu__link ${isHovered ? 'circular-menu__link--hovered' : ''}`}
                           >
-                            <div className="circular-menu__link-left">
-                              <span className="circular-menu__number">{item.number}</span>
-                              <div className="circular-menu__titles">
-                                <span className="circular-menu__title">{item.label}</span>
-                                <span className="circular-menu__tagline">{item.tagline}</span>
-                              </div>
-                            </div>
-
                             <motion.div
                               className="circular-menu__arrow"
                               animate={{
-                                x: isHovered ? 0 : -6,
+                                x: isHovered ? 0 : 6,
                                 opacity: isHovered ? 1 : 0.3,
                                 scale: isHovered ? 1.05 : 0.9,
                               }}
@@ -271,6 +263,14 @@ export default function CircularMenu({
                             >
                               <ArrowRight size={20} />
                             </motion.div>
+
+                            <div className="circular-menu__link-right">
+                              <div className="circular-menu__titles">
+                                <span className="circular-menu__title">{item.label}</span>
+                                <span className="circular-menu__tagline">{item.tagline}</span>
+                              </div>
+                              <span className="circular-menu__number">{item.number}</span>
+                            </div>
                           </a>
                         </motion.li>
                       )
