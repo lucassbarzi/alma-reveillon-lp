@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react'
 import { ArrowDown, ArrowRight } from 'lucide-react'
 import ExpandableGallery from './components/ui/gallery-animation'
+import StackedGallery from './components/ui/stacked-gallery'
 import PipVideoPlayer from './components/ui/pip-video-player'
 import SilkShader from './components/ui/silk-shader'
 import MeshDriftShader from './components/ui/mesh-drift-shader'
@@ -24,6 +25,7 @@ const gallery = [
   [asset('/media/curadoria/slideshow-ilha-aerea.webp'), 'Praia e coqueiral vistos do alto'],
   [asset('/media/curadoria/slideshow-praia.webp'), 'Faixa de areia e mar azul na ilha'],
   [asset('/media/curadoria/slideshow-reflexo.webp'), 'Coqueiros refletidos nas águas da ilha'],
+  [asset('/media/festa.jpg'), 'Pista do ALMA Réveillon durante a festa'],
 ]
 const experienceCards = [
   { title: 'O caminho', subtitle: 'Chegar a Boipeba já muda o ritmo. O trecho final acontece entre estrada, mar e caminhos de areia.', image: asset('/media/curadoria/carrossel-caminho.webp'), alt: 'Chegada à ilha pelo cais e pelo mar' },
@@ -112,10 +114,7 @@ function App() {
 
     <SqueezeCarousel />
 
-    <section className="gallery" aria-hidden="true">
-      <SilkShader variant="green" />
-      {gallery.map(([src, alt], i) => <motion.figure key={src} initial={{ opacity: 0, y: 72 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: .45, once: false }} transition={{ duration: 1.05, ease: [.22, 1, .36, 1] }}><img src={src} alt={alt} loading={i ? 'lazy' : 'eager'}/><figcaption>0{i+1} / 04</figcaption></motion.figure>)}
-    </section>
+    <StackedGallery items={gallery.map(([src, alt]) => ({ src, alt }))} />
 
     <section className="nights light" id="programacao">
       <Reveal><span className="kicker">CINCO NOITES · OPEN BAR PREMIUM</span><h2>Cada noite,<br/><em>uma nova maré.</em></h2></Reveal>
