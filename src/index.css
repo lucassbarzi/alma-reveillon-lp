@@ -320,16 +320,35 @@ em{font-style:normal;color:#2b829d}
 .circular-menu__badge>div{display:flex;flex-direction:column;align-items:flex-end;gap:9px}
 .circular-menu__header-instagram{display:block;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:none;color:#2b829d;transition:color .3s,transform .3s}
 .circular-menu__header-instagram:hover{color:#143847;transform:translateX(-3px)}
-.pip-player{left:auto!important;right:24px!important;bottom:24px!important;width:200px!important;height:330px!important}
-.pip-reopen{left:auto!important;right:24px!important;bottom:24px!important}
-.pip-player>div.relative{position:relative;width:100%;height:100%;overflow:hidden}
-.pip-player .absolute.inset-0{position:absolute;inset:0}
-.pip-player .absolute.inset-x-0.top-0{position:absolute;top:0;left:0;right:0}
-.pip-player .absolute.inset-x-0.bottom-0{position:absolute;bottom:0;left:0;right:0}
-.pip-player__video{position:absolute;inset:0;z-index:0;display:block;width:100%;height:100%;object-fit:cover;pointer-events:none}
-.pip-player .pip-player__header{position:relative;z-index:3}
-.pip-player .pip-player__controls{position:relative;z-index:3}
-.pip-player .pip-player__track{position:relative;z-index:4}
+.pip-card{position:fixed;right:24px;bottom:24px;z-index:80;width:230px;height:390px;border:1px solid rgba(255,255,255,.2);border-radius:18px;overflow:hidden;background:#143847;color:#fff;box-shadow:0 20px 50px rgba(0,0,0,.45);isolation:isolate}
+.pip-frame{position:relative;width:100%;height:100%;overflow:hidden;background:#071a24}
+.pip-frame>video{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;display:block}
+.pip-shade{position:absolute;left:0;right:0;z-index:1;pointer-events:none}
+.pip-shade--top{top:0;height:100px;background:linear-gradient(#000b,transparent)}
+.pip-shade--bottom{bottom:0;height:150px;background:linear-gradient(transparent,#071a24f2)}
+.pip-progress{position:absolute;top:0;left:0;right:0;height:3px;z-index:4;background:#ffffff33}
+.pip-progress span{display:block;height:100%;background:#57d2f4;transition:width .15s}
+.pip-header{position:absolute;top:0;left:0;right:0;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:14px;color:#fff}
+.pip-header>div{display:flex;gap:5px}
+.pip-header button,.pip-controls button,.pip-mini button{display:grid;place-items:center;border:1px solid #ffffff2e;border-radius:50%;background:#0006;color:#fff;cursor:pointer;width:28px;height:28px}
+.pip-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border:1px solid #ffffff2e;border-radius:999px;background:#0006;font-size:9px;font-weight:700;letter-spacing:.16em}
+.pip-badge i{width:6px;height:6px;border-radius:50%;background:#ef4444;animation:pulseDot 2s infinite}
+.pip-footer{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:14px}
+.pip-info{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.pip-info small{font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#8fbfce}
+.pip-info strong{font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.pip-controls{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid #ffffff2e}
+.pip-controls>div{display:flex;gap:7px}
+.pip-controls button{width:29px;height:29px}
+.pip-controls .pip-next{display:flex;align-items:center;gap:6px;width:auto;padding:0 10px;border-radius:999px;font-size:10px}
+.pip-card--minimized{height:54px;width:210px}
+.pip-mini{height:100%;display:flex;align-items:center;justify-content:space-between;padding:0 10px}
+.pip-mini__title{display:flex!important;align-items:center;gap:7px;width:auto!important;border:0!important;background:none!important;font-size:10px;letter-spacing:.14em}
+.pip-mini__title span{color:#57d2f4}
+.pip-mini__actions{display:flex;gap:4px}
+.pip-mini__actions button{width:27px;height:27px}
+.pip-reopen{position:fixed;right:24px;bottom:24px;z-index:80;border:1px solid #ffffff33;border-radius:999px;background:#143847f2;color:#fff;padding:10px 15px;font-size:11px;cursor:pointer;box-shadow:0 12px 30px #0005}
+@media(max-width:780px){.pip-card{right:12px;bottom:12px;width:190px;height:325px}.pip-card--minimized{width:190px;height:50px}.pip-reopen{right:12px;bottom:12px}}
 
 @media(max-width:960px){
   .hover-footer-grid{grid-template-columns:1fr 1fr;gap:36px}
