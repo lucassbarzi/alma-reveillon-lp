@@ -44,10 +44,10 @@ function Reveal({ children, className = '', delay = 0 }: { children: React.React
 }
 
 function SqueezeCarousel() {
-  return <section className="squeeze-section" aria-labelledby="squeeze-title">
-    <FlutedGlassShader className="z-0" />
-    <div className="absolute inset-0 bg-[#a7c5cf]/75 pointer-events-none z-[1]" />
-    <div className="relative z-[2]">
+  return <section className="squeeze-section relative-section" aria-labelledby="squeeze-title">
+    <FlutedGlassShader />
+    <div className="shader-bg-overlay" style={{ background: 'rgba(167, 197, 207, 0.72)' }} />
+    <div className="shader-content-layer">
       <div className="squeeze-header">
         <Reveal><span className="kicker">A EXPERIÊNCIA EM QUATRO MOVIMENTOS</span><h2 id="squeeze-title">Antes da festa,<br/><em>já é ALMA.</em></h2></Reveal>
       </div>
@@ -86,10 +86,10 @@ function App() {
       <a className="scroll-cue" href="#experiencia" aria-label="Continuar"><span>DESCER</span><ArrowDown size={17}/></a>
     </section>
 
-    <section className="manifesto light relative overflow-hidden" id="experiencia">
-      <MeshDriftShader className="z-0" />
-      <div className="absolute inset-0 bg-[#f4fbfd]/75 pointer-events-none z-[1]" />
-      <div className="relative z-[2]">
+    <section className="manifesto light relative-section" id="experiencia">
+      <MeshDriftShader />
+      <div className="shader-bg-overlay" style={{ background: 'rgba(244, 251, 253, 0.72)' }} />
+      <div className="shader-content-layer">
         <Reveal><span className="kicker">UM CONVITE DA ILHA</span><h2>Há viradas que mudam a data.<br/><em>Esta muda o estado de espírito.</em></h2></Reveal>
         <Reveal className="manifesto-grid" delay={.1}>
           <p className="lead">Boipeba não se atravessa com pressa. A chegada já muda o ritmo: a cidade fica para trás, o mar abre caminho e o tempo passa a obedecer à maré.</p>
@@ -115,10 +115,10 @@ function App() {
       <p className="source-note">Programação publicada nas páginas de referência. Alterações devem ser confirmadas no canal oficial do evento.</p>
     </section>
 
-    <section className="bar-section" id="openbar">
-      <SilkShader className="z-0" />
-      <div className="absolute inset-0 bg-[#143847]/45 pointer-events-none z-[1]" />
-      <div className="bar-grid">
+    <section className="bar-section relative-section" id="openbar">
+      <SilkShader />
+      <div className="shader-bg-overlay" style={{ background: 'rgba(20, 56, 71, 0.45)' }} />
+      <div className="bar-grid shader-content-layer">
         <Reveal className="bar-copy"><span className="kicker">SEM INTERROMPER O MOMENTO</span><h2>Open Bar<br/><em>Premium.</em></h2><p>Nas cinco noites, uma seleção premium de gin, vodka, whiskey, cerveja, cocktails, energéticos e bebidas não alcoólicas. Na virada, Prosecco Ponto Nero Brut para o primeiro brinde de 2027.</p><div className="bar-brands" aria-label="Marcas do Open Bar Premium"><span>Beefeater</span><span>Absolut</span><span>Jameson</span><span>Sol Premium</span><span>Aperol Spritz</span><span>Red Bull</span></div><div className="bar-highlight">Virada com Prosecco Ponto Nero Brut by Casa Valduga</div></Reveal>
         <div className="orb" aria-hidden="true"><span>27 — 31</span><strong>DEZ</strong></div>
       </div>

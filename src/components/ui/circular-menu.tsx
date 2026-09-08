@@ -256,14 +256,9 @@ export default function CircularMenu({
                     rel="noreferrer"
                     className="circular-menu__ticket-cta"
                   >
-                    <div className="flex flex-col text-left">
-                      <span className="text-[10px] tracking-[0.2em] uppercase font-bold text-[#f4fbfd]/80">
-                        Viver o ALMA
-                      </span>
-                      <span className="text-sm font-semibold tracking-wide text-white">
-                        Garantir Ingressos Sympla
-                      </span>
-                    </div>
+                    <span className="circular-menu__ticket-cta-text">
+                      VIVER O ALMA
+                    </span>
                     <div className="circular-menu__ticket-icon">
                       <ArrowUpRight size={18} />
                     </div>
