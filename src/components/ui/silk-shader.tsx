@@ -200,9 +200,10 @@ void main() {
 
 interface SilkShaderProps {
   className?: string
+  variant?: 'openbar' | 'green'
 }
 
-export default function SilkShader({ className = '' }: SilkShaderProps) {
+export default function SilkShader({ className = '', variant = 'openbar' }: SilkShaderProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const rafRef = useRef<number>(0)
   const startTimeRef = useRef<number>(0)
@@ -256,21 +257,26 @@ export default function SilkShader({ className = '' }: SilkShaderProps) {
     const uSpace = gl.getUniformLocation(program, 'u_space')
     const uCursor = gl.getUniformLocation(program, 'u_cursor')
 
-    // ALMA Caribe Sea palette: Deep Abyssal Navy, Caribe Sea Green, Radiant Lagoon Turquoise, Sunlit Sea Foam
-    // #051820, #0E7C86, #3BE8D1, #E8FCFA
-    const colors = [
-      0.020, 0.094, 0.125, // #051820 Deep Navy
-      0.055, 0.486, 0.525, // #0E7C86 Caribe Emerald Blue
-      0.231, 0.910, 0.820, // #3BE8D1 Lagoon Turquoise
-      0.910, 0.988, 0.980, // #E8FCFA Seafoam Mist
+    const green = variant === 'green'
+    const colors = green ? [
+      0.012, 0.071, 0.055,
+      0.055, 0.486, 0.353,
+      0.486, 0.898, 0.467,
+      0.957, 1.000, 0.780,
+      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    ] : [
+      0.020, 0.094, 0.125,
+      0.055, 0.486, 0.525,
+      0.231, 0.910, 0.820,
+      0.910, 0.988, 0.980,
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ]
     gl.uniform3fv(uColors, colors)
-    gl.uniform4f(uShape, 1.18, 0.36, 0.48, 0.00)
-    gl.uniform4f(uSurface, 2.20, 1.25, -0.12, 0.65)
-    gl.uniform4f(uFinish, 0.00, 0.45, 0.000, 0.05)
-    gl.uniform4f(uTransform, 1453.0, 0.00, 0.35, 0.0)
-    gl.uniform4f(uSpace, 0.00, 0.00, 0.0, 0.0)
+    gl.uniform4f(uShape, ...(green ? [0.58, 0.20, 0.50, 0.00] : [1.18, 0.36, 0.48, 0.00]) as [number, number, number, number])
+    gl.uniform4f(uSurface, ...(green ? [2.40, 0.81, 0.00, 1.00] : [2.20, 1.25, -0.12, 0.65]) as [number, number, number, number])
+    gl.uniform4f(uFinish, ...(green ? [0.00, 0.00, 0.000, 0.01] : [0.00, 0.45, 0.000, 0.05]) as [number, number, number, number])
+    gl.uniform4f(uTransform, ...(green ? [707.0, 2.51, 0.00, 0.0] : [1453.0, 0.00, 0.35, 0.0]) as [number, number, number, number])
+    gl.uniform4f(uSpace, ...(green ? [0.06, 0.60, 0.0, 0.0] : [0.00, 0.00, 0.0, 0.0]) as [number, number, number, number])
     gl.uniform4f(uCursor, 0.0, 2.0, 0.65, 0.46)
 
     startTimeRef.current = performance.now()
@@ -280,7 +286,7 @@ export default function SilkShader({ className = '' }: SilkShaderProps) {
         rafRef.current = requestAnimationFrame(render)
         return
       }
-      const time = (performance.now() - startTimeRef.current) / 1000 * 0.22
+      const time = (performance.now() - startTimeRef.current) / 1000 * (green ? 0.84 : 0.22)
       gl.uniform4f(uScene, canvas.width, canvas.height, time, 4.0)
       gl.drawArrays(gl.TRIANGLES, 0, 3)
       rafRef.current = requestAnimationFrame(render)
@@ -295,7 +301,7 @@ export default function SilkShader({ className = '' }: SilkShaderProps) {
       gl.deleteShader(fs)
       gl.deleteBuffer(buffer)
     }
-  }, [])
+  }, [variant])
 
   return (
     <canvas

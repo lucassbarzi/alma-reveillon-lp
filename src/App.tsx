@@ -5,7 +5,7 @@ import ExpandableGallery from './components/ui/gallery-animation'
 import PipVideoPlayer from './components/ui/pip-video-player'
 import SilkShader from './components/ui/silk-shader'
 import MeshDriftShader from './components/ui/mesh-drift-shader'
-import WavesShader from './components/ui/fluted-glass-shader'
+
 import HoverFooter from './components/ui/hover-footer'
 import CircularMenu from './components/ui/circular-menu'
 
@@ -47,8 +47,8 @@ function Reveal({ children, className = '', delay = 0 }: { children: React.React
 
 function SqueezeCarousel() {
   return <section className="squeeze-section relative-section" aria-labelledby="squeeze-title">
-    <WavesShader />
-    <div className="shader-bg-overlay" style={{ background: 'rgba(6, 133, 142, 0.32)' }} />
+    <SilkShader variant="green" />
+    <div className="shader-bg-overlay" style={{ background: 'rgba(3, 18, 14, 0.18)' }} />
     <div className="shader-content-layer">
       <div className="squeeze-header">
         <Reveal><span className="kicker">A EXPERIÊNCIA EM QUATRO MOVIMENTOS</span><h2 id="squeeze-title">Antes da festa,<br/><em>já é ALMA.</em></h2></Reveal>
@@ -113,6 +113,7 @@ function App() {
     <SqueezeCarousel />
 
     <section className="gallery" aria-hidden="true">
+      <SilkShader variant="green" />
       {gallery.map(([src, alt], i) => <motion.figure key={src} style={{ zIndex: 11 + i }} initial={i === 0 ? { scale: 1.12 } : { opacity: 0 }} whileInView={i === 0 ? { scale: 1 } : { opacity: 1 }} viewport={{ amount: .45 }} transition={{ duration: i === 0 ? 1.25 : 1.1, ease: [.22, 1, .36, 1] }}><img src={src} alt={alt} loading={i ? 'lazy' : 'eager'}/><figcaption>0{i+1} / 04</figcaption></motion.figure>)}
     </section>
 
@@ -124,7 +125,7 @@ function App() {
 
     <section className="bar-section relative-section" id="openbar">
       <SilkShader />
-      <div className="shader-bg-overlay" style={{ background: 'linear-gradient(135deg, rgba(5, 24, 32, 0.65) 0%, rgba(14, 70, 86, 0.45) 50%, rgba(5, 24, 32, 0.72) 100%)' }} />
+      <div className="shader-bg-overlay" style={{ background: 'linear-gradient(135deg, rgba(5, 24, 32, 0.38) 0%, rgba(14, 70, 86, 0.20) 50%, rgba(5, 24, 32, 0.42) 100%)' }} />
       <div className="bar-grid shader-content-layer">
         <Reveal className="bar-copy"><span className="kicker">SEM INTERROMPER O MOMENTO</span><h2>Open Bar<br/><em>Premium.</em></h2><p>Nas cinco noites, uma seleção premium de gin, vodka, whiskey, cerveja, cocktails, energéticos e bebidas não alcoólicas. Na virada, Prosecco Ponto Nero Brut para o primeiro brinde de 2027.</p><div className="bar-brands" aria-label="Marcas do Open Bar Premium"><span>Beefeater</span><span>Absolut</span><span>Jameson</span><span>Sol Premium</span><span>Aperol Spritz</span><span>Red Bull</span></div><div className="bar-highlight">Virada com Prosecco Ponto Nero Brut by Casa Valduga</div></Reveal>
         <div className="orb" aria-hidden="true"><span>27 — 31</span><strong>DEZ</strong></div>
@@ -137,7 +138,7 @@ function App() {
         <Reveal className="story-card">
           <div className="story-card__top">
             <span className="story-card__tag">CHEGADA</span>
-            <span className="story-card__num">01 / 03</span>
+
           </div>
           <div className="story-card__content">
             <h3>A cidade termina no cais.</h3>
@@ -148,7 +149,7 @@ function App() {
         <Reveal className="story-card" delay={.1}>
           <div className="story-card__top">
             <span className="story-card__tag">ENCONTRO</span>
-            <span className="story-card__num">02 / 03</span>
+
           </div>
           <div className="story-card__content">
             <h3>A pista não tem paredes.</h3>
@@ -159,7 +160,7 @@ function App() {
         <Reveal className="story-card" delay={.2}>
           <div className="story-card__top">
             <span className="story-card__tag">MEMÓRIA</span>
-            <span className="story-card__num">03 / 03</span>
+
           </div>
           <div className="story-card__content">
             <h3>O sol encerra a noite.</h3>
@@ -167,7 +168,7 @@ function App() {
           </div>
         </Reveal>
       </div>
-      <p className="source-note">Storytelling editorial construído a partir do acervo visual local. Não representa depoimentos atribuídos a participantes.</p>
+
     </section>
 
     <section className="faq light" id="faq">

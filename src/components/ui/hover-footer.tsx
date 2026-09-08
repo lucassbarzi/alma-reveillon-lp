@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react'
 import { motion } from 'motion/react'
 import { FaInstagram } from 'react-icons/fa6'
-import { ArrowUpRight, Calendar, MapPin, Sparkles } from 'lucide-react'
+import { ArrowUpRight, Calendar, MapPin } from 'lucide-react'
 
 const TICKETS = 'https://www.sympla.com.br/evento/a-l-m-a-reveillon-2027-boipeba/3254347?referrer=www.google.com'
 const INSTAGRAM = 'https://www.instagram.com/almareveillonboipeba/'
@@ -179,7 +179,7 @@ const footerLinks = [
     title: 'Informações',
     links: [
       { label: 'Dúvidas Frequentes', href: '#faq' },
-      { label: 'Como Chegar', href: '#ilha' },
+      { label: 'Como Chegar', href: 'https://www.openstreetmap.org/?mlat=-13.592643&mlon=-38.913152#map=16/-13.592643/-38.913152', external: true },
       { label: 'Ingressos Sympla', href: TICKETS, pulse: true, external: true },
     ],
   },
@@ -206,7 +206,6 @@ export default function HoverFooter() {
                 Cinco noites na ilha. O mar por perto. O pé na areia. E a sensação rara de estar exatamente onde você queria estar.
               </p>
               <div className="hover-footer-badge">
-                <Sparkles size={13} className="text-[#57d2f4]" />
                 <span>PRAIA DA CUEIRA · BOIPEBA</span>
               </div>
             </div>
