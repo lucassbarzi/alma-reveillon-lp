@@ -81,6 +81,7 @@ export const TextHoverEffect = ({
           id="almaRevealMask"
           gradientUnits="userSpaceOnUse"
           r="30%"
+          initial={{ cx: '50%', cy: '50%' }}
           animate={maskPosition}
           transition={{ duration: duration ?? 0.08, ease: 'easeOut' }}
         >
