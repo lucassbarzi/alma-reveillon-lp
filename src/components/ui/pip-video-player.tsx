@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
-import { Play, Pause, Volume2, VolumeX, Maximize2, Minimize2, X, SkipForward, RefreshCw } from 'lucide-react'
+import { Play, Pause, Volume2, VolumeX, Maximize2, Minimize2, X, SkipForward, GripHorizontal, Move } from 'lucide-react'
 
 interface VideoItem {
   id: string
@@ -27,6 +27,10 @@ const VIDEOS: VideoItem[] = [
   }
 ]
 
+const MIN_WIDTH = 150
+const MAX_WIDTH = 440
+const ASPECT_RATIO = 295 / 175 // ~1.6857 (Vertical Reel Format)
+
 export default function PipVideoPlayer() {
   const [isOpen, setIsOpen] = useState(true)
   const [isMinimized, setIsMinimized] = useState(false)
@@ -34,8 +38,19 @@ export default function PipVideoPlayer() {
   const [isPlaying, setIsPlaying] = useState(true)
   const [isMuted, setIsMuted] = useState(true)
   const [progress, setProgress] = useState(0)
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const [width, setWidth] = useState(185)
+  const [isResizing, setIsResizing] = useState(false)
 
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const playerRef = useRef<HTMLDivElement>(null)
+  const resizeStartRef = useRef<{ startX: number; startY: number; startW: number; direction: string }>({
+    startX: 0,
+    startY: 0,
+    startW: 185,
+    direction: 'left',
+  })
+
+  const height = Math.round(width * ASPECT_RATIO)
   const activeVideo = VIDEOS[currentIdx]
 
   useEffect(() => {
@@ -43,7 +58,6 @@ export default function PipVideoPlayer() {
       videoRef.current.muted = isMuted
       if (isPlaying) {
         videoRef.current.play().catch(() => {
-          // Fallback se autoplay for bloqueado
           setIsPlaying(false)
         })
       }
@@ -82,8 +96,48 @@ export default function PipVideoPlayer() {
   }
 
   const handleVideoEnded = () => {
-    // Loop para o próximo vídeo automaticamente
     nextVideo({ stopPropagation: () => {} } as React.MouseEvent)
+  }
+
+  // Handle resizing via borders / corners
+  const handleResizePointerDown = (e: React.PointerEvent, direction: string) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsResizing(true)
+    resizeStartRef.current = {
+      startX: e.clientX,
+      startY: e.clientY,
+      startW: width,
+      direction,
+    }
+
+    const onPointerMove = (moveEvent: PointerEvent) => {
+      const { startX, startW, direction } = resizeStartRef.current
+      let delta = 0
+
+      if (direction.includes('left')) {
+        // Dragging left edge outwards increases width
+        delta = startX - moveEvent.clientX
+      } else if (direction.includes('right')) {
+        // Dragging right edge outwards increases width
+        delta = moveEvent.clientX - startX
+      } else if (direction.includes('top')) {
+        // Dragging top edge upwards increases height/width
+        delta = (startX - moveEvent.clientX + (resizeStartRef.current.startY - moveEvent.clientY)) / 2
+      }
+
+      const newWidth = Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, startW + delta))
+      setWidth(Math.round(newWidth))
+    }
+
+    const onPointerUp = () => {
+      setIsResizing(false)
+      window.removeEventListener('pointermove', onPointerMove)
+      window.removeEventListener('pointerup', onPointerUp)
+    }
+
+    window.addEventListener('pointermove', onPointerMove)
+    window.addEventListener('pointerup', onPointerUp)
   }
 
   if (!isOpen) {
@@ -93,7 +147,7 @@ export default function PipVideoPlayer() {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0 }}
         onClick={() => setIsOpen(true)}
-        className="pip-reopen fixed bottom-6 left-6 z-50 flex items-center gap-2 rounded-full border border-white/20 bg-[#143847]/90 px-4 py-2.5 text-xs font-medium text-white shadow-2xl backdrop-blur-md transition-all hover:bg-[#143847] hover:scale-105"
+        className="pip-reopen fixed bottom-6 left-6 z-50 flex items-center gap-2 rounded-full border border-white/20 bg-[#143847]/90 px-4 py-2.5 text-xs font-medium text-white shadow-2xl backdrop-blur-md transition-all hover:bg-[#143847] hover:scale-105 cursor-pointer"
         aria-label="Abrir Aftermovies"
       >
         <span className="relative flex h-2 w-2">
@@ -108,18 +162,66 @@ export default function PipVideoPlayer() {
   return (
     <AnimatePresence>
       <motion.div
+        ref={playerRef}
+        drag={!isResizing}
+        dragMomentum={false}
         initial={{ opacity: 0, y: 50, scale: 0.9 }}
         animate={{ 
           opacity: 1, 
           y: 0, 
           scale: 1,
-          width: '175px',
-          height: '295px'
+          width: isMinimized ? 200 : width,
+          height: isMinimized ? 48 : height
         }}
         exit={{ opacity: 0, y: 50, scale: 0.9 }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="pip-player fixed bottom-5 left-5 z-[80] overflow-hidden rounded-2xl border border-white/20 bg-[#143847] shadow-[0_16px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl group md:bottom-8 md:left-8"
+        transition={{ duration: isResizing ? 0 : 0.25, ease: [0.22, 1, 0.36, 1] }}
+        className={`pip-player fixed z-[80] overflow-hidden rounded-2xl border border-white/20 bg-[#143847] shadow-[0_20px_50px_rgba(0,0,0,0.45)] backdrop-blur-xl group select-none ${
+          isResizing ? 'cursor-ew-resize' : 'cursor-grab active:cursor-grabbing'
+        }`}
+        style={{
+          width: isMinimized ? 200 : width,
+          height: isMinimized ? 48 : height,
+          touchAction: 'none',
+        }}
       >
+        {/* Resize Handles (Bordas e Cantos) */}
+        {!isMinimized && (
+          <>
+            {/* Borda Esquerda */}
+            <div
+              className="pip-resize-handle pip-resize-handle--left"
+              onPointerDown={(e) => handleResizePointerDown(e, 'left')}
+              title="Arrastar para redimensionar largura"
+            />
+            {/* Borda Direita */}
+            <div
+              className="pip-resize-handle pip-resize-handle--right"
+              onPointerDown={(e) => handleResizePointerDown(e, 'right')}
+              title="Arrastar para redimensionar largura"
+            />
+            {/* Borda Superior */}
+            <div
+              className="pip-resize-handle pip-resize-handle--top"
+              onPointerDown={(e) => handleResizePointerDown(e, 'top')}
+              title="Arrastar para redimensionar"
+            />
+            {/* Canto Superior Esquerdo */}
+            <div
+              className="pip-resize-handle pip-resize-handle--top-left"
+              onPointerDown={(e) => handleResizePointerDown(e, 'left-top')}
+              title="Redimensionar pelo canto"
+            >
+              <div className="pip-resize-corner-indicator" />
+            </div>
+            {/* Canto Superior Direito */}
+            <div
+              className="pip-resize-handle pip-resize-handle--top-right"
+              onPointerDown={(e) => handleResizePointerDown(e, 'right-top')}
+              title="Redimensionar pelo canto"
+            />
+          </>
+        )}
+
         {isMinimized ? (
           // Vista minimizada
           <div className="flex h-full w-full items-center justify-between px-3.5 py-2 text-white">
@@ -128,15 +230,15 @@ export default function PipVideoPlayer() {
             </div>
             <div className="flex items-center gap-1">
               <button 
-                onClick={() => setIsMinimized(false)} 
-                className="rounded-full p-1.5 text-white/70 hover:bg-white/10 hover:text-white"
+                onClick={(e) => { e.stopPropagation(); setIsMinimized(false) }} 
+                className="rounded-full p-1.5 text-white/70 hover:bg-white/10 hover:text-white cursor-pointer"
                 aria-label="Expandir"
               >
                 <Maximize2 size={13} />
               </button>
               <button 
-                onClick={() => setIsOpen(false)} 
-                className="rounded-full p-1.5 text-white/70 hover:bg-white/10 hover:text-white"
+                onClick={(e) => { e.stopPropagation(); setIsOpen(false) }} 
+                className="rounded-full p-1.5 text-white/70 hover:bg-white/10 hover:text-white cursor-pointer"
                 aria-label="Fechar"
               >
                 <X size={13} />
@@ -147,7 +249,7 @@ export default function PipVideoPlayer() {
           // Vista Normal / Expandida (Picture in Picture Vertical)
           <div className="relative h-full w-full flex flex-col justify-between">
             {/* Vídeo Tag */}
-            <div className="absolute inset-0 z-0 bg-black">
+            <div className="absolute inset-0 z-0 bg-black pointer-events-none">
               <video
                 ref={videoRef}
                 src={activeVideo.src}
@@ -165,29 +267,37 @@ export default function PipVideoPlayer() {
             </div>
 
             {/* Barra de Progresso no topo */}
-            <div className="relative z-10 w-full bg-white/20 h-1">
+            <div className="relative z-10 w-full bg-white/20 h-1 pointer-events-none">
               <div 
                 className="pip-player__track"
                 style={{ width: `${progress}%` }}
               />
             </div>
 
-            {/* Cabeçalho do PiP */}
-            <div className="pip-player__header relative z-10 flex items-center justify-between p-3.5 text-white">
+            {/* Cabeçalho do PiP (Drag Handle Indicator) */}
+            <div className="pip-player__header relative z-10 flex items-center justify-between p-3 text-white">
               <div className="flex items-center gap-1.5 bg-black/40 px-2 py-0.5 rounded-full border border-white/10 backdrop-blur-md">
                 <span className="h-1.5 w-1.5 rounded-full bg-red-500 animate-ping" />
+                <span className="text-[9px] font-bold tracking-wider text-white/90 uppercase">ALMA</span>
               </div>
+
+              {/* Indicador de Mover */}
+              <div className="opacity-0 group-hover:opacity-75 transition-opacity flex items-center gap-1 text-[9px] text-white/70 bg-black/30 px-1.5 py-0.5 rounded">
+                <Move size={9} />
+                <span>Mover</span>
+              </div>
+
               <div className="flex items-center gap-1">
                 <button
-                  onClick={() => setIsMinimized(true)}
-                  className="pip-player__edge-button"
+                  onClick={(e) => { e.stopPropagation(); setIsMinimized(true) }}
+                  className="pip-player__edge-button cursor-pointer"
                   aria-label="Minimizar"
                 >
                   <Minimize2 size={13} />
                 </button>
                 <button
-                  onClick={() => setIsOpen(false)}
-                  className="rounded-full bg-black/40 p-1.5 text-white/80 hover:bg-black/60 hover:text-white transition-all backdrop-blur-md border border-white/10"
+                  onClick={(e) => { e.stopPropagation(); setIsOpen(false) }}
+                  className="rounded-full bg-black/40 p-1.5 text-white/80 hover:bg-black/60 hover:text-white transition-all backdrop-blur-md border border-white/10 cursor-pointer"
                   aria-label="Fechar"
                 >
                   <X size={13} />
@@ -196,33 +306,33 @@ export default function PipVideoPlayer() {
             </div>
 
             {/* Rodapé e Controles */}
-            <div className="pip-player__controls">
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={togglePlay}
-                    className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md transition hover:bg-white hover:text-black"
-                    aria-label={isPlaying ? 'Pausar' : 'Reproduzir'}
-                  >
-                    {isPlaying ? <Pause size={13} /> : <Play size={13} className="ml-0.5" />}
-                  </button>
-                  <button
-                    onClick={toggleMute}
-                    className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md transition hover:bg-white hover:text-black"
-                    aria-label={isMuted ? 'Ativar som' : 'Desativar som'}
-                  >
-                    {isMuted ? <VolumeX size={13} /> : <Volume2 size={13} />}
-                  </button>
-                </div>
-
+            <div className="pip-player__controls relative z-10" onClick={(e) => e.stopPropagation()}>
+              <div className="flex items-center gap-1.5">
                 <button
-                  onClick={nextVideo}
-                  className="flex items-center gap-1.5 rounded-full bg-white/15 px-2.5 py-1 text-[10px] font-medium text-white backdrop-blur-md hover:bg-white/30 transition border border-white/10"
-                  aria-label="Próximo vídeo"
+                  onClick={togglePlay}
+                  className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md transition hover:bg-white hover:text-black cursor-pointer"
+                  aria-label={isPlaying ? 'Pausar' : 'Reproduzir'}
                 >
-                  <span>Próximo</span>
-                  <SkipForward size={11} />
+                  {isPlaying ? <Pause size={13} /> : <Play size={13} className="ml-0.5" />}
+                </button>
+                <button
+                  onClick={toggleMute}
+                  className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-md transition hover:bg-white hover:text-black cursor-pointer"
+                  aria-label={isMuted ? 'Ativar som' : 'Desativar som'}
+                >
+                  {isMuted ? <VolumeX size={13} /> : <Volume2 size={13} />}
                 </button>
               </div>
+
+              <button
+                onClick={nextVideo}
+                className="flex items-center gap-1 rounded-full bg-white/15 px-2.5 py-1 text-[10px] font-medium text-white backdrop-blur-md hover:bg-white/30 transition border border-white/10 cursor-pointer"
+                aria-label="Próximo vídeo"
+              >
+                <span>Próximo</span>
+                <SkipForward size={11} />
+              </button>
+            </div>
           </div>
         )}
       </motion.div>
