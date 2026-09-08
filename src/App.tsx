@@ -122,7 +122,7 @@ function App() {
 
     <section className="bar-section relative-section" id="openbar">
       <SilkShader />
-      <div className="shader-bg-overlay" style={{ background: 'rgba(20, 56, 71, 0.45)' }} />
+      <div className="shader-bg-overlay" style={{ background: 'linear-gradient(135deg, rgba(5, 24, 32, 0.65) 0%, rgba(14, 70, 86, 0.45) 50%, rgba(5, 24, 32, 0.72) 100%)' }} />
       <div className="bar-grid shader-content-layer">
         <Reveal className="bar-copy"><span className="kicker">SEM INTERROMPER O MOMENTO</span><h2>Open Bar<br/><em>Premium.</em></h2><p>Nas cinco noites, uma seleção premium de gin, vodka, whiskey, cerveja, cocktails, energéticos e bebidas não alcoólicas. Na virada, Prosecco Ponto Nero Brut para o primeiro brinde de 2027.</p><div className="bar-brands" aria-label="Marcas do Open Bar Premium"><span>Beefeater</span><span>Absolut</span><span>Jameson</span><span>Sol Premium</span><span>Aperol Spritz</span><span>Red Bull</span></div><div className="bar-highlight">Virada com Prosecco Ponto Nero Brut by Casa Valduga</div></Reveal>
         <div className="orb" aria-hidden="true"><span>27 — 31</span><strong>DEZ</strong></div>

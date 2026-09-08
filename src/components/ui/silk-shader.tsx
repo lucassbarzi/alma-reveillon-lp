@@ -256,19 +256,20 @@ export default function SilkShader({ className = '' }: SilkShaderProps) {
     const uSpace = gl.getUniformLocation(program, 'u_space')
     const uCursor = gl.getUniformLocation(program, 'u_cursor')
 
-    // Silk shader colors: #000000, #1F51FF, #00E5FF, #EAFDFF
+    // ALMA Caribe Sea palette: Deep Abyssal Navy, Caribe Sea Green, Radiant Lagoon Turquoise, Sunlit Sea Foam
+    // #051820, #0E7C86, #3BE8D1, #E8FCFA
     const colors = [
-      0.000, 0.000, 0.000,
-      0.122, 0.318, 1.000,
-      0.000, 0.898, 1.000,
-      0.918, 0.992, 1.000,
+      0.020, 0.094, 0.125, // #051820 Deep Navy
+      0.055, 0.486, 0.525, // #0E7C86 Caribe Emerald Blue
+      0.231, 0.910, 0.820, // #3BE8D1 Lagoon Turquoise
+      0.910, 0.988, 0.980, // #E8FCFA Seafoam Mist
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     ]
     gl.uniform3fv(uColors, colors)
-    gl.uniform4f(uShape, 1.16, 0.34, 0.50, 0.00)
-    gl.uniform4f(uSurface, 2.40, 1.16, -0.18, 0.54)
-    gl.uniform4f(uFinish, 0.00, 0.55, 0.000, 0.06)
-    gl.uniform4f(uTransform, 1453.0, 0.00, 0.40, 0.0)
+    gl.uniform4f(uShape, 1.18, 0.36, 0.48, 0.00)
+    gl.uniform4f(uSurface, 2.20, 1.25, -0.12, 0.65)
+    gl.uniform4f(uFinish, 0.00, 0.45, 0.000, 0.05)
+    gl.uniform4f(uTransform, 1453.0, 0.00, 0.35, 0.0)
     gl.uniform4f(uSpace, 0.00, 0.00, 0.0, 0.0)
     gl.uniform4f(uCursor, 0.0, 2.0, 0.65, 0.46)
 
@@ -279,7 +280,7 @@ export default function SilkShader({ className = '' }: SilkShaderProps) {
         rafRef.current = requestAnimationFrame(render)
         return
       }
-      const time = (performance.now() - startTimeRef.current) / 1000 * 0.21
+      const time = (performance.now() - startTimeRef.current) / 1000 * 0.22
       gl.uniform4f(uScene, canvas.width, canvas.height, time, 4.0)
       gl.drawArrays(gl.TRIANGLES, 0, 3)
       rafRef.current = requestAnimationFrame(render)

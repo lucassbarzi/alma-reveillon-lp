@@ -181,7 +181,8 @@ em{font-style:normal;color:#2b829d}
 .bar-brands span{border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.08);font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
 .bar-highlight{display:inline-flex;margin-top:14px;border-bottom:1px solid rgba(255,255,255,.65);padding-bottom:5px;font-size:12px;font-weight:600;letter-spacing:.04em}
 .bar-section h2{font-size:clamp(4rem,7.4vw,7.8rem)}
-.bar-copy p{max-width:580px;font-size:1.05rem;line-height:1.68}
+.bar-section h2 em{color:#57d2f4;text-shadow:0 4px 25px rgba(0,0,0,.6)}
+.bar-copy p{max-width:580px;font-size:1.05rem;line-height:1.68;text-shadow:0 2px 14px rgba(0,0,0,.45)}
 
 /* ORB: NO OVERLAP FIX */
 .orb{justify-self:center;width:min(34vw,460px);aspect-ratio:1;border-radius:50%;border:1px solid rgba(255,255,255,.5);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:16px;background:radial-gradient(circle at 35% 28%,rgba(255,255,255,.35),transparent 55%);animation:float 6s ease-in-out infinite}
