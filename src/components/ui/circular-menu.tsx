@@ -271,7 +271,7 @@ export default function CircularMenu({
                     href={ticketsUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="ticket w-full justify-center relative text-center"
+                    className="ticket circular-menu__ticket-btn justify-center relative text-center"
                   >
                     <span className="ticket-label text-center">VIVER O ALMA</span>
                     <span className="ticket-icon-wrapper absolute right-2">
