@@ -113,8 +113,8 @@ export default function PipVideoPlayer() {
           opacity: 1, 
           y: 0, 
           scale: 1,
-          width: '230px',
-          height: '390px'
+          width: '175px',
+          height: '295px'
         }}
         exit={{ opacity: 0, y: 50, scale: 0.9 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}

@@ -81,7 +81,12 @@ function App() {
         <span className="eyebrow">27 — 31 DEZ 2026 · PRAIA DA CUEIRA</span>
         <h1>O ano novo<br/>nasce com<br/><em>toda ALMA.</em></h1>
         <p className="hero-subtitle">Cinco noites na ilha. O mar por perto. O pé na areia. E a sensação rara de estar exatamente onde você queria estar.</p>
-        <a className="ticket" href={TICKETS} target="_blank" rel="noreferrer"><span className="ticket-label">Viver o ALMA</span> <ArrowRight size={18}/></a>
+        <a className="ticket" href={TICKETS} target="_blank" rel="noreferrer">
+          <span className="ticket-label">Viver o ALMA</span>
+          <span className="ticket-icon-wrapper">
+            <ArrowRight size={17} />
+          </span>
+        </a>
       </motion.div>
       <a className="scroll-cue" href="#experiencia" aria-label="Continuar"><span>DESCER</span><ArrowDown size={17}/></a>
     </section>
@@ -128,7 +133,7 @@ function App() {
       <Reveal><span className="kicker">HISTÓRIAS DE OUTRAS MARÉS</span><h2>O que fica<br/><em>depois da virada.</em></h2></Reveal>
       <div className="story-grid">
         <Reveal className="story-card"><span>CHEGADA</span><h3>A cidade termina no cais.</h3><p>O deslocamento não é um intervalo. É o primeiro capítulo: quando o caminho encontra o mar, a pressa começa a perder importância.</p></Reveal>
-        <Reveal className="story-card" delay={.1}><span>ENCONTRO</span><h3>A pista não tem paredes.</h3><p>A Praia da Cueira muda a escala da festa. O horizonte permanece à vista enquanto a música atravessa a madrugada.</p></Reveal>
+        <Reveal className="story-card" delay={.1}><span>ENCONTRO</span><h3>A pista não tem paredes.</h3><p>A Praia da Cueira muda a escola da festa. O horizonte permanece à vista enquanto a música atravessa a madrugada.</p></Reveal>
         <Reveal className="story-card" delay={.2}><span>MEMÓRIA</span><h3>O sol encerra a noite.</h3><p>As imagens de edições anteriores guardam o que uma lista de atrações não explica: gente que chegou para uma festa e saiu levando uma paisagem inteira.</p></Reveal>
       </div>
       <p className="source-note">Storytelling editorial construído a partir do acervo visual local. Não representa depoimentos atribuídos a participantes.</p>
@@ -141,7 +146,18 @@ function App() {
 
     <section className="finale">
       <div className="finale-bg" />
-      <Reveal className="finale-copy"><span className="kicker">HAPPY NEW ILHA</span><h2>SEU MELHOR ANO<br/>VAI COMEÇAR AQUI.</h2><p>Praia da Cueira · Cairu, Bahia<br/>27 de dezembro, 23h — 1º de janeiro, 6h</p><a className="ticket light-ticket" href={TICKETS} target="_blank" rel="noreferrer"><span className="ticket-label">Comprar no Sympla</span> <ArrowRight size={18}/></a><small>Evento para maiores de 18 anos. Compra e regras pela plataforma oficial.</small></Reveal>
+      <Reveal className="finale-copy">
+        <span className="kicker">HAPPY NEW ILHA</span>
+        <h2>SEU MELHOR ANO<br/>VAI COMEÇAR AQUI.</h2>
+        <p>Praia da Cueira · Cairu, Bahia<br/>27 de dezembro, 23h — 1º de janeiro, 6h</p>
+        <a className="ticket light-ticket" href={TICKETS} target="_blank" rel="noreferrer">
+          <span className="ticket-label">Comprar no Sympla</span>
+          <span className="ticket-icon-wrapper">
+            <ArrowRight size={17} />
+          </span>
+        </a>
+        <small>Evento para maiores de 18 anos. Compra e regras pela plataforma oficial.</small>
+      </Reveal>
     </section>
 
     <HoverFooter />

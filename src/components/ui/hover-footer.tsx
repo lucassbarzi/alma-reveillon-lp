@@ -226,7 +226,7 @@ export default function HoverFooter() {
                   <span>Praia da Cueira, Cairu — Boipeba, BA</span>
                 </li>
               </ul>
-              <div className="pt-3">
+              <div className="pt-6 mt-3">
                 <a
                   href={TICKETS}
                   target="_blank"

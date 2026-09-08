@@ -182,10 +182,17 @@ export default function CircularMenu({
               <div className="circular-menu__glass-tint pointer-events-none" />
 
               <div className="circular-menu__content">
-                {/* Cabeçalho do Menu Lateral */}
+                {/* Cabeçalho do Menu Lateral com botão fechar à esquerda */}
                 <div className="circular-menu__header">
+                  <button
+                    type="button"
+                    onClick={() => setIsOpen(false)}
+                    className="circular-menu__close-inside-btn"
+                    aria-label="Fechar menu"
+                  >
+                    <X size={16} />
+                  </button>
                   <div className="circular-menu__badge">
-                    <Sparkles size={13} className="text-[#2b829d]" />
                     <span>ALMA RÉVEILLON 2027 · BOIPEBA</span>
                   </div>
                 </div>
@@ -243,7 +250,7 @@ export default function CircularMenu({
                   </ul>
                 </nav>
 
-                {/* Rodapé do Menu com Ingressos em Azul Escuro e Social */}
+                {/* Rodapé do Menu com Modelo de Botão Ticket Idêntico ao Hero */}
                 <motion.div
                   className="circular-menu__footer"
                   initial={{ opacity: 0, y: 12 }}
@@ -254,14 +261,12 @@ export default function CircularMenu({
                     href={ticketsUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="circular-menu__ticket-cta"
+                    className="ticket w-full justify-between"
                   >
-                    <span className="circular-menu__ticket-cta-text">
-                      VIVER O ALMA
+                    <span className="ticket-label">VIVER O ALMA</span>
+                    <span className="ticket-icon-wrapper">
+                      <ArrowRight size={17} />
                     </span>
-                    <div className="circular-menu__ticket-icon">
-                      <ArrowUpRight size={18} />
-                    </div>
                   </a>
 
                   <div className="circular-menu__social-row">
