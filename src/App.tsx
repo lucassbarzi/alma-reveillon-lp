@@ -118,8 +118,8 @@ function App() {
       <Reveal><span className="kicker">ONDE FICAR</span><h2>Escolha seu<br/><em>ponto na ilha.</em></h2></Reveal>
       <div className="stay-layout">
         <div className="stay-map-wrap">
-          <iframe title="Mapa da região de Boipeba" className="stay-map" src="https://www.openstreetmap.org/export/embed.html?bbox=-38.965%2C-13.625%2C-38.865%2C-13.505&amp;layer=mapnik&amp;marker=-13.582%2C-38.925" loading="lazy" />
-          <a className="stay-map-link" href="https://www.openstreetmap.org/?mlat=-13.582&amp;mlon=-38.925#map=13/-13.582/-38.925" target="_blank" rel="noreferrer">Abrir mapa maior <ArrowRight size={15}/></a>
+          <iframe title="ALMA Réveillon na Praia da Cueira, Boipeba" className="stay-map" src="https://www.openstreetmap.org/export/embed.html?bbox=-38.943%2C-13.612%2C-38.883%2C-13.573&amp;layer=mapnik&amp;marker=-13.592643%2C-38.913152" loading="lazy" />
+          <a className="stay-map-link" href="https://www.openstreetmap.org/?mlat=-13.592643&amp;mlon=-38.913152#map=16/-13.592643/-38.913152" target="_blank" rel="noreferrer">ALMA · Praia da Cueira <ArrowRight size={15}/></a>
         </div>
         <div className="stay-areas">
           {stayAreas.map((area, index) => <Reveal className="stay-area" key={area.title} delay={index * .06}>
