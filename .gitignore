@@ -1,0 +1,38 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Vercel & Hermes
+.vercel
+.hermes
+.gemini
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Temporary QA artifacts
+qa-*.png
+qa-fireworks/
+create_plan_pdf.py
+ALMA-Reveillon-2027-Planejamento-Landing-Page.pdf

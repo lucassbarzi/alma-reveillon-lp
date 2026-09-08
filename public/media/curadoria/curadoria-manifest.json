@@ -1,0 +1,128 @@
+[
+  {
+    "target": "paraiso-fullscreen.webp",
+    "source": "F:\\PESSOAL\\CLIENTES\\ALMA\\MATERIAL\\FOTOS PRAIAS\\FOTOS_UNIFICADAS\\0138_BOIPEBA_2023_-3265-Edit-2.jpg",
+    "original": [
+      4000,
+      2668
+    ],
+    "web": [
+      2400,
+      1601
+    ],
+    "bytes": 1144624,
+    "sha256": "2138dd646b4e1b6012fcbfe34c8acdbbe99cc2b78e73ca22443f71a07838fd6a"
+  },
+  {
+    "target": "carrossel-caminho.webp",
+    "source": "F:\\PESSOAL\\CLIENTES\\ALMA\\MATERIAL\\FOTOS PRAIAS\\FOTOS_UNIFICADAS\\0443_Lifestyle_Boipeba_Dez_24-157.jpg",
+    "original": [
+      3600,
+      2400
+    ],
+    "web": [
+      2400,
+      1600
+    ],
+    "bytes": 724390,
+    "sha256": "d17d74809ce39f0f3d848ec32682a731011f9837988538e2e297fdd695651b6d"
+  },
+  {
+    "target": "carrossel-dia.webp",
+    "source": "F:\\PESSOAL\\CLIENTES\\ALMA\\MATERIAL\\FOTOS PRAIAS\\FOTOS_UNIFICADAS\\0191_IMG_7015.jpg",
+    "original": [
+      3024,
+      4032
+    ],
+    "web": [
+      1800,
+      2400
+    ],
+    "bytes": 703326,
+    "sha256": "a7a89a3587fb124b02a27b4b9b37ebdbe2cc2b9da2d8de8870f66060a949bfb9"
+  },
+  {
+    "target": "carrossel-virada.webp",
+    "source": "F:\\PESSOAL\\CLIENTES\\ALMA\\MATERIAL\\FOTOS PRAIAS\\FOTOS_UNIFICADAS\\0224_Enlight335.jpg",
+    "original": [
+      3024,
+      4032
+    ],
+    "web": [
+      1800,
+      2400
+    ],
+    "bytes": 530096,
+    "sha256": "5e7d98330431c1e82fdef75cd32fc96865bad76a634be18fe981b7a09f40a189"
+  },
+  {
+    "target": "slideshow-mare-aerea.webp",
+    "source": "F:\\PESSOAL\\CLIENTES\\ALMA\\MATERIAL\\FOTOS PRAIAS\\FOTOS_UNIFICADAS\\0247_BOIPEBA_2023_-6501-Edit-2.jpg",
+    "original": [
+      8000,
+      5336
+    ],
+    "web": [
+      2400,
+      1601
+    ],
+    "bytes": 1235532,
+    "sha256": "74a0f6ea16e4fa22ce9323aff99d72dc1b92a18954c79ed1f1250a765ea9610f"
+  },
+  {
+    "target": "slideshow-reflexo.webp",
+    "source": "F:\\PESSOAL\\CLIENTES\\ALMA\\MATERIAL\\FOTOS PRAIAS\\FOTOS_UNIFICADAS\\0174_49853179_1934313476617340_8641288910367883264_n.jpg",
+    "original": [
+      2048,
+      1365
+    ],
+    "web": [
+      2048,
+      1365
+    ],
+    "bytes": 477388,
+    "sha256": "4c8b492a5bb3b9ae5543c292aa3302884cf170ba26ae9714d68a0050c543cee7"
+  },
+  {
+    "target": "slideshow-praia.webp",
+    "source": "F:\\PESSOAL\\CLIENTES\\ALMA\\MATERIAL\\FOTOS PRAIAS\\FOTOS_UNIFICADAS\\0155_Boipeba__3.jpg",
+    "original": [
+      1600,
+      1066
+    ],
+    "web": [
+      1600,
+      1066
+    ],
+    "bytes": 320322,
+    "sha256": "3df0e58318fec409d85b45019a6b2005aca46807ce49679c9979e0f1db1af030"
+  },
+  {
+    "target": "cta-por-do-sol.webp",
+    "source": "F:\\PESSOAL\\CLIENTES\\ALMA\\MATERIAL\\FOTOS PRAIAS\\FOTOS_UNIFICADAS\\0083_Copy_of__Q4R7809.jpg",
+    "original": [
+      3600,
+      2400
+    ],
+    "web": [
+      2400,
+      1600
+    ],
+    "bytes": 436222,
+    "sha256": "8245ef08db1f5845681909c2e3dcfc618855d5b6e39275c8e59d45c9a3fcd5e9"
+  },
+  {
+    "target": "slideshow-ilha-aerea.webp",
+    "source": "F:\\PESSOAL\\CLIENTES\\ALMA\\MATERIAL\\FOTOS PRAIAS\\FOTOS_UNIFICADAS\\0201_DJI_20241201110839_0482_D.jpg",
+    "original": [
+      8064,
+      4536
+    ],
+    "web": [
+      2400,
+      1350
+    ],
+    "bytes": 642058,
+    "sha256": "bfa89f3a03e68d7ac323061cb3ac024bf9d7685822c7300152de244949537f05"
+  }
+]
