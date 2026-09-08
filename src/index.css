@@ -210,10 +210,9 @@ em{font-style:normal;color:#2b829d}
 
 .squeeze-section{position:relative;background:#a7c5cf;color:#fff;padding:140px 0 150px 7vw;overflow:hidden}
 .squeeze-header{padding-right:7vw}
-.squeeze-section .kicker{color:rgba(20,56,71,.85)}
+.squeeze-section .kicker{color:#fff}
 .squeeze-section h2,.stories h2,.faq h2{margin:24px 0 70px}
-.squeeze-section h2 em{display:inline-block;background:linear-gradient(115deg,#03120e 0%,#0e7c5a 25%,#f4ffc7 47%,#7ce577 58%,#0e7c5a 76%,#03120e 100%);background-size:220% auto;background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:0 2px 1px rgba(244,255,199,.30),0 0 16px rgba(124,229,119,.44);filter:drop-shadow(0 4px 6px rgba(3,18,14,.34));animation:almaMetalShine 5.5s linear infinite}
-@keyframes almaMetalShine{to{background-position:220% center}}
+.squeeze-section h2 em{display:inline-block;background:linear-gradient(115deg,#03120e 0%,#0e7c5a 25%,#f4ffc7 47%,#7ce577 58%,#0e7c5a 76%,#03120e 100%);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:0 2px 1px rgba(244,255,199,.30),0 0 16px rgba(124,229,119,.44);filter:drop-shadow(0 4px 6px rgba(3,18,14,.34))}
 .expandable-gallery__rail{display:flex;gap:10px;width:calc(100% - 7vw);height:min(64vh,570px);padding-right:1px}
 .expandable-gallery__card{position:relative;min-width:0;padding:0;border:0;border-radius:8px;overflow:hidden;cursor:pointer;color:#fff;background:#0b5268;text-align:left;transform:translate3d(0,0,0);backface-visibility:hidden;contain:paint}
 .expandable-gallery__card:focus-visible{outline:2px solid #f7f3e9;outline-offset:4px}
