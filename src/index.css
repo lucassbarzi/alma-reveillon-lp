@@ -318,6 +318,8 @@ em{font-style:normal;color:#2b829d}
 .circular-menu__badge>div{display:flex;flex-direction:column;align-items:flex-end;gap:9px}
 .circular-menu__header-instagram{display:block;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:none;color:#2b829d;transition:color .3s,transform .3s}
 .circular-menu__header-instagram:hover{color:#143847;transform:translateX(-3px)}
+.pip-player{left:20px!important;right:auto!important;bottom:20px!important;width:175px!important;height:295px!important}
+.pip-reopen{left:20px!important;right:auto!important;bottom:20px!important}
 
 @media(max-width:960px){
   .hover-footer-grid{grid-template-columns:1fr 1fr;gap:36px}
