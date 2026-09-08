@@ -113,12 +113,12 @@ export default function PipVideoPlayer() {
           opacity: 1, 
           y: 0, 
           scale: 1,
-          width: '175px',
-          height: '295px'
+          width: isMinimized ? '190px' : '200px',
+          height: isMinimized ? '44px' : '330px'
         }}
         exit={{ opacity: 0, y: 50, scale: 0.9 }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-        className="pip-player fixed bottom-5 left-5 z-[80] overflow-hidden rounded-2xl border border-white/20 bg-[#143847] shadow-[0_16px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl group md:bottom-8 md:left-8"
+        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        className="pip-player fixed bottom-6 right-6 z-[80] overflow-hidden rounded-2xl border border-white/20 bg-[#143847] shadow-[0_16px_40px_rgba(0,0,0,0.35)] backdrop-blur-xl group"
       >
         {isMinimized ? (
           // Vista minimizada
