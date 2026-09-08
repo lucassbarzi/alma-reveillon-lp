@@ -114,7 +114,7 @@ function App() {
 
     <section className="gallery" aria-hidden="true">
       <SilkShader variant="green" />
-      {gallery.map(([src, alt], i) => <motion.figure key={src} style={{ zIndex: 11 + i }} initial={i === 0 ? { scale: 1.12 } : { opacity: 0 }} whileInView={i === 0 ? { scale: 1 } : { opacity: 1 }} viewport={{ amount: .45 }} transition={{ duration: i === 0 ? 1.25 : 1.1, ease: [.22, 1, .36, 1] }}><img src={src} alt={alt} loading={i ? 'lazy' : 'eager'}/><figcaption>0{i+1} / 04</figcaption></motion.figure>)}
+      {gallery.map(([src, alt], i) => <motion.figure key={src} initial={{ opacity: 0, y: 72 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ amount: .45, once: false }} transition={{ duration: 1.05, ease: [.22, 1, .36, 1] }}><img src={src} alt={alt} loading={i ? 'lazy' : 'eager'}/><figcaption>0{i+1} / 04</figcaption></motion.figure>)}
     </section>
 
     <section className="nights light" id="programacao">
