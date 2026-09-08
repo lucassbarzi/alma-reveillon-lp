@@ -25,7 +25,7 @@ const gallery = [
   [asset('/media/curadoria/slideshow-ilha-aerea.webp'), 'Praia e coqueiral vistos do alto'],
   [asset('/media/curadoria/slideshow-praia.webp'), 'Faixa de areia e mar azul na ilha'],
   [asset('/media/curadoria/slideshow-reflexo.webp'), 'Coqueiros refletidos nas águas da ilha'],
-  [asset('/media/festa.jpg'), 'Pista do ALMA Réveillon durante a festa'],
+  [asset('/media/0299_image.jpg'), 'Praia paradisíaca em Boipeba'],
 ]
 const experienceCards = [
   { title: 'O caminho', subtitle: 'Chegar a Boipeba já muda o ritmo. O trecho final acontece entre estrada, mar e caminhos de areia.', image: asset('/media/curadoria/carrossel-caminho.webp'), alt: 'Chegada à ilha pelo cais e pelo mar' },
