@@ -36,3 +36,5 @@ qa-*.png
 qa-fireworks/
 create_plan_pdf.py
 ALMA-Reveillon-2027-Planejamento-Landing-Page.pdf
+
+.vercel

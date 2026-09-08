@@ -43,7 +43,7 @@ function CloudBackground() {
         <div className="circular-menu__cloud-blob cloud-blob-7" />
       </div>
 
-      {/* Gradiente de luz solar difusa / brilho dourado de Boipeba */}
+      {/* Gradiente de luz solar suave da Bahia */}
       <div className="circular-menu__sun-flare" />
     </div>
   )
@@ -107,8 +107,6 @@ export default function CircularMenu({
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.94 }}
         >
-          <span className="circular-menu-btn__glow" />
-          
           <div className="circular-menu-btn__icon-wrapper">
             <AnimatePresence mode="wait">
               {isOpen ? (
@@ -117,10 +115,10 @@ export default function CircularMenu({
                   initial={{ rotate: -90, opacity: 0 }}
                   animate={{ rotate: 0, opacity: 1 }}
                   exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                   className="flex items-center justify-center"
                 >
-                  <X size={20} className="stroke-[2.2]" />
+                  <X size={18} className="stroke-[2.2]" />
                 </motion.div>
               ) : (
                 <motion.div
@@ -128,7 +126,7 @@ export default function CircularMenu({
                   initial={{ rotate: 90, opacity: 0 }}
                   animate={{ rotate: 0, opacity: 1 }}
                   exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                   className="circular-menu-btn__hamburger"
                 >
                   <span className="circular-menu-btn__line" />
@@ -152,15 +150,15 @@ export default function CircularMenu({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.35 }}
+            transition={{ duration: 0.3 }}
             onClick={() => setIsOpen(false)}
           >
-            {/* Painel do Menu com Expansão em Círculo (Radial Reveal) */}
+            {/* Painel do Menu com Fundo Claro e Expansão em Círculo (Radial Reveal) */}
             <motion.aside
               className="circular-menu__panel"
               initial={{
                 clipPath: 'circle(0% at calc(100% - 44px) 44px)',
-                opacity: 0.8,
+                opacity: 0.9,
               }}
               animate={{
                 clipPath: 'circle(160% at calc(100% - 44px) 44px)',
@@ -168,10 +166,10 @@ export default function CircularMenu({
               }}
               exit={{
                 clipPath: 'circle(0% at calc(100% - 44px) 44px)',
-                opacity: 0.5,
+                opacity: 0.7,
               }}
               transition={{
-                duration: 0.65,
+                duration: 0.55,
                 ease: [0.22, 1, 0.36, 1],
               }}
               onClick={(e) => e.stopPropagation()}
@@ -179,7 +177,7 @@ export default function CircularMenu({
               aria-modal="true"
               aria-label="Menu principal ALMA Réveillon"
             >
-              {/* Efeito de Nuvens em Movimento e Vidro Fosco */}
+              {/* Efeito de Nuvens em Movimento e Vidro Fosco Claro */}
               <CloudBackground />
               <div className="circular-menu__glass-tint" />
 
@@ -187,7 +185,7 @@ export default function CircularMenu({
                 {/* Cabeçalho do Menu Lateral */}
                 <div className="circular-menu__header">
                   <div className="circular-menu__badge">
-                    <Sparkles size={13} className="text-[#f47b35]" />
+                    <Sparkles size={13} className="text-[#2b829d]" />
                     <span>ALMA RÉVEILLON 2027 · BOIPEBA</span>
                   </div>
                 </div>
@@ -201,11 +199,11 @@ export default function CircularMenu({
                         <motion.li
                           key={item.href}
                           className="circular-menu__item"
-                          initial={{ opacity: 0, x: 35, y: 8 }}
+                          initial={{ opacity: 0, x: 30, y: 6 }}
                           animate={{ opacity: 1, x: 0, y: 0 }}
                           transition={{
-                            delay: 0.12 + index * 0.05,
-                            duration: 0.45,
+                            delay: 0.1 + index * 0.04,
+                            duration: 0.4,
                             ease: [0.22, 1, 0.36, 1],
                           }}
                           onMouseEnter={() => setHoveredIndex(index)}
@@ -231,8 +229,8 @@ export default function CircularMenu({
                               className="circular-menu__arrow"
                               animate={{
                                 x: isHovered ? 0 : -6,
-                                opacity: isHovered ? 1 : 0.4,
-                                scale: isHovered ? 1.1 : 0.9,
+                                opacity: isHovered ? 1 : 0.3,
+                                scale: isHovered ? 1.05 : 0.9,
                               }}
                               transition={{ duration: 0.2 }}
                             >
@@ -245,12 +243,12 @@ export default function CircularMenu({
                   </ul>
                 </nav>
 
-                {/* Rodapé do Menu com Ingressos e Social */}
+                {/* Rodapé do Menu com Ingressos em Azul Escuro e Social */}
                 <motion.div
                   className="circular-menu__footer"
-                  initial={{ opacity: 0, y: 15 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.42, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ delay: 0.35, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <a
                     href={ticketsUrl}
@@ -259,10 +257,10 @@ export default function CircularMenu({
                     className="circular-menu__ticket-cta"
                   >
                     <div className="flex flex-col text-left">
-                      <span className="text-[10px] tracking-[0.2em] uppercase font-bold opacity-80">
+                      <span className="text-[10px] tracking-[0.2em] uppercase font-bold text-[#f4fbfd]/80">
                         Viver o ALMA
                       </span>
-                      <span className="text-sm font-semibold tracking-wide">
+                      <span className="text-sm font-semibold tracking-wide text-white">
                         Garantir Ingressos Sympla
                       </span>
                     </div>

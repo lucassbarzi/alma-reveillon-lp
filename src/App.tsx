@@ -55,30 +55,14 @@ function SqueezeCarousel() {
 }
 
 function App() {
-  const [scrolled, setScrolled] = useState(false)
-  const [logoLight, setLogoLight] = useState(false)
   const heroRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const cloudY = useTransform(scrollYProgress, [0, 1], ['0%', '32%'])
   const titleY = useSpring(useTransform(scrollYProgress, [0, .8], ['0%', '12%']), { stiffness: 55, damping: 28 })
   const titleOpacity = useTransform(scrollYProgress, [0, .7], [1, 0])
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 80)
-      const mid = window.innerHeight * .48
-      const cinema = document.querySelector('.cinema')?.getBoundingClientRect()
-      const gallery = document.querySelector('.gallery')?.getBoundingClientRect()
-      setLogoLight(Boolean((cinema && cinema.top <= mid && cinema.bottom >= mid) || (gallery && gallery.top <= mid && gallery.bottom >= mid)))
-    }
-    handleScroll()
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    window.addEventListener('resize', handleScroll)
-    return () => { window.removeEventListener('scroll', handleScroll); window.removeEventListener('resize', handleScroll) }
-  }, [])
-
   return <main>
-    <header className={`nav ${scrolled ? 'nav--scrolled' : ''} ${logoLight ? 'nav--light-logo' : ''}`}>
+    <header className="nav">
       <a className="wordmark" href="#top" aria-label="ALMA, início">
         <img src="/brand/alma-logo-trimmed.png" alt="ALMA Réveillon 2027" />
       </a>
