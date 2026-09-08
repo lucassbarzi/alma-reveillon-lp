@@ -323,9 +323,8 @@ em{font-style:normal;color:#2b829d}
 /* Final visual corrections */
 .shader-bg-canvas{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;display:block!important;pointer-events:none!important;z-index:0!important}
 .shader-bg-overlay{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;pointer-events:none!important;z-index:1!important}
-.shader-content-layer{position:relative!important;z-index:2!important}
 .squeeze-section{background:#0b5268}
-.squeeze-section .shader-bg-overlay{background:rgba(11,82,104,.74)!important}
+.squeeze-section .shader-bg-overlay{background:rgba(11,82,104,.18)!important}
 .circular-menu__header{align-items:flex-start!important}
 .circular-menu__badge>div{display:flex;flex-direction:column;align-items:flex-end;gap:9px}
 .circular-menu__header-instagram{display:block;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:none;color:#2b829d;transition:color .3s,transform .3s}
