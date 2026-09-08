@@ -55,7 +55,7 @@ em{font-style:normal;color:#2b829d}
 .circular-menu-btn{pointer-events:auto!important;position:relative;display:flex;align-items:center;gap:10px;height:48px;padding:6px 18px 6px 8px;border-radius:999px;border:1px solid rgba(20,56,71,.25);background:rgba(255,255,255,.92);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);color:#143847;cursor:pointer;box-shadow:0 8px 30px rgba(20,56,71,.12);transition:background .3s,border-color .3s,color .3s,box-shadow .3s}
 .circular-menu-btn:hover{background:#fff;border-color:rgba(20,56,71,.5);box-shadow:0 12px 35px rgba(20,56,71,.2)}
 .circular-menu-btn--active{width:44px!important;height:44px!important;padding:0!important;justify-content:center!important;border-radius:50%!important;background:#143847!important;color:#fff!important;border-color:#143847!important;box-shadow:0 10px 30px rgba(20,56,71,.35)!important}
-.circular-menu-btn--active:hover{background:#1c4a5c!important;transform:scale(1.08)!important}
+.circular-menu-btn--active:hover{background:#1c4a5c!important}
 .circular-menu-btn__icon-wrapper{width:34px;height:34px;border-radius:50%;background:rgba(20,56,71,.08);display:grid;place-items:center;overflow:hidden;transition:background .3s;pointer-events:none;flex-shrink:0}
 .circular-menu-btn--active .circular-menu-btn__icon-wrapper{background:transparent;color:#fff;width:100%;height:100%}
 .circular-menu-btn__hamburger{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4.5px;width:18px;height:18px}
