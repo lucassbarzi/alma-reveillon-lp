@@ -50,7 +50,7 @@ function Reveal({ children, className = '', delay = 0 }: { children: React.React
 function SqueezeCarousel() {
   return <section className="squeeze-section relative-section" aria-labelledby="squeeze-title">
     <SilkShader variant="green" />
-    <div className="shader-bg-overlay" style={{ background: 'rgba(3, 18, 14, 0.18)' }} />
+    <div className="shader-bg-overlay shader-bg-overlay--squeeze" style={{ background: 'rgba(3, 18, 14, 0.12)' }} />
     <div className="shader-content-layer">
       <div className="squeeze-header">
         <Reveal><span className="kicker">A EXPERIÊNCIA EM QUATRO MOVIMENTOS</span><h2 id="squeeze-title">Antes da festa,<br/><em>já é ALMA.</em></h2></Reveal>

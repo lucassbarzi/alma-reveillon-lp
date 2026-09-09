@@ -396,7 +396,8 @@ em{font-style:normal;color:#2b829d}
   .orb{width:78vw}
   .finale{padding:24px}
   .finale h2{font-size:clamp(3.2rem,13.5vw,4.8rem);line-height:1.05}
-  .squeeze-section{padding:100px 0 110px 24px}
+  .squeeze-section{padding:100px 0 110px 24px;background:transparent}
+  .shader-bg-overlay--squeeze{background:rgba(3,18,14,0.03)!important}
   .squeeze-section h2,.stories h2,.faq h2{margin-bottom:48px}
   .squeeze-card{flex-basis:82vw;height:68vh}
   .story-grid{grid-template-columns:1fr}
