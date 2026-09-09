@@ -62,19 +62,36 @@ function SqueezeCarousel() {
 
 function App() {
   const heroRef = useRef<HTMLElement>(null)
+  const manifestoRef = useRef<HTMLElement>(null)
+  const logoRef = useRef<HTMLAnchorElement>(null)
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
   const cloudY = useTransform(scrollYProgress, [0, 1], ['0%', '32%'])
   const titleY = useSpring(useTransform(scrollYProgress, [0, .8], ['0%', '12%']), { stiffness: 55, damping: 28 })
   const titleOpacity = useTransform(scrollYProgress, [0, .7], [1, 0])
   const [showBackToTop, setShowBackToTop] = useState(false)
+  const [isPastHero, setIsPastHero] = useState(false)
 
   useEffect(() => {
     const checkScroll = () => {
       setShowBackToTop(window.scrollY > 400)
+
+      if (manifestoRef.current && logoRef.current) {
+        const manifestoTop = manifestoRef.current.getBoundingClientRect().top
+        const logoBottom = logoRef.current.getBoundingClientRect().bottom
+        // Transição precisa: a logo passa a transicionar quando sua posição física cruza para o bloco 2
+        setIsPastHero(logoBottom >= manifestoTop)
+      } else if (heroRef.current) {
+        const heroBottom = heroRef.current.getBoundingClientRect().bottom
+        setIsPastHero(heroBottom <= 60)
+      }
     }
     window.addEventListener('scroll', checkScroll, { passive: true })
+    window.addEventListener('resize', checkScroll, { passive: true })
     checkScroll()
-    return () => window.removeEventListener('scroll', checkScroll)
+    return () => {
+      window.removeEventListener('scroll', checkScroll)
+      window.removeEventListener('resize', checkScroll)
+    }
   }, [])
 
   const scrollToTop = () => {
@@ -83,8 +100,22 @@ function App() {
 
   return <main>
     <header className="nav">
-      <a className="wordmark" href="#top" aria-label="ALMA, início">
-        <img src={asset('/brand/alma-logo-trimmed.png')} alt="ALMA Réveillon 2027" />
+      <a
+        ref={logoRef}
+        className={`wordmark ${isPastHero ? 'wordmark--scrolled' : 'wordmark--hero'}`}
+        href="#top"
+        aria-label="ALMA, início"
+      >
+        <img
+          className="wordmark-layer wordmark-layer--dark"
+          src={asset('/brand/alma-logo-dark.png')}
+          alt="ALMA Réveillon 2027"
+        />
+        <img
+          className="wordmark-layer wordmark-layer--diff"
+          src={asset('/brand/alma-logo-trimmed.png')}
+          alt="ALMA Réveillon 2027"
+        />
       </a>
       <CircularMenu ticketsUrl={TICKETS} instagramUrl={INSTAGRAM} />
     </header>
@@ -109,7 +140,7 @@ function App() {
       <a className="scroll-cue" href="#experiencia" aria-label="Continuar"><span>DESCER</span><ArrowDown size={17}/></a>
     </section>
 
-    <section className="manifesto light relative-section" id="experiencia">
+    <section className="manifesto light relative-section" id="experiencia" ref={manifestoRef}>
       <MeshDriftShader />
       <div className="shader-bg-overlay" style={{ background: 'rgba(244, 251, 253, 0.72)' }} />
       <div className="shader-content-layer">
