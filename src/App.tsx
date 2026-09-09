@@ -9,9 +9,12 @@ import MeshDriftShader from './components/ui/mesh-drift-shader'
 
 import HoverFooter from './components/ui/hover-footer'
 import CircularMenu from './components/ui/circular-menu'
+import AccommodationSection from './AccommodationSection'
+import ImportantNotices from './ImportantNotices'
 
 const TICKETS = 'https://www.sympla.com.br/evento/a-l-m-a-reveillon-2027-boipeba/3254347?referrer=www.google.com'
 const INSTAGRAM = 'https://www.instagram.com/almareveillonboipeba/'
+const LODGING_TICKETS_URL = TICKETS
 const asset = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
 const nights = [
   ['27.12', 'Roda de Praia', '+5521'],
@@ -36,10 +39,16 @@ const experienceCards = [
 
 const faqs = [
   ['Onde e quando acontece o ALMA Réveillon 2027?', 'Na Praia da Cueira, em Cairu, Bahia, entre 27 e 31 de dezembro de 2026. A programação publicada começa às 23h nas quatro primeiras noites; no dia 31, às 22h.'],
+  ['Qual é a programação?', 'A programação atual reúne Roda de Praia, Isso Não É Um Sunrise, MOMO & Biribiri, Luau do DDP e ALMA Réveillon entre 27 e 31 de dezembro. Alterações devem ser confirmadas nos canais oficiais.'],
   ['O passaporte inclui todas as noites?', 'A página oficial apresenta cinco festas Open Bar Premium. As categorias, lotes e disponibilidade devem ser conferidos no fluxo atualizado da Sympla antes da compra.'],
   ['O que está incluído no Open Bar Premium?', 'A carta publicada inclui Beefeater, Absolut, Jameson, cerveja premium, Aperol Spritz, Red Bull, tônica, refrigerantes, sucos, água de coco e água. Na virada, também há Prosecco Ponto Nero Brut by Casa Valduga.'],
-  ['Como chegar e onde se hospedar em Boipeba?', 'Boipeba exige planejamento de deslocamento. Há opções por lancha e transfer semiterrestre. Hospedagem e transporte não estão incluídos nesta landing page; reserve cedo e confirme tudo diretamente com os fornecedores.'],
+  ['Existe pacote com hospedagem?', 'Sim. O ALMA possui opções de pacotes com ingresso + hospedagem entre 26/12 e 02/01, sujeitas à disponibilidade. Consulte as opções e valores atualizados no canal oficial de vendas.'],
+  ['Quais são as opções de hospedagem?', 'As opções apresentadas atualmente são Pedra de Sal, Pousada Nativa e Casa Verde, em diferentes categorias e localizações na vila de Boipeba.'],
+  ['O evento é Open Food?', 'Não. As cinco festas possuem Open Bar Premium. Alimentação não está incluída e poderá ser adquirida separadamente na praça gastronômica.'],
+  ['Posso chegar dia 28 ou 29 mesmo tendo Full Pass?', 'Sim. O kit de acesso permanece reservado em nome do comprador até a sua chegada.'],
+  ['Como chegar a Boipeba?', 'Boipeba exige planejamento de deslocamento. Há opções por lancha e transfer semiterrestre. Confirme rotas, horários e disponibilidade diretamente com os fornecedores.'],
   ['Posso transferir ou cancelar meu ingresso?', 'A Sympla informa cancelamento dentro das condições da plataforma e uma edição de participante até 24 horas antes do evento. Consulte as regras exibidas no ingresso no momento da compra. O evento é exclusivo para maiores de 18 anos.'],
+  ['Quais são os canais oficiais?', 'Instagram @almareveillonboipeba, e-mail falacomigo@almareveillon.com.br e a página oficial do evento na Sympla.'],
 ]
 
 function Reveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
@@ -180,6 +189,8 @@ function App() {
       </div>
     </section>
 
+    <AccommodationSection ticketsUrl={LODGING_TICKETS_URL} />
+
     <section className="stories light" id="historias">
       <Reveal><span className="kicker">HISTÓRIAS DE OUTRAS MARÉS</span><h2>O que fica<br/><em>depois da virada.</em></h2></Reveal>
       <div className="story-grid">
@@ -219,9 +230,11 @@ function App() {
 
     </section>
 
+    <ImportantNotices ticketsUrl={TICKETS} instagramUrl={INSTAGRAM} />
+
     <section className="faq light" id="faq">
-      <Reveal><span className="kicker">ANTES DE IR</span><h2>As cinco maiores<br/><em>dúvidas, respondidas.</em></h2></Reveal>
-      <div className="faq-list">{faqs.map(([question, answer], index) => <details key={question}><summary><span>0{index + 1}</span>{question}<b>+</b></summary><p>{answer}</p></details>)}</div>
+      <Reveal><span className="kicker">ANTES DE IR</span><h2>As maiores<br/><em>dúvidas, respondidas.</em></h2></Reveal>
+      <div className="faq-list">{faqs.map(([question, answer], index) => <details key={question}><summary><span>{String(index + 1).padStart(2, '0')}</span>{question}<b>+</b></summary><p>{answer}</p></details>)}</div>
     </section>
 
     <section className="finale">

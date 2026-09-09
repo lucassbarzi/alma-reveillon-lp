@@ -173,6 +173,7 @@ const footerLinks = [
       { label: 'Programação', href: '#programacao' },
       { label: 'Boipeba, Bahia', href: '#ilha' },
       { label: 'Open Bar Premium', href: '#openbar' },
+      { label: 'Hospedagem', href: '#hospedagem' },
     ],
   },
   {
@@ -261,6 +262,12 @@ export default function HoverFooter() {
                   <ArrowUpRight size={15} />
                 </a>
               </div>
+              <div className="hover-footer-official">
+                <span>CANAIS OFICIAIS</span>
+                <a href={INSTAGRAM} target="_blank" rel="noreferrer">Instagram · @almareveillonboipeba</a>
+                <a href="mailto:falacomigo@almareveillon.com.br">E-mail · falacomigo@almareveillon.com.br</a>
+                <a href={TICKETS} target="_blank" rel="noreferrer">Ingressos · Sympla</a>
+              </div>
             </div>
           </div>
 
@@ -302,6 +309,7 @@ export default function HoverFooter() {
               &copy; {new Date().getFullYear()} ALMA Réveillon. Todos os direitos reservados.
             </p>
           </div>
+          <p className="hover-footer-legal">Open Bar Premium · Open Food não incluso · Evento +18.</p>
         </div>
 
         {/* Text hover effect background watermark extrapolating card boundaries */}

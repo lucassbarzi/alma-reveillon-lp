@@ -14,8 +14,9 @@ const navItems: NavItem[] = [
   { number: '01', label: 'Experiência', href: '#experiencia', tagline: 'A virada que muda o estado de espírito' },
   { number: '02', label: 'Boipeba', href: '#ilha', tagline: 'A ilha, as praias e os caminhos de areia' },
   { number: '03', label: 'Programação', href: '#programacao', tagline: '5 noites · Open Bar Premium' },
-  { number: '04', label: 'Histórias', href: '#historias', tagline: 'O que fica depois da virada' },
-  { number: '05', label: 'Dúvidas', href: '#faq', tagline: 'Local, ingressos e transfer' },
+  { number: '04', label: 'Hospedagem', href: '#hospedagem', tagline: 'Ingresso + estadia em Boipeba' },
+  { number: '05', label: 'Histórias', href: '#historias', tagline: 'O que fica depois da virada' },
+  { number: '06', label: 'Dúvidas', href: '#faq', tagline: 'Local, ingressos e transfer' },
 
 ]
 
