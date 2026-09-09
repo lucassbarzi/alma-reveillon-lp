@@ -83,11 +83,11 @@ function App() {
 
   return <main>
     <header className="nav">
+      <a className="wordmark" href="#top" aria-label="ALMA, início">
+        <img src={asset('/brand/alma-logo-trimmed.png')} alt="ALMA Réveillon 2027" />
+      </a>
       <CircularMenu ticketsUrl={TICKETS} instagramUrl={INSTAGRAM} />
     </header>
-    <a className="wordmark" href="#top" aria-label="ALMA, início">
-      <img src={asset('/brand/alma-logo-trimmed.png')} alt="ALMA Réveillon 2027" />
-    </a>
 
     <section className="hero" id="top" ref={heroRef}>
       <video autoPlay muted loop playsInline preload="auto" poster={asset('/media/alma-hero-poster.jpg')} aria-label="Paisagens de Boipeba entre nuvens ensolaradas">
