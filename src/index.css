@@ -204,7 +204,7 @@ em{font-style:normal;color:#2b829d}
 
 @keyframes float{50%{transform:translateY(-16px)}}
 
-.finale{height:105vh;min-height:720px;position:relative;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.finale{height:105vh;min-height:720px;position:relative;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding-bottom:80px}
 .finale-bg{position:absolute;inset:0;background:linear-gradient(rgba(7,44,60,.2),rgba(7,44,60,.55)),url('/alma-reveillon-lp/media/curadoria/cta-por-do-sol.webp') center 50%/cover no-repeat;filter:saturate(.8)}
 .finale-copy{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
 .finale h2{font-size:clamp(3.6rem,6.2vw,6.7rem)}
@@ -276,8 +276,8 @@ em{font-style:normal;color:#2b829d}
 /* ==========================================================================
    HOVER FOOTER SYSTEM (NUR/UI MODELO ADAPTADO ALMA)
    ========================================================================== */
-.hover-footer-container{padding:0 20px 40px;background:#05131a;margin-top:-100px;position:relative;z-index:20}
-.hover-footer-card{position:relative;background:linear-gradient(180deg,#071c27 0%,#020a0f 100%);color:#fff;border-radius:28px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.08)}
+.hover-footer-container{padding:0 20px 40px;background:linear-gradient(to bottom,transparent 0,transparent 100px,#020a0f 100px,#020a0f 100%);margin-top:-100px;position:relative;z-index:20}
+.hover-footer-card{position:relative;background:linear-gradient(180deg,#071c27 0%,#020a0f 100%);color:#fff;border-radius:32px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.65);border:1px solid rgba(255,255,255,.12)}
 .hover-footer-content{max-width:1240px;margin:0 auto;padding:64px 48px 36px;position:relative;z-index:20}
 .hover-footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:48px;padding-bottom:48px}
 .hover-footer-brand{display:flex;flex-direction:column;gap:16px}
