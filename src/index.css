@@ -13,7 +13,7 @@ a{color:inherit;text-decoration:none}
 .wordmark--hero .wordmark-layer--dark{opacity:1}
 .wordmark--hero .wordmark-layer--diff{opacity:0}
 .wordmark--scrolled .wordmark-layer--dark{opacity:0}
-.wordmark--scrolled .wordmark-layer--diff{opacity:1;mix-blend-mode:difference;filter:drop-shadow(0 2px 12px rgba(0,0,0,0.55))}
+.wordmark--scrolled .wordmark-layer--diff{opacity:1;mix-blend-mode:difference;filter:none}
 .wordmark:hover{transform:translateX(-50%) scale(1.05)}
 
 /* ==========================================================================
