@@ -307,7 +307,7 @@ em{font-style:normal;color:#2b829d}
 
 .hover-footer-sympla{display:flex;align-items:center;gap:12px;color:rgba(255,255,255,.7);transition:opacity .25s}
 .hover-footer-sympla:hover{opacity:1}
-.hover-footer-sympla-img{height:46px;width:auto;max-width:150px;object-fit:contain;filter:brightness(0) invert(1);opacity:.95}
+.hover-footer-sympla-img{height:65px;width:auto;max-width:200px;object-fit:contain;filter:brightness(0) invert(1);opacity:.95}
 
 /* Background Watermark Layer Extrapolating the Card Boundaries */
 .hover-footer-huge-text-bg{position:absolute;bottom:-60px;left:50%;transform:translateX(-50%);width:150%;height:520px;pointer-events:none;z-index:2;display:flex;justify-content:center;align-items:flex-end;overflow:hidden;opacity:.38}
