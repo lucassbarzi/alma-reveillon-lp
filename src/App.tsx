@@ -70,6 +70,7 @@ function App() {
   const titleOpacity = useTransform(scrollYProgress, [0, .7], [1, 0])
   const [showBackToTop, setShowBackToTop] = useState(false)
   const [isPastHero, setIsPastHero] = useState(false)
+  const [shouldClosePip, setShouldClosePip] = useState(false)
 
   useEffect(() => {
     const checkScroll = () => {
@@ -78,11 +79,14 @@ function App() {
       if (manifestoRef.current && logoRef.current) {
         const manifestoTop = manifestoRef.current.getBoundingClientRect().top
         const logoBottom = logoRef.current.getBoundingClientRect().bottom
-        // Transição precisa: a logo passa a transicionar quando sua posição física cruza para o bloco 2
+        // Transição precisa da logo: quando a logo cruza fisicamente para o bloco 2
         setIsPastHero(logoBottom >= manifestoTop)
+        // Fechamento antecipado do PiP: fecha suavemente ao se aproximar do segundo bloco
+        setShouldClosePip(manifestoTop <= window.innerHeight * 0.75)
       } else if (heroRef.current) {
         const heroBottom = heroRef.current.getBoundingClientRect().bottom
         setIsPastHero(heroBottom <= 60)
+        setShouldClosePip(heroBottom <= window.innerHeight * 0.75)
       }
     }
     window.addEventListener('scroll', checkScroll, { passive: true })
@@ -237,7 +241,7 @@ function App() {
     </section>
 
     <HoverFooter />
-    <PipVideoPlayer closeOnTrigger={isPastHero} />
+    <PipVideoPlayer closeOnTrigger={shouldClosePip} />
 
     <AnimatePresence>
       {showBackToTop && (

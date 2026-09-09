@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Pause, Play, SkipForward, Volume2, VolumeX, X, Minimize2, Maximize2 } from 'lucide-react'
 
 const BASE = import.meta.env.BASE_URL
@@ -46,50 +47,73 @@ export default function PipVideoPlayer({ closeOnTrigger }: PipVideoPlayerProps =
     else { element.pause(); setPlaying(false) }
   }
 
-  if (!open) {
-    return <button className="pip-reopen" onClick={() => setOpen(true)} aria-label="Abrir Aftermovies">● &nbsp; Aftermovies ALMA</button>
-  }
-
   return (
-    <div className={`pip-card ${minimized ? 'pip-card--minimized' : ''}`}>
-      {minimized ? (
-        <div className="pip-mini">
-          <button className="pip-mini__title" onClick={() => setMinimized(false)}><span>●</span> ALMA</button>
-          <div className="pip-mini__actions">
-            <button onClick={() => setMinimized(false)} aria-label="Expandir"><Maximize2 size={13} /></button>
-            <button onClick={() => setOpen(false)} aria-label="Fechar"><X size={13} /></button>
-          </div>
-        </div>
-      ) : (
-        <div className="pip-frame">
-          <video
-            ref={videoRef}
-            src={video.src}
-            poster={video.poster}
-            autoPlay
-            muted={muted}
-            playsInline
-            onEnded={next}
-            onTimeUpdate={() => {
-              if (videoRef.current?.duration) setProgress(videoRef.current.currentTime / videoRef.current.duration * 100)
-            }}
-          />
-          <div className="pip-shade pip-shade--top" />
-          <div className="pip-shade pip-shade--bottom" />
-          <div className="pip-progress"><span style={{ width: `${progress}%` }} /></div>
-          <div className="pip-header">
-            <span className="pip-badge"><i /> RECAP</span>
-            <div><button onClick={() => setMinimized(true)} aria-label="Minimizar"><Minimize2 size={13} /></button><button onClick={() => setOpen(false)} aria-label="Fechar"><X size={13} /></button></div>
-          </div>
-          <div className="pip-footer">
-            <div className="pip-info"><small>{video.year}</small><strong>{video.title}</strong></div>
-            <div className="pip-controls">
-              <div><button onClick={togglePlay} aria-label={playing ? 'Pausar' : 'Reproduzir'}>{playing ? <Pause size={13} /> : <Play size={13} />}</button><button onClick={() => setMuted((value) => !value)} aria-label={muted ? 'Ativar som' : 'Desativar som'}>{muted ? <VolumeX size={13} /> : <Volume2 size={13} />}</button></div>
-              <button className="pip-next" onClick={next} aria-label="Próximo vídeo">Próximo <SkipForward size={11} /></button>
+    <AnimatePresence mode="wait">
+      {open ? (
+        <motion.div
+          key="pip-card"
+          className={`pip-card ${minimized ? 'pip-card--minimized' : ''}`}
+          initial={{ opacity: 0, scale: 0.86, y: 25 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.82, y: 32, filter: 'blur(4px)' }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          style={{ transformOrigin: 'bottom right' }}
+        >
+          {minimized ? (
+            <div className="pip-mini">
+              <button className="pip-mini__title" onClick={() => setMinimized(false)}><span>●</span> ALMA</button>
+              <div className="pip-mini__actions">
+                <button onClick={() => setMinimized(false)} aria-label="Expandir"><Maximize2 size={13} /></button>
+                <button onClick={() => setOpen(false)} aria-label="Fechar"><X size={13} /></button>
+              </div>
             </div>
-          </div>
-        </div>
+          ) : (
+            <div className="pip-frame">
+              <video
+                ref={videoRef}
+                src={video.src}
+                poster={video.poster}
+                autoPlay
+                muted={muted}
+                playsInline
+                onEnded={next}
+                onTimeUpdate={() => {
+                  if (videoRef.current?.duration) setProgress(videoRef.current.currentTime / videoRef.current.duration * 100)
+                }}
+              />
+              <div className="pip-shade pip-shade--top" />
+              <div className="pip-shade pip-shade--bottom" />
+              <div className="pip-progress"><span style={{ width: `${progress}%` }} /></div>
+              <div className="pip-header">
+                <span className="pip-badge"><i /> RECAP</span>
+                <div><button onClick={() => setMinimized(true)} aria-label="Minimizar"><Minimize2 size={13} /></button><button onClick={() => setOpen(false)} aria-label="Fechar"><X size={13} /></button></div>
+              </div>
+              <div className="pip-footer">
+                <div className="pip-info"><small>{video.year}</small><strong>{video.title}</strong></div>
+                <div className="pip-controls">
+                  <div><button onClick={togglePlay} aria-label={playing ? 'Pausar' : 'Reproduzir'}>{playing ? <Pause size={13} /> : <Play size={13} />}</button><button onClick={() => setMuted((value) => !value)} aria-label={muted ? 'Ativar som' : 'Desativar som'}>{muted ? <VolumeX size={13} /> : <Volume2 size={13} />}</button></div>
+                  <button className="pip-next" onClick={next} aria-label="Próximo vídeo">Próximo <SkipForward size={11} /></button>
+                </div>
+              </div>
+            </div>
+          )}
+        </motion.div>
+      ) : (
+        <motion.button
+          key="pip-reopen"
+          className="pip-reopen"
+          onClick={() => setOpen(true)}
+          aria-label="Abrir Aftermovies"
+          initial={{ opacity: 0, scale: 0.88, y: 15 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.88, y: 15 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        >
+          ● &nbsp; Aftermovies ALMA
+        </motion.button>
       )}
-    </div>
+    </AnimatePresence>
   )
 }
