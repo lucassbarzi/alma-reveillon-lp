@@ -213,9 +213,11 @@ em{font-style:normal;color:#2b829d}
 .accommodation-card:hover{transform:translateY(-5px);box-shadow:0 28px 65px rgba(3,18,14,.22)}
 .accommodation-card__open{appearance:none;width:100%;border:0;padding:0;background:none;color:inherit;text-align:left;cursor:pointer}
 .accommodation-card__visual{height:285px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.accommodation-card__visual>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.72) saturate(.9)}
+.accommodation-card__visual>span,.accommodation-card__visual>small{position:relative;z-index:2;text-shadow:0 2px 8px rgba(0,0,0,.65)}
 .accommodation-card__visual::after,.accommodation-placeholder::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 25%,rgba(255,255,255,.08),transparent 70%)}
-.accommodation-card__visual>span{font-size:11px;letter-spacing:.25em;position:relative;z-index:1}
-.accommodation-card__visual>small{font-size:9px;letter-spacing:.25em;position:relative;z-index:1}
+.accommodation-card__visual>span{font-size:11px;letter-spacing:.25em;position:relative;z-index:2}
+.accommodation-card__visual>small{font-size:9px;letter-spacing:.25em;position:relative;z-index:2}
 .accommodation-placeholder--pedra-de-sal{background:radial-gradient(circle at 72% 24%,#f4ffc766,transparent 22%),linear-gradient(145deg,#03120e,#0e7c5a)}
 .accommodation-placeholder--pousada-nativa{background:radial-gradient(circle at 22% 70%,#57d2f466,transparent 25%),linear-gradient(145deg,#071a24,#155e75)}
 .accommodation-placeholder--casa-verde{background:radial-gradient(circle at 80% 75%,#7ce57755,transparent 25%),linear-gradient(145deg,#143847,#315e43)}
@@ -235,8 +237,10 @@ em{font-style:normal;color:#2b829d}
 .accommodation-backdrop{position:fixed;inset:0;z-index:300;background:rgba(2,10,15,.78);backdrop-filter:blur(10px);display:grid;place-items:center;padding:32px}
 .accommodation-modal{position:relative;width:min(1120px,94vw);max-height:90vh;overflow:auto;display:grid;grid-template-columns:.92fr 1.08fr;border-radius:28px;background:#eef7f3;color:#143847;box-shadow:0 35px 100px rgba(0,0,0,.45)}
 .accommodation-modal__close{position:absolute;right:18px;top:18px;z-index:4;width:45px;height:45px;border-radius:50%;border:1px solid rgba(20,56,71,.2);background:rgba(244,255,255,.86);color:#143847;display:grid;place-items:center;cursor:pointer}
-.accommodation-modal__visual{min-height:670px;background:#03120e;padding:0}
-.accommodation-modal__visual img{width:100%;height:100%;object-fit:cover}
+.accommodation-modal__visual{min-height:670px;background:#03120e;padding:0;position:relative;overflow:hidden}
+.accommodation-modal__primary-image{width:100%;height:100%;object-fit:cover;display:block}
+.accommodation-modal__thumbs{position:absolute;left:18px;right:18px;bottom:18px;display:flex;gap:8px}
+.accommodation-modal__thumbs img{width:82px;height:58px;object-fit:cover;border:1px solid rgba(255,255,255,.55);border-radius:7px;box-shadow:0 5px 16px rgba(0,0,0,.3)}
 .accommodation-placeholder{height:100%;min-height:670px;display:flex;flex-direction:column;justify-content:flex-end;padding:42px;color:#fff;position:relative}
 .accommodation-placeholder>*{position:relative;z-index:1}
 .accommodation-placeholder>span{font-size:9px;letter-spacing:.23em}

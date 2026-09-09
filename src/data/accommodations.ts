@@ -14,6 +14,8 @@ export interface Accommodation {
 export const googleMapsSearchUrl = (query: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`
 
+const asset = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
+
 export const accommodations: Accommodation[] = [
   {
     id: 'pedra-de-sal',
@@ -37,8 +39,9 @@ export const accommodations: Accommodation[] = [
     amenities: ['Ar-condicionado', 'Banheiro privativo', 'Chuveiro quente', 'Frigobar', 'Café da manhã'],
     location: 'Rua do Porto · Boipeba',
     mapsQuery: 'Pousada Nativa Boipeba, Cairu, Bahia',
-    images: [],
-    imageTodo: 'Fotos oficiais pendentes',
+    images: [asset('/media/accommodations/nativa-room-rua-porto.webp')],
+    // Foto vinculada à Pousada Nativa da Rua do Porto; ampliar galeria quando houver acervo oficial.
+    imageTodo: 'Galeria oficial pendente',
   },
   {
     id: 'casa-verde',
@@ -49,7 +52,11 @@ export const accommodations: Accommodation[] = [
     amenities: ['Ar-condicionado', 'Banheiro privativo', 'Wi-Fi', 'Café da manhã'],
     location: 'Praça Santo Antônio · Boipeba',
     mapsQuery: 'Pousada Casa Verde Boipeba, Praça Santo Antônio, Cairu, Bahia',
-    images: [],
+    images: [
+      asset('/media/accommodations/casa-verde-exterior.webp'),
+      asset('/media/accommodations/casa-verde-room.webp'),
+      asset('/media/accommodations/casa-verde-facade.webp'),
+    ],
     imageTodo: 'Fotos oficiais pendentes',
   },
 ]

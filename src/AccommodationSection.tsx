@@ -34,6 +34,7 @@ export default function AccommodationSection({ ticketsUrl }: { ticketsUrl: strin
               <article className={`accommodation-card accommodation-card--${item.id}`} onClick={() => setSelected(item)}>
                 <button className="accommodation-card__open" onClick={() => setSelected(item)} aria-label={`Ver detalhes de ${item.name}`}>
                   <div className={`accommodation-card__visual accommodation-placeholder--${item.id}`}>
+                    {item.images[0] && <img src={item.images[0]} alt={`${item.name} em Boipeba`} />}
                     <span>0{index + 1}</span><small>ALMA · BOIPEBA</small>
                   </div>
                   <div className="accommodation-card__body">

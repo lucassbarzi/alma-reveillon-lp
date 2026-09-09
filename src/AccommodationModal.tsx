@@ -59,7 +59,12 @@ export default function AccommodationModal({ accommodation, ticketsUrl, onClose 
           >
             <button ref={closeRef} className="accommodation-modal__close" onClick={onClose} aria-label="Fechar detalhes da hospedagem"><X size={20} /></button>
             <div className="accommodation-modal__visual">
-              {accommodation.images.length ? accommodation.images.slice(0, 3).map((image) => <img key={image} src={image} alt={`${accommodation.name} em Boipeba`} />) : (
+              {accommodation.images.length ? (
+                <>
+                  <img className="accommodation-modal__primary-image" src={accommodation.images[0]} alt={`${accommodation.name} em Boipeba`} />
+                  {accommodation.images.length > 1 && <div className="accommodation-modal__thumbs">{accommodation.images.slice(1, 3).map((image) => <img key={image} src={image} alt={`${accommodation.name} em Boipeba`} />)}</div>}
+                </>
+              ) : (
                 <div className={`accommodation-placeholder accommodation-placeholder--${accommodation.id}`}>
                   <span>ALMA · BOIPEBA</span><strong>{accommodation.name}</strong><small>{accommodation.imageTodo}</small>
                 </div>
