@@ -26,9 +26,7 @@ export const accommodations: Accommodation[] = [
     amenities: ['Ar-condicionado', 'TV', 'Banho quente', 'Café da manhã', 'Limpeza diária'],
     location: 'Rua das Pedras · sobreloja Oxente',
     mapsQuery: 'Oxente Boipeba, Ilha de Boipeba, Cairu, Bahia',
-    images: [],
-    // TODO: substituir por fotos oficiais Pedra de Sal
-    imageTodo: 'Fotos oficiais pendentes',
+    images: [asset('/media/accommodations/pedra-de-sal.webp')],
   },
   {
     id: 'pousada-nativa',
@@ -39,9 +37,10 @@ export const accommodations: Accommodation[] = [
     amenities: ['Ar-condicionado', 'Banheiro privativo', 'Chuveiro quente', 'Frigobar', 'Café da manhã'],
     location: 'Rua do Porto · Boipeba',
     mapsQuery: 'Pousada Nativa Boipeba, Cairu, Bahia',
-    images: [asset('/media/accommodations/nativa-room-rua-porto.webp')],
-    // Foto vinculada à Pousada Nativa da Rua do Porto; ampliar galeria quando houver acervo oficial.
-    imageTodo: 'Galeria oficial pendente',
+    images: [
+      asset('/media/accommodations/pousada-nativa.webp'),
+      asset('/media/accommodations/nativa-room-rua-porto.webp'),
+    ],
   },
   {
     id: 'casa-verde',
@@ -53,10 +52,10 @@ export const accommodations: Accommodation[] = [
     location: 'Praça Santo Antônio · Boipeba',
     mapsQuery: 'Pousada Casa Verde Boipeba, Praça Santo Antônio, Cairu, Bahia',
     images: [
+      asset('/media/accommodations/pousada-casa-verde.webp'),
       asset('/media/accommodations/casa-verde-exterior.webp'),
       asset('/media/accommodations/casa-verde-room.webp'),
       asset('/media/accommodations/casa-verde-facade.webp'),
     ],
-    imageTodo: 'Fotos oficiais pendentes',
   },
 ]
