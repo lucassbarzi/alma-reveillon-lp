@@ -222,13 +222,14 @@ export default function SilkShader({ className = '', variant = 'openbar' }: Silk
       if (started) return
       started = true
 
-      const gl = canvas.getContext('webgl', { alpha: false, antialias: false, preserveDrawingBuffer: false, powerPreference: 'low-power', failIfMajorPerformanceCaveat: false })
-      if (!gl) { canvas.style.background = variant === 'green' ? '#03120e' : '#051820'; return }
+      const gl = (canvas.getContext('webgl', { alpha: false, antialias: false, preserveDrawingBuffer: false, powerPreference: 'low-power', failIfMajorPerformanceCaveat: false }) ||
+                  canvas.getContext('experimental-webgl', { alpha: false, antialias: false, preserveDrawingBuffer: false })) as WebGLRenderingContext | null
+      if (!gl) return
       glRef.current = gl
 
       // Mobile: render at half resolution for performance
       const isMobile = window.innerWidth <= 780 || ('ontouchstart' in window)
-      const scale = isMobile ? 0.5 : Math.min(window.devicePixelRatio || 1, 1.5)
+      const scale = isMobile ? 0.45 : Math.min(window.devicePixelRatio || 1, 1.25)
 
       const resize = () => {
         const rect = canvas.getBoundingClientRect()
@@ -244,18 +245,18 @@ export default function SilkShader({ className = '', variant = 'openbar' }: Silk
       const vs = gl.createShader(gl.VERTEX_SHADER)!
       gl.shaderSource(vs, VERTEX_SHADER)
       gl.compileShader(vs)
-      if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS)) { canvas.style.background = variant === 'green' ? '#03120e' : '#051820'; return }
+      if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS)) return
 
       const fs = gl.createShader(gl.FRAGMENT_SHADER)!
       gl.shaderSource(fs, FRAGMENT_SHADER)
       gl.compileShader(fs)
-      if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS)) { canvas.style.background = variant === 'green' ? '#03120e' : '#051820'; return }
+      if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS)) return
 
       const program = gl.createProgram()!
       gl.attachShader(program, vs)
       gl.attachShader(program, fs)
       gl.linkProgram(program)
-      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) { canvas.style.background = variant === 'green' ? '#03120e' : '#051820'; return }
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return
       gl.useProgram(program)
       programRef.current = program
 
@@ -325,19 +326,23 @@ export default function SilkShader({ className = '', variant = 'openbar' }: Silk
     }
     }
 
-    // Start immediately if IntersectionObserver not available, otherwise lazy-init
+    // Start with wide rootMargin so it's already running smoothly before coming into view
     if (!('IntersectionObserver' in window)) {
-    startGL()
+      startGL()
     } else {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { startGL(); observer.disconnect() }
-    }, { rootMargin: '200px' })
-    observer.observe(canvas)
-    return () => { observer.disconnect(); cleanup?.() }
+      const observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) { startGL(); observer.disconnect() }
+      }, { rootMargin: '600px' })
+      observer.observe(canvas)
+      return () => { observer.disconnect(); cleanup?.() }
     }
 
     return () => { cleanup?.() }
-    }, [variant])
+  }, [variant])
+
+  const fallbackBg = variant === 'green'
+    ? 'radial-gradient(ellipse at 40% 50%, #0c3e2e 0%, #03120e 100%)'
+    : 'radial-gradient(ellipse at 40% 50%, #0b3d4f 0%, #051820 100%)'
 
   return (
     <canvas
@@ -351,7 +356,8 @@ export default function SilkShader({ className = '', variant = 'openbar' }: Silk
         height: '100%',
         pointerEvents: 'none',
         zIndex: 0,
-        display: 'block'
+        display: 'block',
+        background: fallbackBg
       }}
     />
   )

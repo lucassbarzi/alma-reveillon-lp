@@ -8,7 +8,7 @@ a{color:inherit;text-decoration:none}
    HEADER & AUTOMATIC NEGATIVE SCREEN LOGO SYSTEM
    ========================================================================== */
 .nav{position:fixed;z-index:90;top:0;left:0;width:100%;height:88px;display:flex;align-items:center;justify-content:space-between;padding:0 4vw;pointer-events:none}
-.wordmark{pointer-events:auto;position:fixed;z-index:95;left:50%;top:14px;transform:translateX(-50%);display:block;width:130px;height:60px;overflow:hidden;transition:transform .4s cubic-bezier(.22,1,.36,1);mix-blend-mode:difference}
+.wordmark{pointer-events:auto;position:fixed;z-index:95;left:50%;top:14px;transform:translateX(-50%);display:block;width:130px;height:60px;overflow:hidden;transition:transform .4s cubic-bezier(.22,1,.36,1);mix-blend-mode:difference;filter:drop-shadow(0 2px 12px rgba(0,0,0,0.55))}
 .wordmark img{width:100%;height:100%;object-fit:contain;display:block;filter:none!important;mix-blend-mode:difference}
 .wordmark:hover{transform:translateX(-50%) scale(1.05)}
 
@@ -45,7 +45,7 @@ em{font-style:normal;color:#2b829d}
 .scroll-cue{position:absolute;z-index:3;right:4vw;bottom:18%;display:flex;flex-direction:column;align-items:center;gap:14px;font-size:8px;letter-spacing:.3em}
 
 @media(max-width:780px){
-  .hero-subtitle,.hero p{mix-blend-mode:difference;color:#fff!important}
+  .hero-subtitle,.hero p{mix-blend-mode:normal;color:#143847!important;opacity:.92}
 }
 
 /* ==========================================================================
