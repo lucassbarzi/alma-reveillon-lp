@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion, useReducedMotion, useScroll, useSpring, useTransform } from 'motion/react'
-import { ArrowDown, ArrowRight } from 'lucide-react'
+import { motion, useReducedMotion, useScroll, useSpring, useTransform, AnimatePresence } from 'motion/react'
+import { ArrowDown, ArrowRight, ArrowUp } from 'lucide-react'
 import ExpandableGallery from './components/ui/gallery-animation'
 import StackedGallery from './components/ui/stacked-gallery'
 import PipVideoPlayer from './components/ui/pip-video-player'
@@ -66,6 +66,20 @@ function App() {
   const cloudY = useTransform(scrollYProgress, [0, 1], ['0%', '32%'])
   const titleY = useSpring(useTransform(scrollYProgress, [0, .8], ['0%', '12%']), { stiffness: 55, damping: 28 })
   const titleOpacity = useTransform(scrollYProgress, [0, .7], [1, 0])
+  const [showBackToTop, setShowBackToTop] = useState(false)
+
+  useEffect(() => {
+    const checkScroll = () => {
+      setShowBackToTop(window.scrollY > 400)
+    }
+    window.addEventListener('scroll', checkScroll, { passive: true })
+    checkScroll()
+    return () => window.removeEventListener('scroll', checkScroll)
+  }, [])
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   return <main>
     <header className="nav">
@@ -192,8 +206,27 @@ function App() {
     </section>
 
     <HoverFooter />
-
     <PipVideoPlayer />
+
+    <AnimatePresence>
+      {showBackToTop && (
+        <motion.button
+          type="button"
+          onClick={scrollToTop}
+          className="back-to-top"
+          initial={{ opacity: 0, y: 16, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 16, scale: 0.9 }}
+          whileHover={{ scale: 1.06, y: -2 }}
+          whileTap={{ scale: 0.94 }}
+          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          aria-label="Voltar ao topo"
+        >
+          <ArrowUp size={16} />
+          <span>TOPO</span>
+        </motion.button>
+      )}
+    </AnimatePresence>
   </main>
 }
 export default App

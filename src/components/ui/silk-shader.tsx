@@ -215,12 +215,17 @@ export default function SilkShader({ className = '', variant = 'openbar' }: Silk
     const gl = canvas.getContext('webgl', { alpha: false, antialias: false, preserveDrawingBuffer: false })
     if (!gl) return
 
-    const dpr = Math.min(window.devicePixelRatio, 2)
+    const isMobile = window.innerWidth <= 780 || ('ontouchstart' in window)
+    const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 1.5)
     const resize = () => {
       const rect = canvas.getBoundingClientRect()
-      canvas.width = rect.width * dpr
-      canvas.height = rect.height * dpr
-      gl.viewport(0, 0, canvas.width, canvas.height)
+      const w = Math.round((rect.width || window.innerWidth) * dpr)
+      const h = Math.round((rect.height || window.innerHeight) * dpr)
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w
+        canvas.height = h
+        gl.viewport(0, 0, w, h)
+      }
     }
     resize()
     window.addEventListener('resize', resize)
