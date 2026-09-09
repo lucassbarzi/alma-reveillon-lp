@@ -29,9 +29,9 @@ const gallery = [
 ]
 const experienceCards = [
   { title: 'O caminho', subtitle: 'Chegar a Boipeba já muda o ritmo. O trecho final acontece entre estrada, mar e caminhos de areia.', image: asset('/media/curadoria/carrossel-caminho.webp'), alt: 'Chegada à ilha pelo cais e pelo mar' },
-  { title: 'O dia', subtitle: 'Praias, mata e água morna antes de a primeira batida atravessar a noite.', image: asset('/media/curadoria/card-dia-lifestyle.webp'), alt: 'Tarde ensolarada e brinde à beira da praia em Boipeba' },
+  { title: 'O dia', subtitle: 'Praias, mata e água morna antes de a primeira batida atravessar a noite.', image: asset('/media/curadoria/card-dia-lancha.webp'), alt: 'Grupo de amigas brindando de lancha nas águas cristalinas de Boipeba' },
   { title: 'A noite', subtitle: 'Luzes, música e o mar como cenário até o amanhecer.', image: asset('/media/curadoria/card-noite-festa.webp'), alt: 'Pista lotada do ALMA iluminada durante a festa noturna' },
-  { title: 'A virada', subtitle: 'Fogos sobre a Praia da Cueira para brindar a chegada de 2027.', image: asset('/media/curadoria/card-virada-fogos-hd.webp'), alt: 'Espetáculo de fogos de artifício sobre a Praia da Cueira' },
+  { title: 'A virada', subtitle: 'Fogos sobre a Praia da Cueira para brindar a chegada de 2027.', image: asset('/media/curadoria/card-virada-fogos-novo.webp'), alt: 'Queima de fogos de artifício dourada e iluminada na virada de ano' },
 ]
 
 const faqs = [
