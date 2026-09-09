@@ -179,7 +179,7 @@ const footerLinks = [
     title: 'Informações',
     links: [
       { label: 'Dúvidas Frequentes', href: '#faq' },
-      { label: 'Como Chegar', href: 'https://www.openstreetmap.org/?mlat=-13.592643&mlon=-38.913152#map=16/-13.592643/-38.913152', external: true },
+      { label: 'Como Chegar', href: 'https://www.google.com/maps/search/?api=1&query=Praia+da+Cueira,+Boipeba,+BA', external: true },
       { label: 'Ingressos Sympla', href: TICKETS, pulse: true, external: true },
     ],
   },
