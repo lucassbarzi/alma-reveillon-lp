@@ -276,7 +276,7 @@ em{font-style:normal;color:#2b829d}
 /* ==========================================================================
    HOVER FOOTER SYSTEM (NUR/UI MODELO ADAPTADO ALMA)
    ========================================================================== */
-.hover-footer-container{padding:30px 20px 40px;background:#143847}
+.hover-footer-container{padding:0 20px 40px;background:#143847;margin-top:-20px;position:relative;z-index:20}
 .hover-footer-card{position:relative;background:linear-gradient(180deg,#0a2533 0%,#05151e 100%);color:#fff;border-radius:28px;overflow:hidden;box-shadow:0 24px 60px rgba(7,35,48,.25);border:1px solid rgba(255,255,255,.1)}
 .hover-footer-content{max-width:1240px;margin:0 auto;padding:64px 48px 36px;position:relative;z-index:20}
 .hover-footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:48px;padding-bottom:48px}
@@ -417,7 +417,7 @@ em{font-style:normal;color:#2b829d}
   .back-to-top{left:12px;bottom:12px;padding:8px 12px;font-size:10px}
 }
 @media(max-width:640px){
-  .hover-footer-container{padding:12px 10px 20px}
+  .hover-footer-container{padding:0 10px 20px}
   .hover-footer-content{padding:40px 20px 24px}
   .hover-footer-grid{grid-template-columns:1fr;gap:32px}
   .hover-footer-bottom{flex-direction:column;align-items:flex-start;gap:16px}
