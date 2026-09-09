@@ -30,7 +30,7 @@ const gallery = [
 const experienceCards = [
   { title: 'O caminho', subtitle: 'Chegar a Boipeba já muda o ritmo. O trecho final acontece entre estrada, mar e caminhos de areia.', image: asset('/media/curadoria/carrossel-caminho.webp'), alt: 'Chegada à ilha pelo cais e pelo mar' },
   { title: 'O dia', subtitle: 'Praias, mata e água morna antes de a primeira batida atravessar a noite.', image: asset('/media/curadoria/carrossel-dia.webp'), alt: 'Praia de areia clara, coqueiros e mar azul' },
-  { title: 'A noite', subtitle: 'Luzes, música e o mar como cenário até o amanhecer.', image: asset('/media/curadoria/card-noite.webp'), alt: 'Pista do ALMA iluminada à noite, vista de cima' },
+  { title: 'A noite', subtitle: 'Luzes, música e o mar como cenário até o amanhecer.', image: asset('/media/curadoria/card-noite-festa.webp'), alt: 'Pista lotada do ALMA iluminada durante a festa noturna' },
   { title: 'A virada', subtitle: 'Fogos sobre a Praia da Cueira para brindar a chegada de 2027.', image: asset('/media/curadoria/card-virada-fogos.webp'), alt: 'Fogos de artifício sobre a festa do ALMA na praia' },
 ]
 
@@ -83,11 +83,11 @@ function App() {
 
   return <main>
     <header className="nav">
-      <a className="wordmark" href="#top" aria-label="ALMA, início">
-        <img src={asset('/brand/alma-logo-trimmed.png')} alt="ALMA Réveillon 2027" />
-      </a>
       <CircularMenu ticketsUrl={TICKETS} instagramUrl={INSTAGRAM} />
     </header>
+    <a className="wordmark" href="#top" aria-label="ALMA, início">
+      <img src={asset('/brand/alma-logo-trimmed.png')} alt="ALMA Réveillon 2027" />
+    </a>
 
     <section className="hero" id="top" ref={heroRef}>
       <video autoPlay muted loop playsInline preload="auto" poster={asset('/media/alma-hero-poster.jpg')} aria-label="Paisagens de Boipeba entre nuvens ensolaradas">
