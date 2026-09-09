@@ -371,8 +371,8 @@ em{font-style:normal;color:#2b829d}
   .nav{height:72px;padding:0 20px}
   .wordmark{position:static;transform:none;width:105px;height:48px}
   .wordmark:hover{transform:none}
-  .hero{height:100svh;min-height:600px}
-  .hero-copy{padding:85px 20px 40px;justify-content:flex-start}
+  .hero{height:100svh;min-height:680px}
+  .hero-copy{padding:235px 20px 40px;justify-content:flex-start}
   .hero h1{font-size:clamp(2.55rem,11.5vw,3.8rem);line-height:1.05;margin:14px 0 16px}
   .hero p{margin:0 0 22px;font-size:14.5px;line-height:1.55}
   .hero .ticket{padding:7px 7px 7px 20px;min-width:180px}
