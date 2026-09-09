@@ -207,42 +207,57 @@ export default function SilkShader({ className = '', variant = 'openbar' }: Silk
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const rafRef = useRef<number>(0)
   const startTimeRef = useRef<number>(0)
+  const glRef = useRef<WebGLRenderingContext | null>(null)
+  const programRef = useRef<WebGLProgram | null>(null)
 
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const gl = canvas.getContext('webgl', { alpha: false, antialias: false, preserveDrawingBuffer: false })
-    if (!gl) return
+    // Use IntersectionObserver to only start WebGL when visible
+    let started = false
+    let cleanup: (() => void) | null = null
 
-    const isMobile = window.innerWidth <= 780 || ('ontouchstart' in window)
-    const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 1.5)
-    const resize = () => {
-      const rect = canvas.getBoundingClientRect()
-      const w = Math.round((rect.width || window.innerWidth) * dpr)
-      const h = Math.round((rect.height || window.innerHeight) * dpr)
-      if (canvas.width !== w || canvas.height !== h) {
-        canvas.width = w
-        canvas.height = h
-        gl.viewport(0, 0, w, h)
+    const startGL = () => {
+      if (started) return
+      started = true
+
+      const gl = canvas.getContext('webgl', { alpha: false, antialias: false, preserveDrawingBuffer: false, powerPreference: 'low-power', failIfMajorPerformanceCaveat: false })
+      if (!gl) { canvas.style.background = variant === 'green' ? '#03120e' : '#051820'; return }
+      glRef.current = gl
+
+      // Mobile: render at half resolution for performance
+      const isMobile = window.innerWidth <= 780 || ('ontouchstart' in window)
+      const scale = isMobile ? 0.5 : Math.min(window.devicePixelRatio || 1, 1.5)
+
+      const resize = () => {
+        const rect = canvas.getBoundingClientRect()
+        const w = Math.max(1, Math.round(rect.width * scale))
+        const h = Math.max(1, Math.round(rect.height * scale))
+        if (canvas.width !== w || canvas.height !== h) {
+          canvas.width = w; canvas.height = h; gl.viewport(0, 0, w, h)
+        }
       }
-    }
-    resize()
-    window.addEventListener('resize', resize)
+      resize()
+      window.addEventListener('resize', resize)
 
-    const vs = gl.createShader(gl.VERTEX_SHADER)!
-    gl.shaderSource(vs, VERTEX_SHADER)
-    gl.compileShader(vs)
+      const vs = gl.createShader(gl.VERTEX_SHADER)!
+      gl.shaderSource(vs, VERTEX_SHADER)
+      gl.compileShader(vs)
+      if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS)) { canvas.style.background = variant === 'green' ? '#03120e' : '#051820'; return }
 
-    const fs = gl.createShader(gl.FRAGMENT_SHADER)!
-    gl.shaderSource(fs, FRAGMENT_SHADER)
-    gl.compileShader(fs)
+      const fs = gl.createShader(gl.FRAGMENT_SHADER)!
+      gl.shaderSource(fs, FRAGMENT_SHADER)
+      gl.compileShader(fs)
+      if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS)) { canvas.style.background = variant === 'green' ? '#03120e' : '#051820'; return }
 
-    const program = gl.createProgram()!
-    gl.attachShader(program, vs)
-    gl.attachShader(program, fs)
-    gl.linkProgram(program)
-    gl.useProgram(program)
+      const program = gl.createProgram()!
+      gl.attachShader(program, vs)
+      gl.attachShader(program, fs)
+      gl.linkProgram(program)
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) { canvas.style.background = variant === 'green' ? '#03120e' : '#051820'; return }
+      gl.useProgram(program)
+      programRef.current = program
 
     const vertices = new Float32Array([-1, -1, 3, -1, -1, 3])
     const buffer = gl.createBuffer()
@@ -286,19 +301,21 @@ export default function SilkShader({ className = '', variant = 'openbar' }: Silk
 
     startTimeRef.current = performance.now()
 
-    const render = () => {
-      if (document.hidden) {
-        rafRef.current = requestAnimationFrame(render)
-        return
-      }
-      const time = (performance.now() - startTimeRef.current) / 1000 * (green ? 0.84 : 0.22)
+    // Mobile: throttle to 30fps for battery/heat
+    const interval = isMobile ? 33 : 0
+    let lastFrame = 0
+    const render = (now: number) => {
+      if (document.hidden) { rafRef.current = requestAnimationFrame(render); return }
+      if (now - lastFrame < interval) { rafRef.current = requestAnimationFrame(render); return }
+      lastFrame = now
+      const time = (now - startTimeRef.current) / 1000 * (green ? 0.84 : 0.22)
       gl.uniform4f(uScene, canvas.width, canvas.height, time, 4.0)
       gl.drawArrays(gl.TRIANGLES, 0, 3)
       rafRef.current = requestAnimationFrame(render)
     }
     rafRef.current = requestAnimationFrame(render)
 
-    return () => {
+    cleanup = () => {
       cancelAnimationFrame(rafRef.current)
       window.removeEventListener('resize', resize)
       gl.deleteProgram(program)
@@ -306,7 +323,21 @@ export default function SilkShader({ className = '', variant = 'openbar' }: Silk
       gl.deleteShader(fs)
       gl.deleteBuffer(buffer)
     }
-  }, [variant])
+    }
+
+    // Start immediately if IntersectionObserver not available, otherwise lazy-init
+    if (!('IntersectionObserver' in window)) {
+    startGL()
+    } else {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { startGL(); observer.disconnect() }
+    }, { rootMargin: '200px' })
+    observer.observe(canvas)
+    return () => { observer.disconnect(); cleanup?.() }
+    }
+
+    return () => { cleanup?.() }
+    }, [variant])
 
   return (
     <canvas

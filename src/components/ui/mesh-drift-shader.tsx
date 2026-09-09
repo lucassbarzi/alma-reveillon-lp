@@ -205,32 +205,43 @@ export default function MeshDriftShader({ className = '' }: MeshDriftShaderProps
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const gl = canvas.getContext('webgl', { alpha: false, antialias: false, preserveDrawingBuffer: false })
-    if (!gl) return
+    let started = false
+    let cleanup: (() => void) | null = null
 
-    const dpr = Math.min(window.devicePixelRatio, 2)
-    const resize = () => {
-      const rect = canvas.getBoundingClientRect()
-      canvas.width = rect.width * dpr
-      canvas.height = rect.height * dpr
-      gl.viewport(0, 0, canvas.width, canvas.height)
-    }
-    resize()
-    window.addEventListener('resize', resize)
+    const startGL = () => {
+      if (started) return
+      started = true
 
-    const vs = gl.createShader(gl.VERTEX_SHADER)!
-    gl.shaderSource(vs, VERTEX_SHADER)
-    gl.compileShader(vs)
+      const gl = canvas.getContext('webgl', { alpha: false, antialias: false, preserveDrawingBuffer: false, powerPreference: 'low-power', failIfMajorPerformanceCaveat: false })
+      if (!gl) { canvas.style.background = '#d8edf2'; return }
 
-    const fs = gl.createShader(gl.FRAGMENT_SHADER)!
-    gl.shaderSource(fs, FRAGMENT_SHADER)
-    gl.compileShader(fs)
+      const isMobile = window.innerWidth <= 780 || ('ontouchstart' in window)
+      const scale = isMobile ? 0.5 : Math.min(window.devicePixelRatio || 1, 1.5)
+      const resize = () => {
+        const rect = canvas.getBoundingClientRect()
+        const w = Math.max(1, Math.round(rect.width * scale))
+        const h = Math.max(1, Math.round(rect.height * scale))
+        if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; gl.viewport(0, 0, w, h) }
+      }
+      resize()
+      window.addEventListener('resize', resize)
 
-    const program = gl.createProgram()!
-    gl.attachShader(program, vs)
-    gl.attachShader(program, fs)
-    gl.linkProgram(program)
-    gl.useProgram(program)
+      const vs = gl.createShader(gl.VERTEX_SHADER)!
+      gl.shaderSource(vs, VERTEX_SHADER)
+      gl.compileShader(vs)
+      if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS)) { canvas.style.background = '#d8edf2'; return }
+
+      const fs = gl.createShader(gl.FRAGMENT_SHADER)!
+      gl.shaderSource(fs, FRAGMENT_SHADER)
+      gl.compileShader(fs)
+      if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS)) { canvas.style.background = '#d8edf2'; return }
+
+      const program = gl.createProgram()!
+      gl.attachShader(program, vs)
+      gl.attachShader(program, fs)
+      gl.linkProgram(program)
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) { canvas.style.background = '#d8edf2'; return }
+      gl.useProgram(program)
 
     const vertices = new Float32Array([-1, -1, 3, -1, -1, 3])
     const buffer = gl.createBuffer()
@@ -268,26 +279,39 @@ export default function MeshDriftShader({ className = '' }: MeshDriftShaderProps
 
     startTimeRef.current = performance.now()
 
-    const render = () => {
-      if (document.hidden) {
+      const interval = isMobile ? 33 : 0
+      let lastFrame = 0
+      const render = (now: number) => {
+        if (document.hidden) { rafRef.current = requestAnimationFrame(render); return }
+        if (now - lastFrame < interval) { rafRef.current = requestAnimationFrame(render); return }
+        lastFrame = now
+        const time = (now - startTimeRef.current) / 1000 * -1.37
+        gl.uniform4f(uScene, canvas.width, canvas.height, time, 4.0)
+        gl.drawArrays(gl.TRIANGLES, 0, 3)
         rafRef.current = requestAnimationFrame(render)
-        return
       }
-      const time = (performance.now() - startTimeRef.current) / 1000 * -1.37
-      gl.uniform4f(uScene, canvas.width, canvas.height, time, 4.0)
-      gl.drawArrays(gl.TRIANGLES, 0, 3)
       rafRef.current = requestAnimationFrame(render)
-    }
-    rafRef.current = requestAnimationFrame(render)
 
-    return () => {
-      cancelAnimationFrame(rafRef.current)
-      window.removeEventListener('resize', resize)
-      gl.deleteProgram(program)
-      gl.deleteShader(vs)
-      gl.deleteShader(fs)
-      gl.deleteBuffer(buffer)
+      cleanup = () => {
+        cancelAnimationFrame(rafRef.current)
+        window.removeEventListener('resize', resize)
+        gl.deleteProgram(program)
+        gl.deleteShader(vs)
+        gl.deleteShader(fs)
+        gl.deleteBuffer(buffer)
+      }
     }
+
+    if (!('IntersectionObserver' in window)) {
+      startGL()
+    } else {
+      const observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) { startGL(); observer.disconnect() }
+      }, { rootMargin: '200px' })
+      observer.observe(canvas)
+      return () => { observer.disconnect(); cleanup?.() }
+    }
+    return () => { cleanup?.() }
   }, [])
 
   return (
