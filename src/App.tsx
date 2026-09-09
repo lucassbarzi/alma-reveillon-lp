@@ -237,7 +237,7 @@ function App() {
     </section>
 
     <HoverFooter />
-    <PipVideoPlayer />
+    <PipVideoPlayer closeOnTrigger={isPastHero} />
 
     <AnimatePresence>
       {showBackToTop && (

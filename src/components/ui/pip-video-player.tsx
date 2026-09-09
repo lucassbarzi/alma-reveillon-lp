@@ -7,7 +7,11 @@ const VIDEOS = [
   { id: 'alma-2024', title: 'ALMA Highlights', year: 'Edição 2025', src: `${BASE}media/pip/alma-2024-reels.mp4`, poster: `${BASE}media/pip/alma-2024-reels-poster.jpg` },
 ]
 
-export default function PipVideoPlayer() {
+interface PipVideoPlayerProps {
+  closeOnTrigger?: boolean
+}
+
+export default function PipVideoPlayer({ closeOnTrigger }: PipVideoPlayerProps = {}) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [open, setOpen] = useState(true)
   const [minimized, setMinimized] = useState(false)
@@ -16,6 +20,12 @@ export default function PipVideoPlayer() {
   const [muted, setMuted] = useState(true)
   const [progress, setProgress] = useState(0)
   const video = VIDEOS[index]
+
+  useEffect(() => {
+    if (closeOnTrigger) {
+      setOpen(false)
+    }
+  }, [closeOnTrigger])
 
   useEffect(() => {
     const element = videoRef.current
