@@ -112,7 +112,7 @@ function App() {
   }
 
   return <main>
-    <header className="nav">
+    <header className={`nav ${isPastHero ? 'nav--scrolled' : 'nav--hero'}`}>
       <a
         ref={logoRef}
         className={`wordmark ${isPastHero ? 'wordmark--scrolled' : 'wordmark--hero'}`}
