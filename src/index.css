@@ -280,6 +280,34 @@ em{font-style:normal;color:#2b829d}
 .notices-grid dl{margin:0}.notices-grid dl div{margin-bottom:14px}.notices-grid dt{font-size:8px;letter-spacing:.18em;color:#7ce577}.notices-grid dd{margin:5px 0 0;color:#fff;font-size:13px;overflow-wrap:anywhere}
 .notice-links{display:flex;gap:8px;margin-top:26px}.notice-links a{background:#f4ffc7;color:#03120e;min-height:44px}
 
+/* Hover Stack Component for Notices */
+.notices-stack-wrap{
+  width:100%;
+  max-width:1180px;
+  margin:40px auto 0;
+  position:relative;
+  overflow:visible;
+  display:flex;
+  justify-content:center;
+}
+.hover-stack-wrapper{
+  position:relative;
+  width:100%;
+  overflow:visible;
+}
+.hover-stack-desktop-container{
+  position:relative;
+  margin:0 auto;
+}
+.hover-stack-card{
+  box-sizing:border-box;
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+}
+.hover-stack-footer{
+  margin-top:auto;
+}
+
 /* Liquid Glass Component & Notice Card */
 .liquid-card-root{
   color:#fff;
@@ -686,6 +714,7 @@ em{font-style:normal;color:#2b829d}
   .notice-payment{grid-template-columns:1fr}
   .notice-links{flex-direction:column}
   .notice-links a{width:100%;min-height:50px}
+  .notices-stack-wrap{margin-top:20px}
 
   /* Liquid notice card mobile */
   .notices-grid article.notice-card--liquid{padding:8px;min-height:380px}
