@@ -134,7 +134,9 @@ export function HoverStack({
                 {card.content ? card.content : <p style={{ margin: 0, fontSize: "16px", lineHeight: 1.4 }}>“{card.quote}”</p>}
               </div>
 
-              <CardFooter index={index} label={card.footerLabel} isHovered={isHovered} />
+              {card.footerLabel && (
+                <CardFooter index={index} label={card.footerLabel} isHovered={isHovered} />
+              )}
             </div>
           );
         })}

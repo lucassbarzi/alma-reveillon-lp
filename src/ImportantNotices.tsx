@@ -1,18 +1,17 @@
 import { motion } from 'motion/react'
 import { ArrowUpRight, CheckCircle2 } from 'lucide-react'
 import HoverStack, { type HoverStackCard } from './components/ui/hover-stack'
+import SilkShader from './components/ui/silk-shader'
 
 export default function ImportantNotices({ ticketsUrl, instagramUrl }: { ticketsUrl: string; instagramUrl: string }) {
   const noticeCards: HoverStackCard[] = [
     {
       id: 1,
-      tag: '01 · CHEGADA',
       title: 'CHEGA DIA 28 OU 29?',
-      bg: 'linear-gradient(165deg, #0d2836 0%, #061722 100%)',
+      bg: 'linear-gradient(165deg, rgba(13, 40, 54, 0.82) 0%, rgba(6, 23, 34, 0.88) 100%)',
       borderColor: 'rgba(87, 210, 244, 0.35)',
-      footerLabel: 'Full Pass',
       content: (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <p style={{ fontSize: '14px', lineHeight: 1.6, color: 'rgba(255,255,255,0.85)', margin: 0, textWrap: 'balance' }}>
             Comprou o Full Pass? Sem stress. Seu kit de acesso ficará reservado em seu nome até o dia da sua chegada.
           </p>
@@ -27,11 +26,9 @@ export default function ImportantNotices({ ticketsUrl, instagramUrl }: { tickets
     },
     {
       id: 2,
-      tag: '02 · CONDIÇÕES',
       title: 'PAGAMENTO',
-      bg: 'linear-gradient(165deg, #0e3024 0%, #061912 100%)',
+      bg: 'linear-gradient(165deg, rgba(14, 48, 36, 0.82) 0%, rgba(6, 25, 18, 0.88) 100%)',
       borderColor: 'rgba(124, 229, 119, 0.35)',
-      footerLabel: 'Condições',
       content: (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           <div>
@@ -54,11 +51,9 @@ export default function ImportantNotices({ ticketsUrl, instagramUrl }: { tickets
     },
     {
       id: 3,
-      tag: '03 · ATENDIMENTO',
       title: 'CANAIS OFICIAIS',
-      bg: 'linear-gradient(165deg, #132e40 0%, #081a26 100%)',
+      bg: 'linear-gradient(165deg, rgba(19, 46, 64, 0.82) 0%, rgba(8, 26, 38, 0.88) 100%)',
       borderColor: 'rgba(87, 210, 244, 0.35)',
-      footerLabel: 'Oficiais',
       content: (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
@@ -73,12 +68,12 @@ export default function ImportantNotices({ ticketsUrl, instagramUrl }: { tickets
             <span style={{ fontSize: '9px', letterSpacing: '0.18em', color: '#57d2f4', textTransform: 'uppercase', fontWeight: 700 }}>SYMPLA</span>
             <span style={{ fontSize: '13px', color: '#fff' }}>Somente através do link oficial.</span>
           </div>
-          <div style={{ display: 'flex', gap: '8px', marginTop: '6px', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '8px', marginTop: '8px', flexWrap: 'wrap' }}>
             <a
               href={instagramUrl}
               target="_blank"
               rel="noreferrer"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 12px', borderRadius: '999px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.2)', fontSize: '10px', fontWeight: 700, letterSpacing: '0.12em', color: '#fff', textDecoration: 'none' }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '7px 13px', borderRadius: '999px', background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.2)', fontSize: '10.5px', fontWeight: 700, letterSpacing: '0.12em', color: '#fff', textDecoration: 'none' }}
             >
               INSTAGRAM <ArrowUpRight size={12} />
             </a>
@@ -86,7 +81,7 @@ export default function ImportantNotices({ ticketsUrl, instagramUrl }: { tickets
               href={ticketsUrl}
               target="_blank"
               rel="noreferrer"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '6px 12px', borderRadius: '999px', background: '#57d2f4', color: '#04151f', fontSize: '10px', fontWeight: 700, letterSpacing: '0.12em', textDecoration: 'none' }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '7px 13px', borderRadius: '999px', background: '#57d2f4', color: '#04151f', fontSize: '10.5px', fontWeight: 700, letterSpacing: '0.12em', textDecoration: 'none' }}
             >
               SYMPLA <ArrowUpRight size={12} />
             </a>
@@ -96,11 +91,9 @@ export default function ImportantNotices({ ticketsUrl, instagramUrl }: { tickets
     },
     {
       id: 4,
-      tag: '04 · SEGURANÇA',
       title: 'SEGURANÇA',
-      bg: 'linear-gradient(165deg, #18262f 0%, #0b151b 100%)',
+      bg: 'linear-gradient(165deg, rgba(24, 38, 47, 0.82) 0%, rgba(11, 21, 27, 0.88) 100%)',
       borderColor: 'rgba(244, 255, 199, 0.35)',
-      footerLabel: 'Proteção',
       content: (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '9px' }}>
           <p style={{ fontSize: '13px', lineHeight: 1.5, color: 'rgba(255,255,255,0.85)', margin: 0, textWrap: 'balance' }}>
@@ -124,24 +117,33 @@ export default function ImportantNotices({ ticketsUrl, instagramUrl }: { tickets
 
   return (
     <section className="notices-section" id="avisos">
-      <div className="notices-hero">
-        <motion.span className="kicker" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-          ANTES DE FECHAR O PACOTE
-        </motion.span>
-        <motion.h2
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        >
-          OPEN BAR, SIM.<br />
-          <em>OPEN FOOD, NÃO.</em>
-        </motion.h2>
-        <p>Open Bar Premium em todas as festas. Comidas e lanches são vendidos separadamente na nossa praça gastronômica.</p>
-      </div>
+      <SilkShader variant="openbar" />
+      <div
+        className="shader-bg-overlay"
+        style={{
+          background: 'radial-gradient(ellipse at 50% 30%, rgba(3, 18, 14, 0.72) 0%, rgba(3, 18, 14, 0.90) 65%, rgba(3, 18, 14, 0.98) 100%)',
+        }}
+      />
+      <div className="shader-content-layer" style={{ position: 'relative', zIndex: 2, width: '100%' }}>
+        <div className="notices-hero">
+          <motion.span className="kicker" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+            ANTES DE FECHAR O PACOTE
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          >
+            OPEN BAR, SIM.<br />
+            <em>OPEN FOOD, NÃO.</em>
+          </motion.h2>
+          <p>Open Bar Premium em todas as festas. Comidas e lanches são vendidos separadamente na nossa praça gastronômica.</p>
+        </div>
 
-      <div className="notices-stack-wrap">
-        <HoverStack cards={noticeCards} />
+        <div className="notices-stack-wrap">
+          <HoverStack cards={noticeCards} />
+        </div>
       </div>
     </section>
   )
