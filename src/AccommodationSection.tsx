@@ -19,7 +19,7 @@ export default function AccommodationSection({ ticketsUrl }: { ticketsUrl: strin
       <div className="accommodation-section__content">
         <Reveal className="accommodation-intro">
           <span className="kicker">PACOTE COMPLETO · 26/12 — 02/01</span>
-          <h2>5 festas.<br /><em>Uma hospedagem pronta.</em></h2>
+          <h2>Uma hospedagem <em>pronta.</em></h2>
           <p className="accommodation-subhead">Você só precisa chegar em Boipeba.</p>
           <p>Escolha onde ficar e viva os cinco dias de ALMA com ingresso + hospedagem em um único pacote.</p>
         </Reveal>

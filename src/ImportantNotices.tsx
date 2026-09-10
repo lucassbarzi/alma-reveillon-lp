@@ -12,7 +12,7 @@ export default function ImportantNotices({ ticketsUrl, instagramUrl }: { tickets
       <div className="notices-hero">
         <motion.span className="kicker" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>ANTES DE FECHAR O PACOTE</motion.span>
         <motion.h2 initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: .9, ease: [.22, 1, .36, 1] }}>OPEN BAR, SIM.<br /><em>OPEN FOOD, NÃO.</em></motion.h2>
-        <p>Open Bar Premium em todas as festas.<br />Comidas e lanches são vendidos separadamente na nossa praça gastronômica.</p>
+        <p>Open Bar Premium em todas as festas. Comidas e lanches são vendidos separadamente na nossa praça gastronômica.</p>
       </div>
       <div className="notices-grid">
         <NoticeReveal><span>01</span><h3>CHEGA DIA 28 OU 29?</h3><p>Comprou o Full Pass? Sem stress. Seu kit de acesso ficará reservado em seu nome até o dia da sua chegada.</p></NoticeReveal>
