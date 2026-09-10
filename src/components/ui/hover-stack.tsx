@@ -123,14 +123,14 @@ function CardFooter({ index, label, href }: { index: number; label?: string; hre
 
 export function HoverStack({
   cards = DEFAULT_CARDS,
-  cardWidth = 330,
-  cardHeight = 440,
-  overlap = 160,
-  hoverLift = 32,
-  pushDistance = 250,
-  spread = 24,
-  rotation = 6,
-  duration = 0.5,
+  cardWidth = 310,
+  cardHeight = 390,
+  overlap = 140,
+  hoverLift = 26,
+  pushDistance = 170,
+  spread = 18,
+  rotation = 4,
+  duration = 0.45,
   accentColor = "rgba(87, 210, 244, 0.4)",
   className = "",
 }: HoverStackProps) {
@@ -214,7 +214,7 @@ export function HoverStack({
       };
     }
 
-    let boxShadow = '0 18px 45px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.1)';
+    let boxShadow = '0 14px 36px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1)';
 
     if (hasActive) {
       if (index < activeIndex) {
@@ -230,8 +230,8 @@ export function HoverStack({
         y = -hoverLift;
         rotate = 0;
         zIndex = 999;
-        scale = 1.035;
-        boxShadow = `0 28px 70px rgba(0,0,0,0.65), 0 0 0 2px ${accentColor}, 0 0 35px rgba(87,210,244,0.22)`;
+        scale = 1.03;
+        boxShadow = `0 24px 60px rgba(0,0,0,0.6), 0 0 0 2px ${accentColor}, 0 0 30px rgba(87,210,244,0.2)`;
       }
     }
 
@@ -266,18 +266,17 @@ export function HoverStack({
   return (
     <div className={`hover-stack-wrapper relative w-full ${className}`} style={{ position: 'relative', width: '100%' }}>
       {isTouch ? (
-        <div className="hover-stack-mobile-grid flex flex-col gap-6" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div className="hover-stack-mobile-grid grid grid-cols-1 sm:grid-cols-2 gap-4" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))', gap: '16px' }}>
           {cards.map((card, index) => (
             <div
               key={card.id ?? index}
-              className={`hover-stack-card relative flex w-full flex-col justify-between overflow-hidden rounded-3xl p-6 shadow-xl ${card.accent || "text-white"}`}
+              className={`hover-stack-card relative flex w-full flex-col justify-between overflow-hidden rounded-2xl p-5 shadow-lg ${card.accent || "text-white"}`}
               style={{
                 background: card.bg,
                 border: card.borderColor ? `1px solid ${card.borderColor}` : '1px solid rgba(255,255,255,0.14)',
-                minHeight: '340px',
-                padding: '28px 24px',
-                borderRadius: '24px',
-                boxShadow: '0 16px 40px rgba(0,0,0,0.5)',
+                padding: '22px 20px',
+                borderRadius: '18px',
+                boxShadow: '0 12px 32px rgba(0,0,0,0.4)',
               }}
             >
               {card.tag && (
