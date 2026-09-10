@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'motion/react'
 import { ArrowUpRight, X } from 'lucide-react'
@@ -12,7 +12,16 @@ interface AccommodationModalProps {
 }
 
 export default function AccommodationModal({ accommodation, ticketsUrl, onClose }: AccommodationModalProps) {
+  const [activeImage, setActiveImage] = useState<string | null>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    if (accommodation?.images.length) {
+      setActiveImage(accommodation.images[0])
+    } else {
+      setActiveImage(null)
+    }
+  }, [accommodation])
 
   useEffect(() => {
     if (!accommodation) return
@@ -42,6 +51,8 @@ export default function AccommodationModal({ accommodation, ticketsUrl, onClose 
 
   if (typeof document === 'undefined') return null
 
+  const currentVisual = activeImage || accommodation?.images[0]
+
   return createPortal(
     <AnimatePresence>
       {accommodation && (
@@ -61,8 +72,22 @@ export default function AccommodationModal({ accommodation, ticketsUrl, onClose 
             <div className="accommodation-modal__visual">
               {accommodation.images.length ? (
                 <>
-                  <img className="accommodation-modal__primary-image" src={accommodation.images[0]} alt={`${accommodation.name} em Boipeba`} />
-                  {accommodation.images.length > 1 && <div className="accommodation-modal__thumbs">{accommodation.images.slice(1, 3).map((image) => <img key={image} src={image} alt={`${accommodation.name} em Boipeba`} />)}</div>}
+                  <img className="accommodation-modal__primary-image" src={currentVisual} alt={`${accommodation.name} em Boipeba`} />
+                  {accommodation.images.length > 1 && (
+                    <div className="accommodation-modal__thumbs">
+                      {accommodation.images.map((image, idx) => (
+                        <button
+                          key={image}
+                          type="button"
+                          className={`accommodation-modal__thumb-btn ${currentVisual === image ? 'accommodation-modal__thumb-btn--active' : ''}`}
+                          onClick={() => setActiveImage(image)}
+                          aria-label={`Ver foto ${idx + 1} de ${accommodation.name}`}
+                        >
+                          <img src={image} alt={`${accommodation.name} foto ${idx + 1}`} />
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </>
               ) : (
                 <div className={`accommodation-placeholder accommodation-placeholder--${accommodation.id}`}>

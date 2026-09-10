@@ -39,7 +39,10 @@ export const accommodations: Accommodation[] = [
     mapsQuery: 'Pousada Nativa Boipeba, Cairu, Bahia',
     images: [
       asset('/media/accommodations/pousada-nativa.webp'),
-      asset('/media/accommodations/nativa-room-rua-porto.webp'),
+      asset('/media/accommodations/pousada-nativa-2.webp'),
+      asset('/media/accommodations/pousada-nativa-3.webp'),
+      asset('/media/accommodations/pousada-nativa-4.webp'),
+      asset('/media/accommodations/pousada-nativa-5.webp'),
     ],
   },
   {
@@ -53,9 +56,10 @@ export const accommodations: Accommodation[] = [
     mapsQuery: 'Pousada Casa Verde Boipeba, Praça Santo Antônio, Cairu, Bahia',
     images: [
       asset('/media/accommodations/pousada-casa-verde.webp'),
-      asset('/media/accommodations/casa-verde-exterior.webp'),
-      asset('/media/accommodations/casa-verde-room.webp'),
-      asset('/media/accommodations/casa-verde-facade.webp'),
+      asset('/media/accommodations/pousada-casa-verde-2.webp'),
+      asset('/media/accommodations/pousada-casa-verde-3.webp'),
+      asset('/media/accommodations/pousada-casa-verde-4.webp'),
+      asset('/media/accommodations/pousada-casa-verde-5.webp'),
     ],
   },
 ]
