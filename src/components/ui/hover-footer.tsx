@@ -3,6 +3,8 @@ import { motion } from 'motion/react'
 import { FaInstagram } from 'react-icons/fa6'
 import { ArrowUpRight, Calendar, MapPin } from 'lucide-react'
 
+import HowToArriveModal from './how-to-arrive-modal'
+
 const TICKETS = 'https://www.sympla.com.br/evento/a-l-m-a-reveillon-2027-boipeba/3254347?referrer=www.google.com'
 const INSTAGRAM = 'https://www.instagram.com/almareveillonboipeba/'
 
@@ -180,7 +182,7 @@ const footerLinks = [
     title: 'Informações',
     links: [
       { label: 'Dúvidas Frequentes', href: '#faq' },
-      { label: 'Como Chegar', href: 'https://www.google.com/maps/search/?api=1&query=Praia+da+Cueira,+Boipeba,+BA', external: true },
+      { label: 'Como Chegar', href: '#como-chegar', isModal: true },
       { label: 'Ingressos Sympla', href: TICKETS, pulse: true, external: true },
     ],
   },
@@ -188,6 +190,7 @@ const footerLinks = [
 
 export default function HoverFooter() {
   const footerCardRef = useRef<HTMLElement>(null)
+  const [isHowToArriveOpen, setIsHowToArriveOpen] = useState(false)
 
   return (
     <div className="hover-footer-container">
@@ -218,20 +221,31 @@ export default function HoverFooter() {
                 <ul className="hover-footer-links">
                   {section.links.map((link) => (
                     <li key={link.label} className="hover-footer-item">
-                      <a
-                        href={link.href}
-                        target={link.external ? '_blank' : undefined}
-                        rel={link.external ? 'noreferrer' : undefined}
-                        className="hover-footer-link"
-                      >
-                        <span>{link.label}</span>
-                        {link.pulse && (
-                          <span className="hover-footer-pulse"></span>
-                        )}
-                        {link.external && (
+                      {link.isModal ? (
+                        <button
+                          type="button"
+                          onClick={() => setIsHowToArriveOpen(true)}
+                          className="hover-footer-link hover-footer-link--btn"
+                        >
+                          <span>{link.label}</span>
                           <ArrowUpRight size={13} className="opacity-60" />
-                        )}
-                      </a>
+                        </button>
+                      ) : (
+                        <a
+                          href={link.href}
+                          target={link.external ? '_blank' : undefined}
+                          rel={link.external ? 'noreferrer' : undefined}
+                          className="hover-footer-link"
+                        >
+                          <span>{link.label}</span>
+                          {link.pulse && (
+                            <span className="hover-footer-pulse"></span>
+                          )}
+                          {link.external && (
+                            <ArrowUpRight size={13} className="opacity-60" />
+                          )}
+                        </a>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -319,6 +333,10 @@ export default function HoverFooter() {
 
         <FooterBackgroundGradient />
       </footer>
+      <HowToArriveModal
+        isOpen={isHowToArriveOpen}
+        onClose={() => setIsHowToArriveOpen(false)}
+      />
     </div>
   )
 }

@@ -370,6 +370,46 @@ em{font-style:normal;color:#2b829d}
 .hover-footer-links{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
 .hover-footer-link{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:rgba(255,255,255,.7);transition:color .25s,transform .25s}
 .hover-footer-link:hover{color:#57d2f4;transform:translateX(3px)}
+.hover-footer-link--btn{border:0;background:transparent;padding:0;font:inherit;cursor:pointer;text-align:left}
+
+/* How to Arrive Modal */
+.how-to-arrive-backdrop{position:fixed;inset:0;z-index:350;background:rgba(4,13,19,.82);backdrop-filter:blur(12px);display:grid;place-items:center;padding:24px;overflow-y:auto}
+.how-to-arrive-modal{position:relative;width:min(760px,100%);max-height:min(90vh,820px);display:flex;flex-direction:column;border-radius:24px;background:linear-gradient(175deg,#0c2331 0%,#061622 100%);border:1px solid rgba(87,210,244,.2);box-shadow:0 30px 90px rgba(0,0,0,.65),0 0 35px rgba(87,210,244,.07);color:#f0f8ff;overflow:hidden}
+.how-to-arrive-close{position:absolute;right:18px;top:18px;z-index:10;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#f0f8ff;display:grid;place-items:center;cursor:pointer;transition:all .2s ease}
+.how-to-arrive-close:hover{background:rgba(87,210,244,.15);border-color:#57d2f4;color:#57d2f4;transform:scale(1.05)}
+.how-to-arrive-header{padding:36px 36px 20px;border-bottom:1px solid rgba(255,255,255,.06);position:relative}
+.how-to-arrive-kicker{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.22em;color:#57d2f4;text-transform:uppercase;margin-bottom:8px}
+.how-to-arrive-header h2{font-family:Tusker,"Arial Narrow",Impact,sans-serif;font-size:clamp(2.4rem,4.2vw,3.6rem);text-transform:uppercase;letter-spacing:.02em;line-height:1;margin:0 0 10px;color:#fff}
+.how-to-arrive-header h2 em{font-style:italic;color:#57d2f4}
+.how-to-arrive-header p{font-size:14px;line-height:1.6;color:rgba(255,255,255,.7);margin:0;max-width:58ch}
+.how-to-arrive-tabs{display:flex;gap:8px;padding:14px 36px;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(0,0,0,.15);overflow-x:auto;-webkit-overflow-scrolling:touch}
+.how-to-arrive-tab{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.12);background:transparent;color:rgba(255,255,255,.75);font-size:12.5px;font-weight:600;letter-spacing:.04em;cursor:pointer;white-space:nowrap;transition:all .2s ease}
+.how-to-arrive-tab:hover{border-color:rgba(87,210,244,.4);color:#fff}
+.how-to-arrive-tab--active{background:rgba(87,210,244,.14);border-color:#57d2f4;color:#57d2f4;box-shadow:0 0 15px rgba(87,210,244,.15)}
+.how-to-arrive-body{padding:24px 36px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:18px}
+.how-to-arrive-pane{display:flex;flex-direction:column;gap:16px}
+.how-to-arrive-card{padding:22px 24px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);transition:border-color .2s ease}
+.how-to-arrive-card--highlight{background:linear-gradient(160deg,rgba(87,210,244,.06) 0%,rgba(255,255,255,.02) 100%);border-color:rgba(87,210,244,.28)}
+.how-to-arrive-card--attention{background:rgba(87,210,244,.04);border-color:rgba(87,210,244,.35)}
+.how-to-arrive-card-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px}
+.how-to-arrive-card-header h3{font-size:16px;font-weight:700;color:#fff;margin:0 0 4px;line-height:1.3}
+.how-to-arrive-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.1em;padding:3px 8px;border-radius:6px;background:rgba(87,210,244,.15);color:#57d2f4;border:1px solid rgba(87,210,244,.25)}
+.how-to-arrive-badge--attention{background:rgba(87,210,244,.18);border-color:#57d2f4;color:#57d2f4}
+.how-to-arrive-card p{font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.75);margin:0}
+.how-to-arrive-steps{list-style:none;padding:0;margin:14px 0 0;display:flex;flex-direction:column;gap:9px}
+.how-to-arrive-steps li{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5;color:rgba(255,255,255,.82)}
+.how-to-arrive-steps li svg{flex-shrink:0;color:#57d2f4;margin-top:2px}
+.how-to-arrive-route-chain{margin-top:16px;display:flex;flex-direction:column;gap:8px;background:rgba(0,0,0,.22);border-radius:12px;padding:14px 16px;border:1px solid rgba(255,255,255,.05)}
+.route-node{display:flex;flex-direction:column;gap:2px}
+.route-node strong{font-size:12px;letter-spacing:.08em;color:#57d2f4;text-transform:uppercase}
+.route-node span{font-size:12.5px;color:rgba(255,255,255,.75)}
+.route-arrow{font-size:13px;color:rgba(87,210,244,.6);padding-left:4px}
+.how-to-arrive-footer{padding:18px 36px;border-top:1px solid rgba(255,255,255,.06);background:rgba(0,0,0,.2);display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.how-to-arrive-btn-maps{display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;background:#57d2f4;color:#04151f;font-size:12.5px;font-weight:700;letter-spacing:.05em;text-decoration:none;transition:all .2s ease;box-shadow:0 4px 16px rgba(87,210,244,.25)}
+.how-to-arrive-btn-maps:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(87,210,244,.4);background:#7de0f8}
+.how-to-arrive-btn-close{border:0;background:transparent;color:rgba(255,255,255,.6);font-size:12.5px;cursor:pointer;padding:8px 12px;transition:color .2s}
+.how-to-arrive-btn-close:hover{color:#fff}
+
 .hover-footer-pulse{display:inline-block;width:7px;height:7px;border-radius:50%;background:#57d2f4;box-shadow:0 0 8px #57d2f4;animation:pulseDot 2s infinite}
 
 @keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.3)}}
@@ -528,6 +568,17 @@ em{font-style:normal;color:#2b829d}
   .notice-payment{grid-template-columns:1fr}
   .notice-links{flex-direction:column}
   .notice-links a{width:100%;min-height:50px}
+
+  /* How to arrive modal mobile */
+  .how-to-arrive-backdrop{padding:0;align-items:flex-end}
+  .how-to-arrive-modal{width:100%;max-height:92dvh;border-radius:24px 24px 0 0}
+  .how-to-arrive-header{padding:26px 20px 16px}
+  .how-to-arrive-tabs{padding:12px 20px}
+  .how-to-arrive-body{padding:18px 20px}
+  .how-to-arrive-card{padding:18px 16px}
+  .how-to-arrive-footer{padding:16px 20px;flex-direction:column;align-items:stretch}
+  .how-to-arrive-btn-maps{justify-content:center}
+  .how-to-arrive-btn-close{text-align:center}
 }
 @media(max-width:640px){
   .hover-footer-container{padding:0 10px 20px}
