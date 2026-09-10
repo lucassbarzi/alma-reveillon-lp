@@ -37,7 +37,7 @@ export default function ImportantNotices({ ticketsUrl, instagramUrl }: { tickets
           <div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
               <strong style={{ fontSize: '11px', letterSpacing: '0.16em', color: '#7ce577', textTransform: 'uppercase' }}>PIX À VISTA</strong>
-              <span style={{ fontSize: '9px', fontWeight: 700, padding: '2px 7px', borderRadius: '4px', background: 'rgba(124,229,119,0.15)', color: '#7ce577', border: '1px solid rgba(124,229,119,0.3)' }}>10% OFF</span>
+              <span style={{ fontSize: '9px', fontWeight: 700, padding: '2px 7px', borderRadius: '4px', background: 'rgba(124,229,119,0.15)', color: '#7ce577', border: '1px solid rgba(124,229,119,0.3)' }}>10% OFF DA TAXA</span>
             </div>
             <p style={{ fontSize: '13px', lineHeight: 1.5, color: 'rgba(255,255,255,0.8)', margin: 0, textWrap: 'balance' }}>
               Pagamento único: 1 pessoa realiza o PIX no valor total do grupo/quarto.
@@ -46,7 +46,7 @@ export default function ImportantNotices({ ticketsUrl, instagramUrl }: { tickets
           <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '10px' }}>
             <strong style={{ display: 'block', fontSize: '11px', letterSpacing: '0.16em', color: '#7ce577', textTransform: 'uppercase', marginBottom: '4px' }}>CARTÃO DE CRÉDITO</strong>
             <p style={{ fontSize: '13px', lineHeight: 1.5, color: 'rgba(255,255,255,0.8)', margin: 0, textWrap: 'balance' }}>
-              Via Sympla. Para grupos de 2–5 pessoas, cada integrante pode passar seu cartão no mesmo dia para garantir o quarto.
+              Via Sympla. Para grupos de 2–5 pessoas, cada integrante pode passar seu cartão no mesmo dia para garantir seu ingresso e sua vaga no quarto escolhido.
             </p>
           </div>
         </div>
@@ -141,14 +141,7 @@ export default function ImportantNotices({ ticketsUrl, instagramUrl }: { tickets
       </div>
 
       <div className="notices-stack-wrap">
-        <HoverStack
-          cards={noticeCards}
-          cardWidth={330}
-          cardHeight={440}
-          overlap={160}
-          pushDistance={250}
-          rotation={5}
-        />
+        <HoverStack cards={noticeCards} />
       </div>
     </section>
   )

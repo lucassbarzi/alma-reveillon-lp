@@ -280,32 +280,151 @@ em{font-style:normal;color:#2b829d}
 .notices-grid dl{margin:0}.notices-grid dl div{margin-bottom:14px}.notices-grid dt{font-size:8px;letter-spacing:.18em;color:#7ce577}.notices-grid dd{margin:5px 0 0;color:#fff;font-size:13px;overflow-wrap:anywhere}
 .notice-links{display:flex;gap:8px;margin-top:26px}.notice-links a{background:#f4ffc7;color:#03120e;min-height:44px}
 
-/* Hover Stack Component for Notices */
-.notices-stack-wrap{
-  width:100%;
-  max-width:1080px;
-  margin:20px auto 0;
-  position:relative;
-  overflow:visible;
-  display:flex;
-  justify-content:center;
+/* Hover Stack Component for Notices - Responsive Interactive Grid */
+.notices-stack-wrap {
+  width: 100%;
+  max-width: 1260px;
+  margin: 36px auto 0;
+  position: relative;
+  overflow: visible;
 }
-.hover-stack-wrapper{
-  position:relative;
-  width:100%;
-  overflow:visible;
+
+.hover-stack-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: visible;
 }
-.hover-stack-desktop-container{
-  position:relative;
-  margin:0 auto;
+
+.hover-stack-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+  align-items: stretch;
 }
-.hover-stack-card{
-  box-sizing:border-box;
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
+
+.hover-stack-card-interactive {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 24px;
+  padding: 28px 24px;
+  box-sizing: border-box;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  min-height: 440px;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), 
+              box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1), 
+              border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.35s ease;
 }
-.hover-stack-footer{
-  margin-top:auto;
+
+.hover-stack-grid:hover .hover-stack-card-interactive:not(:hover) {
+  opacity: 0.82;
+}
+
+.hover-stack-header {
+  margin-bottom: 12px;
+}
+
+.hover-stack-tag-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #7ce577;
+}
+
+.hover-stack-title {
+  font-family: Tusker, "Arial Narrow", Impact, sans-serif;
+  font-size: clamp(1.85rem, 2.2vw, 2.45rem);
+  font-weight: 500;
+  line-height: 1.04;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 16px;
+  text-wrap: balance;
+  letter-spacing: 0.01em;
+}
+
+.hover-stack-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.hover-stack-footer-wrap {
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.hover-stack-action-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hover-stack-action-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #57d2f4;
+  color: #04151f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s ease;
+}
+
+.hover-stack-action-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.hover-stack-index-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+  color: #7ce577;
+}
+
+@media (max-width: 1080px) {
+  .hover-stack-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  .hover-stack-card-interactive {
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hover-stack-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .hover-stack-card-interactive {
+    min-height: auto;
+    padding: 24px 20px;
+  }
+  .hover-stack-title {
+    font-size: 2.2rem;
+  }
 }
 
 /* Liquid Glass Component & Notice Card */
