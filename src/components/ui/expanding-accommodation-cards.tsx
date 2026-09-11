@@ -80,12 +80,6 @@ export default function ExpandingAccommodationCards({ items, onOpen }: {
           )
         })}
       </ul>
-
-      <div className="expanding-cards__dots">
-        {items.map((item, index) => (
-          <button key={item.id} className={activeIndex === index ? 'is-active' : ''} onClick={() => handleActivate(index)} aria-label={`Ver ${item.name}`} />
-        ))}
-      </div>
     </div>
   )
 }
