@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { ArrowRight, ArrowUpRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import type { Accommodation } from '../../data/accommodations'
-import { googleMapsSearchUrl } from '../../data/accommodations'
 
 export default function ExpandingAccommodationCards({ items, onOpen }: {
   items: Accommodation[]
@@ -17,14 +16,21 @@ export default function ExpandingAccommodationCards({ items, onOpen }: {
     return () => window.removeEventListener('resize', update)
   }, [])
 
-  const active = items[activeIndex]
-
   const gridStyle = useMemo(() => {
     const tracks = items.map((_, i) => (i === activeIndex ? '5fr' : '1fr')).join(' ')
     return isDesktop ? { gridTemplateColumns: tracks } : { gridTemplateRows: tracks }
   }, [activeIndex, items.length, isDesktop])
 
   const handleActivate = useCallback((index: number) => setActiveIndex(index), [])
+
+  const handleCardClick = useCallback((index: number, item: Accommodation) => {
+    if (isDesktop) {
+      if (index === activeIndex) onOpen(item)
+      else handleActivate(index)
+      return
+    }
+    handleActivate(index)
+  }, [isDesktop, activeIndex, onOpen, handleActivate])
 
   return (
     <div className="expanding-cards" role="region" aria-roledescription="carousel" aria-label="Hospedagens ALMA">
@@ -36,17 +42,21 @@ export default function ExpandingAccommodationCards({ items, onOpen }: {
               key={item.id}
               className={`expanding-cards__card${isActive ? ' is-active' : ''}`}
               data-active={isActive}
-              onMouseEnter={() => handleActivate(index)}
+              onMouseEnter={() => isDesktop && handleActivate(index)}
               onFocus={() => handleActivate(index)}
-              onClick={() => (isActive ? onOpen(item) : handleActivate(index))}
+              onClick={() => handleCardClick(index, item)}
               tabIndex={0}
               aria-label={item.name}
             >
               <img src={item.coverImage} alt={item.name} loading={index < 2 ? 'eager' : 'lazy'} />
               <div className="expanding-cards__shade" />
 
-              <span className={`expanding-cards__status expanding-cards__status--${item.status}`}>
-                {item.status === 'sold-out' ? 'ESGOTADO' : item.statusLabel}
+              <span
+                className={`expanding-cards__status expanding-cards__status--${item.status}${isActive ? ' is-open' : ' is-closed'}`}
+                aria-label={item.status === 'sold-out' ? 'Esgotado' : item.statusLabel}
+              >
+                <i className="expanding-cards__status-dot" aria-hidden="true" />
+                <em className="expanding-cards__status-label">{item.status === 'sold-out' ? 'ESGOTADO' : item.statusLabel}</em>
               </span>
 
               <h3 className="expanding-cards__title-collapsed">{item.name}</h3>
@@ -57,19 +67,18 @@ export default function ExpandingAccommodationCards({ items, onOpen }: {
                 </div>
                 <h3>{item.name}</h3>
                 <p>{item.description}</p>
+                <button
+                  type="button"
+                  className="expanding-cards__detail-btn"
+                  onClick={(event) => { event.stopPropagation(); onOpen(item) }}
+                >
+                  VER DETALHES <ArrowRight size={13} />
+                </button>
               </div>
             </li>
           )
         })}
       </ul>
-
-      <div className="expanding-cards__meta">
-        <div className="expanding-cards__count"><strong>{String(activeIndex + 1).padStart(2, '0')}</strong><span>/ {String(items.length).padStart(2, '0')}</span></div>
-        <div className="expanding-cards__links">
-          <button onClick={() => onOpen(active)}>VER DETALHES <ArrowRight size={14} /></button>
-          <a href={googleMapsSearchUrl(active.mapsQuery)} target="_blank" rel="noreferrer">LOCALIZAÇÃO <ArrowUpRight size={14} /></a>
-        </div>
-      </div>
 
       <div className="expanding-cards__dots">
         {items.map((item, index) => (

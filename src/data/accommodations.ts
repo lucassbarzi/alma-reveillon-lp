@@ -23,6 +23,18 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//
 
 export const accommodations: Accommodation[] = [
   {
+    id: 'pedra-de-sal', name: 'Pedra de Sal', badges: ['Economy Plus'], status: 'available', statusLabel: '26/12 → 02/01', period: '26/12 → 02/01',
+    description: 'Na Rua das Pedras, sobreloja Oxente. Reformada com WC superior.',
+    amenities: ['Ar-condicionado', 'TV', 'Banho quente', 'Café da manhã', 'Limpeza diária'], location: 'Rua das Pedras · sobreloja Oxente', mapsQuery: 'Oxente Boipeba, Ilha de Boipeba, Cairu, Bahia',
+    coverImage: asset('/media/accommodations/cover-pedra-de-sal.webp'), images: [asset('/media/accommodations/pedra-de-sal.webp')],
+  },
+  {
+    id: 'vila-jesuita', name: 'Vila Jesuíta', badges: ['Conforto', 'Próxima à praia'], status: 'available', statusLabel: '31/12 → 02/01', period: '31/12 → 02/01',
+    description: 'Suítes confortáveis em uma localização tranquila, a poucos minutos da praia e do centro da vila.',
+    amenities: ['Suítes confortáveis', 'Varanda', 'Boa localização', 'Próxima à praia'], location: 'Velha Boipeba · Bahia', mapsQuery: 'Pousada Vila Jesuíta, Boipeba, Bahia',
+    coverImage: asset('/media/accommodations/cover-vila-jesuita.webp'), images: [asset('/media/accommodations/vila-jesuita.webp'),asset('/media/accommodations/vila-jesuita-2.webp'),asset('/media/accommodations/vila-jesuita-3.webp'),asset('/media/accommodations/vila-jesuita-4.webp')],
+  },
+  {
     id: 'maravilha', name: 'Maravilha', badges: ['Central', 'Conforto'], status: 'sold-out', statusLabel: 'Esgotado', period: 'Esgotado',
     description: 'No centro de Boipeba, na Praça Santo Antônio, perto de restaurantes, mercado, farmácia e serviços.',
     amenities: ['Suítes equipadas', 'Localização central', 'Comércio próximo'], location: 'Praça Santo Antônio · Boipeba', mapsQuery: 'Pousada Maravilha, Praça Santo Antônio, Boipeba, Bahia',
@@ -51,17 +63,5 @@ export const accommodations: Accommodation[] = [
     description: 'Pousada familiar na região central, a poucos minutos da Praia da Boca da Barra.',
     amenities: ['Ar-condicionado', 'Wi-Fi', 'Frigobar', 'Café da manhã'], location: 'Rua das Pedras · Boipeba', mapsQuery: 'Pousada Caminho de Pedras, Boipeba, Bahia',
     coverImage: asset('/media/accommodations/cover-caminho-de-pedras.webp'), images: [asset('/media/accommodations/caminho-de-pedras.webp'),asset('/media/accommodations/caminho-de-pedras-2.webp'),asset('/media/accommodations/caminho-de-pedras-3.webp')],
-  },
-  {
-    id: 'pedra-de-sal', name: 'Pedra de Sal', badges: ['Economy Plus'], status: 'available', statusLabel: '26/12 → 02/01', period: '26/12 → 02/01',
-    description: 'Na Rua das Pedras, sobreloja Oxente. Reformada com WC superior.',
-    amenities: ['Ar-condicionado', 'TV', 'Banho quente', 'Café da manhã', 'Limpeza diária'], location: 'Rua das Pedras · sobreloja Oxente', mapsQuery: 'Oxente Boipeba, Ilha de Boipeba, Cairu, Bahia',
-    coverImage: asset('/media/accommodations/cover-pedra-de-sal.webp'), images: [asset('/media/accommodations/pedra-de-sal.webp')],
-  },
-  {
-    id: 'vila-jesuita', name: 'Vila Jesuíta', badges: ['Conforto', 'Próxima à praia'], status: 'available', statusLabel: '31/12 → 02/01', period: '31/12 → 02/01',
-    description: 'Suítes confortáveis em uma localização tranquila, a poucos minutos da praia e do centro da vila.',
-    amenities: ['Suítes confortáveis', 'Varanda', 'Boa localização', 'Próxima à praia'], location: 'Velha Boipeba · Bahia', mapsQuery: 'Pousada Vila Jesuíta, Boipeba, Bahia',
-    coverImage: asset('/media/accommodations/cover-vila-jesuita.webp'), images: [asset('/media/accommodations/vila-jesuita.webp'),asset('/media/accommodations/vila-jesuita-2.webp'),asset('/media/accommodations/vila-jesuita-3.webp'),asset('/media/accommodations/vila-jesuita-4.webp')],
   },
 ]
