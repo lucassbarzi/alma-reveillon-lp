@@ -1021,6 +1021,3 @@ em{font-style:normal;color:#2b829d}
 .squeeze-section::before{opacity:.05;filter:brightness(0) invert(1)}
 .bar-section::before{opacity:.07}
 .notices-section::before{opacity:.06}
-.squeeze-section > *:not(::before),
-.bar-section > *:not(::before),
-.notices-section > *:not(::before){position:relative;z-index:2}
