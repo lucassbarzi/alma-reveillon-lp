@@ -59,7 +59,7 @@ function CarouselCard({ item, index, total, progress, config, activeIndex }: {
       aria-hidden={activeIndex !== index}
       aria-roledescription="slide"
     >
-      <img src={item.images[0]} alt={item.name} loading={index < 3 ? 'eager' : 'lazy'} />
+      <img src={item.images[0]} alt={item.name} loading="eager" decoding="async" />
       <motion.div className="lodging-carousel-card__shade" style={{ opacity: shadeOpacity }} />
       <div className="lodging-carousel-card__gradient" />
       <div className={`lodging-status lodging-status--${item.status}`}>
@@ -80,7 +80,9 @@ export default function AccommodationCarousel({ items, onOpen }: {
 }) {
   const progress = useMotionValue(0)
   const startProgress = useRef(0)
+  const targetProgress = useRef(0)
   const didDrag = useRef(false)
+  const animationRef = useRef<ReturnType<typeof animate> | null>(null)
   const [width, setWidth] = useState(typeof window === 'undefined' ? 1200 : window.innerWidth)
   const [activeIndex, setActiveIndex] = useState(0)
   const config = useMemo(() => getConfig(width), [width])
@@ -93,17 +95,19 @@ export default function AccommodationCarousel({ items, onOpen }: {
   }, [])
 
   const moveTo = (target: number, index: number) => {
-    animate(progress, target, { type: 'spring', stiffness: 220, damping: 30, mass: 1 })
+    animationRef.current?.stop()
+    targetProgress.current = target
+    animationRef.current = animate(progress, target, { type: 'spring', stiffness: 220, damping: 34, mass: .9, restDelta: .001, restSpeed: .01 })
     setActiveIndex(index)
   }
 
   const go = (direction: number) => {
-    const target = Math.round(progress.get()) + direction
+    const target = targetProgress.current + direction
     moveTo(target, wrap(target, items.length))
   }
 
   const goTo = (index: number) => {
-    const current = Math.round(progress.get())
+    const current = targetProgress.current
     let delta = index - wrap(current, items.length)
     if (delta > items.length / 2) delta -= items.length
     if (delta < -items.length / 2) delta += items.length
@@ -129,7 +133,7 @@ export default function AccommodationCarousel({ items, onOpen }: {
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={0}
           onPointerDown={() => { didDrag.current = false }}
-          onDragStart={() => { startProgress.current = progress.get() }}
+          onDragStart={() => { animationRef.current?.stop(); startProgress.current = progress.get(); targetProgress.current = Math.round(progress.get()) }}
           onDrag={(_, info) => {
             if (Math.abs(info.offset.x) > 8) didDrag.current = true
             progress.set(progress.get() - info.delta.x / config.sensitivity)
