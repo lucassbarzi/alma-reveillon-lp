@@ -1,9 +1,11 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import { ArrowUpRight } from 'lucide-react'
 import AccommodationModal from './AccommodationModal'
 import ExpandingAccommodationCards from './components/ui/expanding-accommodation-cards'
 import { accommodations, type Accommodation } from './data/accommodations'
+import { useLanguage } from './i18n/LanguageContext'
+import { trackTicketClick } from './lib/tracking'
 
 function Reveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const reduce = useReducedMotion()
@@ -11,33 +13,73 @@ function Reveal({ children, className = '', delay = 0 }: { children: React.React
 }
 
 export default function AccommodationSection({ ticketsUrl }: { ticketsUrl: string }) {
+  const { t, language } = useLanguage()
   const [selected, setSelected] = useState<Accommodation | null>(null)
   const close = useCallback(() => setSelected(null), [])
+
+  const localizedAccommodations = useMemo(() => {
+    return accommodations.map((acc) => {
+      const trans = t.accommodation.items.find((item) => item.id === acc.id)
+      if (!trans) return acc
+      return {
+        ...acc,
+        badges: trans.badges,
+        description: trans.description,
+        period: trans.period,
+        statusLabel: trans.statusLabel,
+        amenities: trans.amenities,
+        location: trans.location,
+      }
+    })
+  }, [t])
+
+  const selectedLocalized = useMemo(() => {
+    if (!selected) return null
+    return localizedAccommodations.find((it) => it.id === selected.id) || selected
+  }, [selected, localizedAccommodations])
+
+  const a = t.accommodation
 
   return (
     <section className="accommodation-section" id="hospedagem">
       <div className="accommodation-section__wash" aria-hidden="true" />
       <div className="accommodation-section__content">
         <Reveal className="accommodation-intro">
-          <span className="kicker">PACOTE COMPLETO · 26/12 — 02/01</span>
-          <h2>Uma hospedagem <em>pronta.</em></h2>
-          <p className="accommodation-subhead">Você só precisa chegar em Boipeba.</p>
-          <p>Escolha onde ficar e viva os cinco dias de ALMA com ingresso + hospedagem em um único pacote.</p>
+          <span className="kicker">{a.kicker}</span>
+          <h2>{a.h2Part1} <em>{a.h2Part2}</em></h2>
+          <p className="accommodation-subhead">{a.subhead}</p>
+          <p>{a.p}</p>
         </Reveal>
 
         <Reveal className="accommodation-benefits" delay={.08}>
-          <span>AR-CONDICIONADO</span><i /> <span>TV</span><i /> <span>BANHO QUENTE</span><i /> <span>CAFÉ DA MANHÃ</span><i /> <span>LIMPEZA DIÁRIA</span>
+          <span>{a.benefits.ac}</span><i /> <span>{a.benefits.tv}</span><i /> <span>{a.benefits.hotShower}</span><i /> <span>{a.benefits.breakfast}</span><i /> <span>{a.benefits.cleaning}</span>
         </Reveal>
 
-        <Reveal delay={.1}><ExpandingAccommodationCards items={accommodations} onOpen={setSelected} /></Reveal>
+        <Reveal delay={.1}>
+          <ExpandingAccommodationCards items={localizedAccommodations} onOpen={setSelected} />
+        </Reveal>
 
         <Reveal className="accommodation-location" delay={.12}>
-          <span>MARINA · RUA DAS PEDRAS · PRAÇA SANTO ANTÔNIO</span>
-          <p>Hospedagens próximas entre si e a aproximadamente 7–11 min do Ponto do Trator.</p>
-          <a href={ticketsUrl} target="_blank" rel="noreferrer">VER VALORES E DISPONIBILIDADE <ArrowUpRight size={16} /></a>
+          <span>{a.locationTitle}</span>
+          <p>{a.locationDesc}</p>
+          <a
+            href={ticketsUrl}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => {
+              trackTicketClick({
+                ctaLocation: 'accommodation_section_prices',
+                ctaText: a.viewPricesBtn,
+                destinationUrl: ticketsUrl,
+                language,
+              })
+            }}
+          >
+            {a.viewPricesBtn} <ArrowUpRight size={16} />
+          </a>
         </Reveal>
       </div>
-      <AccommodationModal accommodation={selected} ticketsUrl={ticketsUrl} onClose={close} />
+      <AccommodationModal accommodation={selectedLocalized} ticketsUrl={ticketsUrl} onClose={close} />
     </section>
   )
 }

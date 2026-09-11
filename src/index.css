@@ -1021,3 +1021,16 @@ em{font-style:normal;color:#2b829d}
 .squeeze-section::before{opacity:.05;filter:brightness(0) invert(1)}
 .bar-section::before{opacity:.07}
 .notices-section::before{opacity:.06}
+
+/* Language Switcher */
+.lang-switcher{display:inline-flex;align-items:center}
+.lang-switcher--menu{margin:0}
+.lang-switcher--menu .lang-switcher__pill{display:inline-flex;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:9999px;padding:3px;gap:2px;backdrop-filter:blur(8px)}
+.lang-switcher--menu .lang-switcher__btn{padding:4px 10px;border-radius:9999px;font-size:10px;font-weight:700;letter-spacing:.08em;color:rgba(255,255,255,.65);background:transparent;border:none;cursor:pointer;transition:all .2s ease}
+.lang-switcher--menu .lang-switcher__btn:hover{color:#fff}
+.lang-switcher--menu .lang-switcher__btn--active{background:#57d2f4;color:#04151f;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.lang-switcher--footer{gap:8px;font-size:11px}
+.lang-switcher--footer .lang-switcher__btn{background:transparent;border:none;color:rgba(255,255,255,.45);font-size:11px;font-weight:700;letter-spacing:.1em;cursor:pointer;padding:2px 4px;transition:color .2s ease}
+.lang-switcher--footer .lang-switcher__btn:hover{color:rgba(255,255,255,.85)}
+.lang-switcher--footer .lang-switcher__btn--active{color:#57d2f4;text-decoration:underline;text-underline-offset:3px}
+.lang-switcher--footer .lang-switcher__sep{color:rgba(255,255,255,.2);user-select:none}

@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import SilkShader from './silk-shader'
+import { useLanguage } from '../../i18n/LanguageContext'
 
 export interface StackedGalleryItem {
   src: string
@@ -31,12 +32,13 @@ function StackedSlide({ item, index, total, progress, reduceMotion }: {
 }
 
 export default function StackedGallery({ items }: { items: StackedGalleryItem[] }) {
+  const { t } = useLanguage()
   const trackRef = useRef<HTMLElement>(null)
   const reduceMotion = useReducedMotion()
   const { scrollYProgress } = useScroll({ target: trackRef, offset: ['start start', 'end end'] })
 
   return (
-    <section className="stacked-gallery" ref={trackRef} style={{ height: `${Math.max(items.length, 1) * 100}vh` }} aria-label="Paisagens e momentos do ALMA Réveillon">
+    <section className="stacked-gallery" ref={trackRef} style={{ height: `${Math.max(items.length, 1) * 100}vh` }} aria-label={t.gallery.ariaLabel}>
       <SilkShader variant="green" />
       <div className="stacked-gallery__sticky">
         {items.map((item, index) => <StackedSlide key={item.src} item={item} index={index} total={items.length} progress={scrollYProgress} reduceMotion={reduceMotion} />)}

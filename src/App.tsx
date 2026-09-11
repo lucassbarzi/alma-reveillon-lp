@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion, useReducedMotion, useScroll, useSpring, useTransform, AnimatePresence } from 'motion/react'
 import { ArrowDown, ArrowRight, ArrowUp } from 'lucide-react'
 import ExpandableGallery from './components/ui/gallery-animation'
@@ -11,45 +11,13 @@ import HoverFooter from './components/ui/hover-footer'
 import CircularMenu from './components/ui/circular-menu'
 import AccommodationSection from './AccommodationSection'
 import ImportantNotices from './ImportantNotices'
+import { LanguageProvider, useLanguage } from './i18n/LanguageContext'
+import { trackTicketClick, TICKETS_URL } from './lib/tracking'
 
-const TICKETS = 'https://www.sympla.com.br/evento/a-l-m-a-reveillon-2027-boipeba/3254347?referrer=www.google.com'
+const TICKETS = TICKETS_URL
 const INSTAGRAM = 'https://www.instagram.com/almareveillonboipeba/'
 const LODGING_TICKETS_URL = TICKETS
 const asset = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
-const nights = [
-  ['27.12', 'Roda de Praia', '+5521'],
-  ['28.12', 'Isso Não É Um Sunrise', 'Uma noite que atravessa a madrugada'],
-  ['29.12', 'MOMO & Biribiri', 'Afrobeats sob o céu da Bahia'],
-  ['30.12', 'Luau do DDP', 'Pagode, funk, pop e eletrônico'],
-  ['31.12', 'ALMA Réveillon', 'A virada, à beira-mar'],
-]
-const gallery = [
-  [asset('/media/curadoria/slideshow-mare-aerea.webp'), 'Recifes e águas claras vistos do alto em Boipeba'],
-  [asset('/media/curadoria/slideshow-ilha-aerea.webp'), 'Praia e coqueiral vistos do alto'],
-  [asset('/media/curadoria/slideshow-praia.webp'), 'Faixa de areia e mar azul na ilha'],
-  [asset('/media/curadoria/slideshow-reflexo.webp'), 'Coqueiros refletidos nas águas da ilha'],
-  [asset('/media/0299_image.jpg'), 'Praia paradisíaca em Boipeba'],
-]
-const experienceCards = [
-  { title: 'O caminho', subtitle: 'Chegar a Boipeba já muda o ritmo. O trecho final acontece entre estrada, mar e caminhos de areia.', image: asset('/media/curadoria/carrossel-caminho.webp'), alt: 'Chegada à ilha pelo cais e pelo mar' },
-  { title: 'O dia', subtitle: 'Praias, mata e água morna antes de a primeira batida atravessar a noite.', image: asset('/media/curadoria/card-dia-lancha.webp'), alt: 'Grupo de amigas brindando de lancha nas águas cristalinas de Boipeba' },
-  { title: 'A noite', subtitle: 'Luzes, música e o mar como cenário até o amanhecer.', image: asset('/media/curadoria/card-noite-festa.webp'), alt: 'Pista lotada do ALMA iluminada durante a festa noturna' },
-  { title: 'A virada', subtitle: 'Fogos sobre a Praia da Cueira para brindar a chegada de 2027.', image: asset('/media/curadoria/card-virada-fogos-novo.webp'), alt: 'Queima de fogos de artifício dourada e iluminada na virada de ano' },
-]
-
-const faqs = [
-  ['Onde e quando acontece o ALMA Réveillon 2027?', 'Na Praia da Cueira, em Cairu, Bahia, entre 27 e 31 de dezembro de 2026. A programação publicada começa às 23h nas quatro primeiras noites; no dia 31, às 22h.'],
-  ['Qual é a programação?', 'A programação atual reúne Roda de Praia, Isso Não É Um Sunrise, MOMO & Biribiri, Luau do DDP e ALMA Réveillon entre 27 e 31 de dezembro. Alterações devem ser confirmadas nos canais oficiais.'],
-  ['O passaporte inclui todas as noites?', 'A página oficial apresenta cinco festas Open Bar Premium. As categorias, lotes e disponibilidade devem ser conferidos no fluxo atualizado da Sympla antes da compra.'],
-  ['O que está incluído no Open Bar Premium?', 'A carta publicada inclui Beefeater, Absolut, Jameson, cerveja premium, Aperol Spritz, Red Bull, tônica, refrigerantes, sucos, água de coco e água. Na virada, também há Prosecco Ponto Nero Brut by Casa Valduga.'],
-  ['Existe pacote com hospedagem?', 'Sim. O ALMA possui opções de pacotes com ingresso + hospedagem entre 26/12 e 02/01, sujeitas à disponibilidade. Consulte as opções e valores atualizados no canal oficial de vendas.'],
-  ['Quais são as opções de hospedagem?', 'As opções apresentadas são Maravilha, Pousada Nativa, Pousada da Vila, Casa Verde, Caminho de Pedras, Pedra de Sal e Vila Jesuíta. A disponibilidade e as datas de cada pacote aparecem no carrossel e devem ser confirmadas no canal oficial de vendas.'],
-  ['O evento é Open Food?', 'Não. As cinco festas possuem Open Bar Premium. Alimentação não está incluída e poderá ser adquirida separadamente na praça gastronômica.'],
-  ['Posso chegar dia 28 ou 29 mesmo tendo Full Pass?', 'Sim. O kit de acesso permanece reservado em nome do comprador até a sua chegada.'],
-  ['Como chegar a Boipeba?', 'Boipeba exige planejamento de deslocamento. Há opções por lancha e transfer semiterrestre. Confirme rotas, horários e disponibilidade diretamente com os fornecedores.'],
-  ['Posso transferir ou cancelar meu ingresso?', 'A Sympla informa cancelamento dentro das condições da plataforma e uma edição de participante até 24 horas antes do evento. Consulte as regras exibidas no ingresso no momento da compra. O evento é exclusivo para maiores de 18 anos.'],
-  ['Quais são os canais oficiais?', 'Instagram @almareveillonboipeba, e-mail falacomigo@almareveillon.com.br e a página oficial do evento na Sympla.'],
-]
 
 function Reveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const reduce = useReducedMotion()
@@ -57,19 +25,34 @@ function Reveal({ children, className = '', delay = 0 }: { children: React.React
 }
 
 function SqueezeCarousel() {
-  return <section className="squeeze-section relative-section" aria-labelledby="squeeze-title">
-    <SilkShader variant="ice-aqua" />
-    <div className="shader-bg-overlay shader-bg-overlay--squeeze" style={{ background: 'rgba(3, 18, 14, 0.10)' }} />
-    <div className="shader-content-layer">
-      <div className="squeeze-header">
-        <Reveal><span className="kicker">A EXPERIÊNCIA EM QUATRO MOVIMENTOS</span><h2 id="squeeze-title">Antes da festa,<br/><em>já é ALMA.</em></h2></Reveal>
+  const { t } = useLanguage()
+
+  const experienceCards = useMemo(() => [
+    { title: t.squeeze.cards[0].title, subtitle: t.squeeze.cards[0].subtitle, image: asset('/media/curadoria/carrossel-caminho.webp'), alt: t.squeeze.cards[0].alt },
+    { title: t.squeeze.cards[1].title, subtitle: t.squeeze.cards[1].subtitle, image: asset('/media/curadoria/card-dia-lancha.webp'), alt: t.squeeze.cards[1].alt },
+    { title: t.squeeze.cards[2].title, subtitle: t.squeeze.cards[2].subtitle, image: asset('/media/curadoria/card-noite-festa.webp'), alt: t.squeeze.cards[2].alt },
+    { title: t.squeeze.cards[3].title, subtitle: t.squeeze.cards[3].subtitle, image: asset('/media/curadoria/card-virada-fogos-novo.webp'), alt: t.squeeze.cards[3].alt },
+  ], [t])
+
+  return (
+    <section className="squeeze-section relative-section" aria-labelledby="squeeze-title">
+      <SilkShader variant="ice-aqua" />
+      <div className="shader-bg-overlay shader-bg-overlay--squeeze" style={{ background: 'rgba(3, 18, 14, 0.10)' }} />
+      <div className="shader-content-layer">
+        <div className="squeeze-header">
+          <Reveal>
+            <span className="kicker">{t.squeeze.kicker}</span>
+            <h2 id="squeeze-title">{t.squeeze.h2Part1}<br/><em>{t.squeeze.h2Part2}</em></h2>
+          </Reveal>
+        </div>
+        <ExpandableGallery items={experienceCards} />
       </div>
-      <ExpandableGallery items={experienceCards} />
-    </div>
-  </section>
+    </section>
+  )
 }
 
-function App() {
+function AppContent() {
+  const { t, language } = useLanguage()
   const heroRef = useRef<HTMLElement>(null)
   const manifestoRef = useRef<HTMLElement>(null)
   const logoRef = useRef<HTMLAnchorElement>(null)
@@ -80,6 +63,14 @@ function App() {
   const [showBackToTop, setShowBackToTop] = useState(false)
   const [isPastHero, setIsPastHero] = useState(false)
   const [shouldClosePip, setShouldClosePip] = useState(false)
+
+  const gallery = useMemo(() => [
+    [asset('/media/curadoria/slideshow-mare-aerea.webp'), t.gallery.items[0].alt],
+    [asset('/media/curadoria/slideshow-ilha-aerea.webp'), t.gallery.items[1].alt],
+    [asset('/media/curadoria/slideshow-praia.webp'), t.gallery.items[2].alt],
+    [asset('/media/curadoria/slideshow-reflexo.webp'), t.gallery.items[3].alt],
+    [asset('/media/0299_image.jpg'), t.gallery.items[4].alt],
+  ], [t])
 
   useEffect(() => {
     const checkScroll = () => {
@@ -111,172 +102,247 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  return <main>
-    <header className={`nav ${isPastHero ? 'nav--scrolled' : 'nav--hero'}`}>
-      <a
-        ref={logoRef}
-        className={`wordmark ${isPastHero ? 'wordmark--scrolled' : 'wordmark--hero'}`}
-        href="#top"
-        aria-label="ALMA, início"
-      >
-        <img
-          className="wordmark-layer wordmark-layer--dark"
-          src={asset('/brand/alma-logo-dark.png')}
-          alt="ALMA Réveillon 2027"
-        />
-        <img
-          className="wordmark-layer wordmark-layer--diff"
-          src={asset('/brand/alma-logo-trimmed.png')}
-          alt="ALMA Réveillon 2027"
-        />
-      </a>
-      <CircularMenu ticketsUrl={TICKETS} instagramUrl={INSTAGRAM} />
-    </header>
-
-    <section className="hero" id="top" ref={heroRef}>
-      <video autoPlay muted loop playsInline preload="auto" poster={asset('/media/alma-hero-poster.jpg')} aria-label="Paisagens de Boipeba entre nuvens ensolaradas">
-        <source media="(max-width: 780px)" src={asset('/media/alma-hero-mobile.mp4')} type="video/mp4" />
-        <source src={asset('/media/alma-hero-web.mp4')} type="video/mp4" />
-      </video>
-      <motion.div className="cloud cloud-a" style={{ y: cloudY }}/><motion.div className="cloud cloud-b" style={{ y: cloudY }}/>
-      <div className="hero-wash" />
-      <motion.div className="hero-copy" style={{ y: titleY, opacity: titleOpacity }}>
-        <span className="eyebrow">27 — 31 DEZ 2026 · PRAIA DA CUEIRA</span>
-        <h1>ANO NOVO<br/><em>ILHA NOVA</em></h1>
-        <p className="hero-subtitle">1 ano de espera<br/>5 festas Open Bar Premium<br/>7 dias em uma ilha paradisíaca na Bahia<br/>E aquela sensação rara de estar exatamente onde você queria estar</p>
-        <p className="hero-slogan"><span>Alma salgada</span><span>Alma lavada</span></p>
-        <a className="ticket" href={TICKETS} target="_blank" rel="noreferrer">
-          <span className="ticket-label">Viver o ALMA</span>
-          <span className="ticket-icon-wrapper">
-            <ArrowRight size={17} />
-          </span>
-        </a>
-      </motion.div>
-      <a className="scroll-cue" href="#experiencia" aria-label="Continuar"><span>DESCER</span><ArrowDown size={17}/></a>
-    </section>
-
-    <section className="manifesto light relative-section" id="experiencia" ref={manifestoRef}>
-      <MeshDriftShader />
-      <div className="shader-bg-overlay" style={{ background: 'rgba(244, 251, 253, 0.72)' }} />
-      <div className="shader-content-layer">
-        <Reveal><span className="kicker">UM CONVITE DA ILHA</span><h2>Há viradas que mudam a data.<br/><em>Esta muda o estado de espírito.</em></h2></Reveal>
-        <Reveal className="manifesto-grid" delay={.1}>
-          <p className="lead">Boipeba não se atravessa com pressa. A chegada já muda o ritmo: a cidade fica para trás, o mar abre caminho e o tempo passa a obedecer à maré.</p>
-          <p>Na Praia da Cueira, o ALMA ocupa cinco noites entre 27 e 31 de dezembro. Música, areia, encontros e Open Bar Premium compõem uma experiência desenhada para terminar o ano leve e começar 2027 inteiro.</p>
-        </Reveal>
-      </div>
-    </section>
-
-    <section className="cinema" id="ilha">
-      <div className="cinema-bg" />
-      <Reveal className="cinema-copy"><span className="kicker">BOIPEBA, BAHIA</span><h2>Primeiro,<br/>o paraíso.</h2><p>Uma ilha alcançada pelo mar. Praia, mata, caminhos de areia e noites que começam quando o sol baixa.</p></Reveal>
-    </section>
-
-    <SqueezeCarousel />
-
-    <div id="midia"><StackedGallery items={gallery.map(([src, alt]) => ({ src, alt }))} /></div>
-
-    <section className="nights light" id="programacao">
-      <Reveal><span className="kicker">CINCO NOITES · OPEN BAR PREMIUM</span><h2>Cada noite,<br/><em>uma nova maré.</em></h2></Reveal>
-      <div className="night-list">{nights.map((n, i) => <Reveal className="night" key={n[0]} delay={i*.04}><span>{n[0]}</span><h3>{n[1]}</h3><p>{n[2]}</p></Reveal>)}</div>
-      <p className="source-note">Programação publicada nas páginas de referência. Alterações devem ser confirmadas no canal oficial do evento.</p>
-    </section>
-
-    <section className="bar-section relative-section" id="openbar">
-      <SilkShader />
-      <div className="shader-bg-overlay" style={{ background: 'linear-gradient(135deg, rgba(5, 24, 32, 0.38) 0%, rgba(14, 70, 86, 0.20) 50%, rgba(5, 24, 32, 0.42) 100%)' }} />
-      <div className="bar-grid shader-content-layer">
-        <Reveal className="bar-copy"><span className="kicker">SEM INTERROMPER O MOMENTO</span><h2>Open Bar<br/><em>Premium.</em></h2><p>Nas cinco noites, uma seleção premium de gin, vodka, whiskey, cerveja, cocktails, energéticos e bebidas não alcoólicas. Na virada, Prosecco Ponto Nero Brut para o primeiro brinde de 2027.</p><div className="bar-brands" aria-label="Marcas do Open Bar Premium"><span>Beefeater</span><span>Absolut</span><span>Jameson</span><span>Sol Premium</span><span>Aperol Spritz</span><span>Red Bull</span></div><div className="bar-highlight">Virada com Prosecco Ponto Nero Brut by Casa Valduga</div></Reveal>
-        <div className="orb" aria-hidden="true"><span>27 — 31</span><strong>DEZ</strong></div>
-      </div>
-    </section>
-
-    <AccommodationSection ticketsUrl={LODGING_TICKETS_URL} />
-
-    <section className="stories light" id="historias">
-      <Reveal><span className="kicker">HISTÓRIAS DE OUTRAS MARÉS</span><h2>O que fica<br/><em>depois da virada.</em></h2></Reveal>
-      <div className="story-grid">
-        <Reveal className="story-card">
-          <div className="story-card__top">
-            <span className="story-card__tag">CHEGADA</span>
-
-          </div>
-          <div className="story-card__content">
-            <h3>A cidade termina no cais.</h3>
-            <p>O deslocamento não é um intervalo. É o primeiro capítulo: quando o caminho encontra o mar, a pressa começa a perder importância.</p>
-          </div>
-        </Reveal>
-
-        <Reveal className="story-card" delay={.1}>
-          <div className="story-card__top">
-            <span className="story-card__tag">ENCONTRO</span>
-
-          </div>
-          <div className="story-card__content">
-            <h3>A pista não tem paredes.</h3>
-            <p>A Praia da Cueira muda a escala da festa. O horizonte permanece à vista enquanto a música atravessa a madrugada.</p>
-          </div>
-        </Reveal>
-
-        <Reveal className="story-card" delay={.2}>
-          <div className="story-card__top">
-            <span className="story-card__tag">MEMÓRIA</span>
-
-          </div>
-          <div className="story-card__content">
-            <h3>O sol encerra a noite.</h3>
-            <p>As imagens de edições anteriores guardam o que uma lista de atrações não explica: gente que chegou para uma festa e saiu levando uma paisagem inteira.</p>
-          </div>
-        </Reveal>
-      </div>
-
-    </section>
-
-    <ImportantNotices ticketsUrl={TICKETS} instagramUrl={INSTAGRAM} />
-
-    <section className="faq light" id="faq">
-      <Reveal><span className="kicker">ANTES DE IR</span><h2>As maiores<br/><em>dúvidas, respondidas.</em></h2></Reveal>
-      <div className="faq-list">{faqs.map(([question, answer], index) => <details key={question}><summary><span>{String(index + 1).padStart(2, '0')}</span>{question}<b>+</b></summary><p>{answer}</p></details>)}</div>
-    </section>
-
-    <section className="finale">
-      <div className="finale-bg" />
-      <Reveal className="finale-copy">
-        <span className="kicker">HAPPY NEW ILHA</span>
-        <h2>SEU MELHOR ANO<br/>VAI COMEÇAR AQUI.</h2>
-        <p>Praia da Cueira · Cairu, Bahia<br/>27 de dezembro, 23h — 1º de janeiro, 6h</p>
-        <a className="ticket light-ticket" href={TICKETS} target="_blank" rel="noreferrer">
-          <span className="ticket-label">Comprar no Sympla</span>
-          <span className="ticket-icon-wrapper">
-            <ArrowRight size={17} />
-          </span>
-        </a>
-        <small>Evento para maiores de 18 anos. Compra e regras pela plataforma oficial.</small>
-      </Reveal>
-    </section>
-
-    <HoverFooter />
-    <PipVideoPlayer closeOnTrigger={shouldClosePip} />
-
-    <AnimatePresence>
-      {showBackToTop && (
-        <motion.button
-          type="button"
-          onClick={scrollToTop}
-          className="back-to-top"
-          initial={{ opacity: 0, y: 16, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 16, scale: 0.9 }}
-          whileHover={{ scale: 1.06, y: -2 }}
-          whileTap={{ scale: 0.94 }}
-          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-          aria-label="Voltar ao topo"
+  return (
+    <main>
+      <header className={`nav ${isPastHero ? 'nav--scrolled' : 'nav--hero'}`}>
+        <a
+          ref={logoRef}
+          className={`wordmark ${isPastHero ? 'wordmark--scrolled' : 'wordmark--hero'}`}
+          href="#top"
+          aria-label={t.nav.ariaWordmark}
         >
-          <ArrowUp size={16} />
-          <span>TOPO</span>
-        </motion.button>
-      )}
-    </AnimatePresence>
-  </main>
+          <img
+            className="wordmark-layer wordmark-layer--dark"
+            src={asset('/brand/alma-logo-dark.png')}
+            alt="ALMA Réveillon 2027"
+          />
+          <img
+            className="wordmark-layer wordmark-layer--diff"
+            src={asset('/brand/alma-logo-trimmed.png')}
+            alt="ALMA Réveillon 2027"
+          />
+        </a>
+        <CircularMenu ticketsUrl={TICKETS} instagramUrl={INSTAGRAM} />
+      </header>
+
+      <section className="hero" id="top" ref={heroRef}>
+        <video autoPlay muted loop playsInline preload="auto" poster={asset('/media/alma-hero-poster.jpg')} aria-label={t.hero.videoAria}>
+          <source media="(max-width: 780px)" src={asset('/media/alma-hero-mobile.mp4')} type="video/mp4" />
+          <source src={asset('/media/alma-hero-web.mp4')} type="video/mp4" />
+        </video>
+        <motion.div className="cloud cloud-a" style={{ y: cloudY }}/><motion.div className="cloud cloud-b" style={{ y: cloudY }}/>
+        <div className="hero-wash" />
+        <motion.div className="hero-copy" style={{ y: titleY, opacity: titleOpacity }}>
+          <span className="eyebrow">{t.hero.eyebrow}</span>
+          <h1>{t.hero.titlePart1}<br/><em>{t.hero.titlePart2}</em></h1>
+          <p className="hero-subtitle">
+            {t.hero.subtitle.map((line, idx) => (
+              <span key={idx}>
+                {line}
+                {idx < t.hero.subtitle.length - 1 && <br />}
+              </span>
+            ))}
+          </p>
+          <p className="hero-slogan"><span>{t.hero.slogan1}</span><span>{t.hero.slogan2}</span></p>
+          <a
+            className="ticket"
+            href={TICKETS}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => {
+              trackTicketClick({
+                ctaLocation: 'hero_cta',
+                ctaText: t.hero.cta,
+                destinationUrl: TICKETS,
+                language,
+              })
+            }}
+          >
+            <span className="ticket-label">{t.hero.cta}</span>
+            <span className="ticket-icon-wrapper">
+              <ArrowRight size={17} />
+            </span>
+          </a>
+        </motion.div>
+        <a className="scroll-cue" href="#experiencia" aria-label={t.hero.scrollCueAria}>
+          <span>{t.hero.scrollCueText}</span>
+          <ArrowDown size={17}/>
+        </a>
+      </section>
+
+      <section className="manifesto light relative-section" id="experiencia" ref={manifestoRef}>
+        <MeshDriftShader />
+        <div className="shader-bg-overlay" style={{ background: 'rgba(244, 251, 253, 0.72)' }} />
+        <div className="shader-content-layer">
+          <Reveal>
+            <span className="kicker">{t.manifesto.kicker}</span>
+            <h2>{t.manifesto.h2Part1}<br/><em>{t.manifesto.h2Part2}</em></h2>
+          </Reveal>
+          <Reveal className="manifesto-grid" delay={.1}>
+            <p className="lead">{t.manifesto.lead}</p>
+            <p>{t.manifesto.p2}</p>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="cinema" id="ilha">
+        <div className="cinema-bg" />
+        <Reveal className="cinema-copy">
+          <span className="kicker">{t.cinema.kicker}</span>
+          <h2>{t.cinema.h2Part1}<br/>{t.cinema.h2Part2}</h2>
+          <p>{t.cinema.p}</p>
+        </Reveal>
+      </section>
+
+      <SqueezeCarousel />
+
+      <div id="midia">
+        <StackedGallery items={gallery.map(([src, alt]) => ({ src, alt }))} />
+      </div>
+
+      <section className="nights light" id="programacao">
+        <Reveal>
+          <span className="kicker">{t.lineup.kicker}</span>
+          <h2>{t.lineup.h2Part1}<br/><em>{t.lineup.h2Part2}</em></h2>
+        </Reveal>
+        <div className="night-list">
+          {t.lineup.nights.map((n, i) => (
+            <Reveal className="night" key={n.date} delay={i * .04}>
+              <span>{n.date}</span>
+              <h3>{n.title}</h3>
+              <p>{n.subtitle}</p>
+            </Reveal>
+          ))}
+        </div>
+        <p className="source-note">{t.lineup.sourceNote}</p>
+      </section>
+
+      <section className="bar-section relative-section" id="openbar">
+        <SilkShader />
+        <div className="shader-bg-overlay" style={{ background: 'linear-gradient(135deg, rgba(5, 24, 32, 0.38) 0%, rgba(14, 70, 86, 0.20) 50%, rgba(5, 24, 32, 0.42) 100%)' }} />
+        <div className="bar-grid shader-content-layer">
+          <Reveal className="bar-copy">
+            <span className="kicker">{t.openBar.kicker}</span>
+            <h2>{t.openBar.h2Part1}<br/><em>{t.openBar.h2Part2}</em></h2>
+            <p>{t.openBar.p}</p>
+            <div className="bar-brands" aria-label={t.openBar.brandsAria}>
+              <span>Beefeater</span><span>Absolut</span><span>Jameson</span><span>Sol Premium</span><span>Aperol Spritz</span><span>Red Bull</span>
+            </div>
+            <div className="bar-highlight">{t.openBar.highlight}</div>
+          </Reveal>
+          <div className="orb" aria-hidden="true"><span>27 — 31</span><strong>{t.openBar.month}</strong></div>
+        </div>
+      </section>
+
+      <AccommodationSection ticketsUrl={LODGING_TICKETS_URL} />
+
+      <section className="stories light" id="historias">
+        <Reveal>
+          <span className="kicker">{t.stories.kicker}</span>
+          <h2>{t.stories.h2Part1}<br/><em>{t.stories.h2Part2}</em></h2>
+        </Reveal>
+        <div className="story-grid">
+          {t.stories.cards.map((card, idx) => (
+            <Reveal className="story-card" key={card.tag} delay={idx * .1}>
+              <div className="story-card__top">
+                <span className="story-card__tag">{card.tag}</span>
+              </div>
+              <div className="story-card__content">
+                <h3>{card.title}</h3>
+                <p>{card.p}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <ImportantNotices ticketsUrl={TICKETS} instagramUrl={INSTAGRAM} />
+
+      <section className="faq light" id="faq">
+        <Reveal>
+          <span className="kicker">{t.faq.kicker}</span>
+          <h2>{t.faq.h2Part1}<br/><em>{t.faq.h2Part2}</em></h2>
+        </Reveal>
+        <div className="faq-list">
+          {t.faq.items.map((item, index) => (
+            <details key={item.question}>
+              <summary>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                {item.question}
+                <b>+</b>
+              </summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section className="finale">
+        <div className="finale-bg" />
+        <Reveal className="finale-copy">
+          <span className="kicker">{t.finale.kicker}</span>
+          <h2>{t.finale.h2Part1}<br/>{t.finale.h2Part2}</h2>
+          <p>
+            {t.finale.locationSchedule.split('\n').map((line, idx) => (
+              <span key={idx}>
+                {line}
+                {idx === 0 && <br />}
+              </span>
+            ))}
+          </p>
+          <a
+            className="ticket light-ticket"
+            href={TICKETS}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => {
+              trackTicketClick({
+                ctaLocation: 'finale_cta',
+                ctaText: t.finale.cta,
+                destinationUrl: TICKETS,
+                language,
+              })
+            }}
+          >
+            <span className="ticket-label">{t.finale.cta}</span>
+            <span className="ticket-icon-wrapper">
+              <ArrowRight size={17} />
+            </span>
+          </a>
+          <small>{t.finale.legal}</small>
+        </Reveal>
+      </section>
+
+      <HoverFooter />
+      <PipVideoPlayer closeOnTrigger={shouldClosePip} />
+
+      <AnimatePresence>
+        {showBackToTop && (
+          <motion.button
+            type="button"
+            onClick={scrollToTop}
+            className="back-to-top"
+            initial={{ opacity: 0, y: 16, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 16, scale: 0.9 }}
+            whileHover={{ scale: 1.06, y: -2 }}
+            whileTap={{ scale: 0.94 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            aria-label={t.backToTop.aria}
+          >
+            <ArrowUp size={16} />
+            <span>{t.backToTop.text}</span>
+          </motion.button>
+        )}
+      </AnimatePresence>
+    </main>
+  )
 }
-export default App
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <AppContent />
+    </LanguageProvider>
+  )
+}

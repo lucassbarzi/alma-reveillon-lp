@@ -2,10 +2,12 @@ import { useRef, useEffect, useState } from 'react'
 import { motion } from 'motion/react'
 import { FaInstagram } from 'react-icons/fa6'
 import { ArrowUpRight, Calendar, MapPin } from 'lucide-react'
-
 import HowToArriveModal from './how-to-arrive-modal'
+import { useLanguage } from '../../i18n/LanguageContext'
+import { trackTicketClick, TICKETS_URL } from '../../lib/tracking'
+import LanguageSwitcher from './language-switcher'
 
-const TICKETS = 'https://www.sympla.com.br/evento/a-l-m-a-reveillon-2027-boipeba/3254347?referrer=www.google.com'
+const TICKETS = TICKETS_URL
 const INSTAGRAM = 'https://www.instagram.com/almareveillonboipeba/'
 
 export const TextHoverEffect = ({
@@ -167,30 +169,31 @@ export const FooterBackgroundGradient = () => {
   )
 }
 
-const footerLinks = [
-  {
-    title: 'O Evento',
-    links: [
-      { label: 'Experiência', href: '#experiencia' },
-      { label: 'Programação', href: '#programacao' },
-      { label: 'Boipeba, Bahia', href: '#ilha' },
-      { label: 'Open Bar Premium', href: '#openbar' },
-      { label: 'Hospedagem', href: '#hospedagem' },
-    ],
-  },
-  {
-    title: 'Informações',
-    links: [
-      { label: 'Dúvidas Frequentes', href: '#faq' },
-      { label: 'Como Chegar', href: '#como-chegar', isModal: true },
-      { label: 'Ingressos Sympla', href: TICKETS, pulse: true, external: true },
-    ],
-  },
-]
-
 export default function HoverFooter() {
+  const { t, language } = useLanguage()
   const footerCardRef = useRef<HTMLElement>(null)
   const [isHowToArriveOpen, setIsHowToArriveOpen] = useState(false)
+
+  const footerLinks = [
+    {
+      title: t.footer.sectionEvent,
+      links: [
+        { label: t.footer.navExperience, href: '#experiencia' },
+        { label: t.footer.navLineup, href: '#programacao' },
+        { label: t.footer.navIsland, href: '#ilha' },
+        { label: t.footer.navOpenBar, href: '#openbar' },
+        { label: t.footer.navLodging, href: '#hospedagem' },
+      ],
+    },
+    {
+      title: t.footer.sectionInfo,
+      links: [
+        { label: t.footer.navFaq, href: '#faq' },
+        { label: t.footer.navHowToArrive, href: '#como-chegar', isModal: true },
+        { label: t.footer.navSymplaTickets, href: TICKETS, pulse: true, external: true },
+      ],
+    },
+  ]
 
   return (
     <div className="hover-footer-container">
@@ -207,10 +210,10 @@ export default function HoverFooter() {
                 />
               </div>
               <p className="hover-footer-desc">
-                Cinco noites na ilha. O mar por perto. O pé na areia. E a sensação rara de estar exatamente onde você queria estar.
+                {t.footer.brandDesc}
               </p>
               <div className="hover-footer-badge">
-                <span>PRAIA DA CUEIRA · BOIPEBA</span>
+                <span>{t.footer.locationBadge}</span>
               </div>
             </div>
 
@@ -235,6 +238,16 @@ export default function HoverFooter() {
                           href={link.href}
                           target={link.external ? '_blank' : undefined}
                           rel={link.external ? 'noreferrer' : undefined}
+                          onClick={() => {
+                            if (link.external) {
+                              trackTicketClick({
+                                ctaLocation: 'footer_link_tickets',
+                                ctaText: link.label,
+                                destinationUrl: link.href,
+                                language,
+                              })
+                            }
+                          }}
                           className="hover-footer-link"
                         >
                           <span>{link.label}</span>
@@ -254,15 +267,15 @@ export default function HoverFooter() {
 
             {/* Contact / Info section */}
             <div className="hover-footer-col">
-              <h4 className="hover-footer-title">Quando & Onde</h4>
+              <h4 className="hover-footer-title">{t.footer.sectionWhenWhere}</h4>
               <ul className="hover-footer-info-list">
                 <li className="hover-footer-info-item">
                   <Calendar size={17} className="text-[#57d2f4] shrink-0" />
-                  <span>27 — 31 de Dezembro de 2026</span>
+                  <span>{t.footer.whenDates}</span>
                 </li>
                 <li className="hover-footer-info-item">
                   <MapPin size={17} className="text-[#57d2f4] shrink-0" />
-                  <span>Praia da Cueira, Cairu — Boipeba, BA</span>
+                  <span>{t.footer.whereLocation}</span>
                 </li>
               </ul>
               <div className="pt-6 mt-3">
@@ -270,17 +283,39 @@ export default function HoverFooter() {
                   href={TICKETS}
                   target="_blank"
                   rel="noreferrer"
+                  onClick={() => {
+                    trackTicketClick({
+                      ctaLocation: 'footer_cta_btn',
+                      ctaText: t.footer.ctaButton,
+                      destinationUrl: TICKETS,
+                      language,
+                    })
+                  }}
                   className="hover-footer-cta-btn"
                 >
-                  <span>Garantir Ingresso</span>
+                  <span>{t.footer.ctaButton}</span>
                   <ArrowUpRight size={15} />
                 </a>
               </div>
               <div className="hover-footer-official">
-                <span>CANAIS OFICIAIS</span>
-                <a href={INSTAGRAM} target="_blank" rel="noreferrer">Instagram · @almareveillonboipeba</a>
-                <a href="mailto:falacomigo@almareveillon.com.br">E-mail · falacomigo@almareveillon.com.br</a>
-                <a href={TICKETS} target="_blank" rel="noreferrer">Ingressos · Sympla</a>
+                <span>{t.footer.officialChannels}</span>
+                <a href={INSTAGRAM} target="_blank" rel="noreferrer">{t.footer.officialInstagram}</a>
+                <a href="mailto:falacomigo@almareveillon.com.br">{t.footer.officialEmail}</a>
+                <a
+                  href={TICKETS}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => {
+                    trackTicketClick({
+                      ctaLocation: 'footer_official_channel',
+                      ctaText: t.footer.officialTickets,
+                      destinationUrl: TICKETS,
+                      language,
+                    })
+                  }}
+                >
+                  {t.footer.officialTickets}
+                </a>
               </div>
             </div>
           </div>
@@ -295,7 +330,7 @@ export default function HoverFooter() {
                 href={INSTAGRAM}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="Instagram Oficial ALMA"
+                aria-label={t.footer.instagramAria}
                 className="hover-footer-social-icon"
               >
                 <FaInstagram size={18} />
@@ -303,14 +338,25 @@ export default function HoverFooter() {
               <span className="text-xs text-white/60">@almareveillonboipeba</span>
             </div>
 
+            {/* Language Switcher */}
+            <LanguageSwitcher variant="footer" />
+
             {/* Sympla badge */}
             <a
               href={TICKETS}
               target="_blank"
               rel="noreferrer"
+              onClick={() => {
+                trackTicketClick({
+                  ctaLocation: 'footer_sympla_badge',
+                  ctaText: 'Sympla Badge',
+                  destinationUrl: TICKETS,
+                  language,
+                })
+              }}
               className="hover-footer-sympla"
             >
-              <span className="text-xs text-white/50">Vendas oficiais por</span>
+              <span className="text-xs text-white/50">{t.footer.officialSalesBy}</span>
               <img
                 src={`${import.meta.env.BASE_URL}brand/sympla-logo.png`}
                 alt="Sympla"
@@ -320,10 +366,10 @@ export default function HoverFooter() {
 
             {/* Copyright */}
             <p className="hover-footer-copy">
-              &copy; {new Date().getFullYear()} ALMA Réveillon. Todos os direitos reservados.
+              {t.footer.copyright}
             </p>
           </div>
-          <p className="hover-footer-legal">Open Bar Premium · Open Food não incluso · Evento +18.</p>
+          <p className="hover-footer-legal">{t.footer.legalBottom}</p>
         </div>
 
         {/* Text hover effect background watermark extrapolating card boundaries */}

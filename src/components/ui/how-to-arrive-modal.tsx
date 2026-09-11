@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'motion/react'
 import { Plane, Car, Ship, Info, ArrowUpRight, X, Clock, MapPin, CheckCircle2 } from 'lucide-react'
+import { useLanguage } from '../../i18n/LanguageContext'
 
 interface HowToArriveModalProps {
   isOpen: boolean
@@ -11,6 +12,7 @@ interface HowToArriveModalProps {
 type TabKey = 'aviao' | 'carro' | 'salvador' | 'dicas'
 
 export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalProps) {
+  const { t } = useLanguage()
   const [activeTab, setActiveTab] = useState<TabKey>('aviao')
   const closeRef = useRef<HTMLButtonElement>(null)
 
@@ -34,6 +36,8 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
 
   if (typeof document === 'undefined') return null
 
+  const h = t.howToArrive
+
   return createPortal(
     <AnimatePresence>
       {isOpen && (
@@ -48,7 +52,7 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
             className="how-to-arrive-modal"
             role="dialog"
             aria-modal="true"
-            aria-label="Guia de Como Chegar à Ilha de Boipeba"
+            aria-label={h.ariaDialog}
             initial={{ opacity: 0, y: 45, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.98 }}
@@ -59,19 +63,16 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
               ref={closeRef}
               className="how-to-arrive-close"
               onClick={onClose}
-              aria-label="Fechar guia de rotas"
+              aria-label={h.ariaClose}
             >
               <X size={20} />
             </button>
 
             {/* Header */}
             <header className="how-to-arrive-header">
-              <span className="how-to-arrive-kicker">GUIA DE VIAGEM · BOIPEBA, BAHIA</span>
-              <h2>Como Chegar <em>ao ALMA</em></h2>
-              <p>
-                Não entram carros na Ilha de Boipeba. A travessia pelo mar ou pelo ar já faz parte
-                do ritual de desacelerar. Escolha a melhor rota para o seu ponto de partida.
-              </p>
+              <span className="how-to-arrive-kicker">{h.kicker}</span>
+              <h2>{h.h2Part1}<em>{h.h2Part2}</em></h2>
+              <p>{h.intro}</p>
             </header>
 
             {/* Navigation Tabs */}
@@ -82,7 +83,7 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
                 onClick={() => setActiveTab('aviao')}
               >
                 <Plane size={16} />
-                <span>De Avião</span>
+                <span>{h.tabs.plane}</span>
               </button>
               <button
                 type="button"
@@ -90,7 +91,7 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
                 onClick={() => setActiveTab('carro')}
               >
                 <Car size={16} />
-                <span>De Carro</span>
+                <span>{h.tabs.car}</span>
               </button>
               <button
                 type="button"
@@ -98,7 +99,7 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
                 onClick={() => setActiveTab('salvador')}
               >
                 <Ship size={16} />
-                <span>De Salvador</span>
+                <span>{h.tabs.salvador}</span>
               </button>
               <button
                 type="button"
@@ -106,7 +107,7 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
                 onClick={() => setActiveTab('dicas')}
               >
                 <Info size={16} />
-                <span>Dicas de Ouro</span>
+                <span>{h.tabs.tips}</span>
               </button>
             </div>
 
@@ -118,26 +119,23 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
                     <div className="how-to-arrive-card-header">
                       <Plane size={20} className="text-[#57d2f4]" />
                       <div>
-                        <h3>Opção Mais Rápida: Táxi Aéreo direto (Salvador → Boipeba)</h3>
-                        <span className="how-to-arrive-badge">~25 a 30 minutos de voo</span>
+                        <h3>{h.plane.card1Title}</h3>
+                        <span className="how-to-arrive-badge">{h.plane.card1Badge}</span>
                       </div>
                     </div>
-                    <p>
-                      Voos fretados e regulares em aeronaves bimotores partem do Aeroporto Internacional de Salvador (SSA)
-                      diretamente até a pista da Fazenda Pontal (localizada em frente a Boipeba).
-                    </p>
+                    <p>{h.plane.card1P}</p>
                     <ul className="how-to-arrive-steps">
                       <li>
                         <CheckCircle2 size={15} />
-                        <span>Embarque no aeroporto de Salvador (terminal executivo / táxi aéreo).</span>
+                        <span>{h.plane.card1Step1}</span>
                       </li>
                       <li>
                         <CheckCircle2 size={15} />
-                        <span>Pouso na pista da Fazenda Pontal, cercada por coqueirais.</span>
+                        <span>{h.plane.card1Step2}</span>
                       </li>
                       <li>
                         <CheckCircle2 size={15} />
-                        <span>Travessia rápida de 5 minutos de barco até o cais da vila de Boipeba.</span>
+                        <span>{h.plane.card1Step3}</span>
                       </li>
                     </ul>
                   </div>
@@ -146,22 +144,19 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
                     <div className="how-to-arrive-card-header">
                       <Plane size={20} className="text-[#57d2f4]" />
                       <div>
-                        <h3>Voo Comercial via Aeroporto de Valença (VAL)</h3>
-                        <span className="how-to-arrive-badge">Conexão comercial regional</span>
+                        <h3>{h.plane.card2Title}</h3>
+                        <span className="how-to-arrive-badge">{h.plane.card2Badge}</span>
                       </div>
                     </div>
-                    <p>
-                      Durante a alta temporada de verão, companhias aéreas como a Azul Conecta operam voos comerciais
-                      com destino ao Aeroporto de Valença (VAL).
-                    </p>
+                    <p>{h.plane.card2P}</p>
                     <ul className="how-to-arrive-steps">
                       <li>
                         <CheckCircle2 size={15} />
-                        <span>Pouso em Valença → táxi de 20 min até o terminal marítimo.</span>
+                        <span>{h.plane.card2Step1}</span>
                       </li>
                       <li>
                         <CheckCircle2 size={15} />
-                        <span>Lancha rápida direto para Boipeba em cerca de 50 minutos.</span>
+                        <span>{h.plane.card2Step2}</span>
                       </li>
                     </ul>
                   </div>
@@ -174,30 +169,27 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
                     <div className="how-to-arrive-card-header">
                       <Car size={20} className="text-[#57d2f4]" />
                       <div>
-                        <h3>Rota Recomendada: De Carro até Torrinhas</h3>
-                        <span className="how-to-arrive-badge">Apenas 20 min de lancha rápida</span>
+                        <h3>{h.car.card1Title}</h3>
+                        <span className="how-to-arrive-badge">{h.car.card1Badge}</span>
                       </div>
                     </div>
-                    <p>
-                      Se você vem de carro próprio ou alugado, o <strong>Atracadouro de Torrinhas</strong> é de longe a melhor
-                      e mais curta alternativa náutica até Boipeba.
-                    </p>
+                    <p>{h.car.card1P}</p>
                     <ul className="how-to-arrive-steps">
                       <li>
                         <CheckCircle2 size={15} />
-                        <span><strong>Saindo de Salvador:</strong> Ferry-boat até Bom Despacho (Itaparica) e siga pela BA-001 até o trevo de Cairu rumo a Torrinhas.</span>
+                        <span>{h.car.card1Step1}</span>
                       </li>
                       <li>
                         <CheckCircle2 size={15} />
-                        <span><strong>Saindo do Sul da Bahia (Ilhéus/Itacaré):</strong> Suba pela BA-001 direto em direção a Torrinhas.</span>
+                        <span>{h.car.card1Step2}</span>
                       </li>
                       <li>
                         <CheckCircle2 size={15} />
-                        <span><strong>Estacionamento seguro:</strong> Em Torrinhas existem vários estacionamentos particulares, murados e cobertos para guardar o veículo com tranquilidade.</span>
+                        <span>{h.car.card1Step3}</span>
                       </li>
                       <li>
                         <CheckCircle2 size={15} />
-                        <span><strong>Lancha rápida:</strong> A travessia até a vila de Boipeba leva apenas <strong>20 a 25 minutos</strong> por um rio protegido e calmo.</span>
+                        <span>{h.car.card1Step4}</span>
                       </li>
                     </ul>
                   </div>
@@ -206,13 +198,11 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
                     <div className="how-to-arrive-card-header">
                       <Car size={20} className="text-[#57d2f4]" />
                       <div>
-                        <h3>Alternativa: Estacionamento em Valença ou Graciosa</h3>
-                        <span className="how-to-arrive-badge">~50 min de lancha rápida</span>
+                        <h3>{h.car.card2Title}</h3>
+                        <span className="how-to-arrive-badge">{h.car.card2Badge}</span>
                       </div>
                     </div>
-                    <p>
-                      Você também pode estacionar no centro de Valença ou no Atracadouro da Graciosa. De lá, lanchas rápidas partem de hora em hora rumo a Boipeba (trajeto náutico de cerca de 50 minutos a 1 hora).
-                    </p>
+                    <p>{h.car.card2P}</p>
                   </div>
                 </div>
               )}
@@ -223,28 +213,25 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
                     <div className="how-to-arrive-card-header">
                       <Ship size={20} className="text-[#57d2f4]" />
                       <div>
-                        <h3>Semiterrestre Integrado (Opção Mais Procurada)</h3>
-                        <span className="how-to-arrive-badge">Duração total: ~4h30 a 5h30</span>
+                        <h3>{h.salvador.card1Title}</h3>
+                        <span className="how-to-arrive-badge">{h.salvador.card1Badge}</span>
                       </div>
                     </div>
-                    <p>
-                      É a forma mais tradicional e econômica de chegar saindo da capital. Diversas agências de turismo
-                      oferecem o pacote de transfer semiterrestre completo, pegando você no aeroporto ou hotel de Salvador.
-                    </p>
+                    <p>{h.salvador.card1P}</p>
                     <div className="how-to-arrive-route-chain">
                       <div className="route-node">
-                        <strong>1. Ferry-Boat</strong>
-                        <span>Salvador → Bom Despacho (Itaparica) (~50 min)</span>
+                        <strong>{h.salvador.node1Title}</strong>
+                        <span>{h.salvador.node1Desc}</span>
                       </div>
                       <div className="route-arrow">↓</div>
                       <div className="route-node">
-                        <strong>2. Transfer Terrestre</strong>
-                        <span>Van/Ônibus pela BA-001 até Valença ou Torrinhas (~2h a 2h30)</span>
+                        <strong>{h.salvador.node2Title}</strong>
+                        <span>{h.salvador.node2Desc}</span>
                       </div>
                       <div className="route-arrow">↓</div>
                       <div className="route-node">
-                        <strong>3. Lancha Rápida</strong>
-                        <span>Travessia náutica final até o cais de Boipeba (~25 a 50 min)</span>
+                        <strong>{h.salvador.node3Title}</strong>
+                        <span>{h.salvador.node3Desc}</span>
                       </div>
                     </div>
                   </div>
@@ -253,14 +240,11 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
                     <div className="how-to-arrive-card-header">
                       <Ship size={20} className="text-[#57d2f4]" />
                       <div>
-                        <h3>Via Catamarã + 4x4 (Passando por Morro de São Paulo)</h3>
-                        <span className="how-to-arrive-badge">Para quem quer visitar Morro</span>
+                        <h3>{h.salvador.card2Title}</h3>
+                        <span className="how-to-arrive-badge">{h.salvador.card2Badge}</span>
                       </div>
                     </div>
-                    <p>
-                      Catamarã parte do Terminal Náutico de Salvador (Mercado Modelo) até Morro de São Paulo (2h30 em mar aberto).
-                      De Morro, um veículo 4x4 cruza as praias até o Rio do Inferno, onde um barquinho de 5 minutos te leva a Boipeba.
-                    </p>
+                    <p>{h.salvador.card2P}</p>
                   </div>
                 </div>
               )}
@@ -271,16 +255,13 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
                     <div className="how-to-arrive-card-header">
                       <Clock size={20} className="text-[#57d2f4]" />
                       <div>
-                        <h3>Horário Limite das Lanchas Rápidas (Atenção!)</h3>
-                        <span className="how-to-arrive-badge how-to-arrive-badge--attention">Sem navegação noturna</span>
+                        <h3>{h.tips.card1Title}</h3>
+                        <span className="how-to-arrive-badge how-to-arrive-badge--attention">{h.tips.card1Badge}</span>
                       </div>
                     </div>
-                    <p>
-                      As últimas lanchas rápidas regulares saindo de Valença e Torrinhas partem entre <strong>17h e 18h</strong>.
-                      As embarcações não navegam à noite por motivos de segurança marítima.
-                    </p>
+                    <p>{h.tips.card1P1}</p>
                     <p className="mt-2 text-xs opacity-85">
-                      <strong>Recomendação ALMA:</strong> Se o seu voo pousar em Salvador após as 12h30, reserve um transfer privativo com antecedência ou durma a primeira noite em Salvador para fazer a travessia com calma pela manhã.
+                      <strong>ALMA: </strong>{h.tips.card1Recommendation}
                     </p>
                   </div>
 
@@ -288,14 +269,11 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
                     <div className="how-to-arrive-card-header">
                       <MapPin size={20} className="text-[#57d2f4]" />
                       <div>
-                        <h3>Carregadores de Mala no Cais e Pé na Areia</h3>
-                        <span className="how-to-arrive-badge">Estrutura local</span>
+                        <h3>{h.tips.card2Title}</h3>
+                        <span className="how-to-arrive-badge">{h.tips.card2Badge}</span>
                       </div>
                     </div>
-                    <p>
-                      Como não há circulação de carros na ilha, no momento em que você desembarcar no cais de Boipeba haverá carregadores
-                      credenciados com carrinhos de mão identificados. Eles transportam suas malas até qualquer pousada da vila ou Praia da Cueira.
-                    </p>
+                    <p>{h.tips.card2P}</p>
                   </div>
                 </div>
               )}
@@ -310,7 +288,7 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
                 className="how-to-arrive-btn-maps"
               >
                 <MapPin size={15} />
-                <span>Abrir Boipeba no Google Maps</span>
+                <span>{h.btnMaps}</span>
                 <ArrowUpRight size={14} />
               </a>
               <button
@@ -318,7 +296,7 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
                 className="how-to-arrive-btn-close"
                 onClick={onClose}
               >
-                Entendi, fechar guia
+                {h.btnClose}
               </button>
             </footer>
           </motion.article>

@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
-import { ArrowRight, ArrowUpRight, Sparkles, X } from 'lucide-react'
-import { FaInstagram } from 'react-icons/fa6'
+import { ArrowRight, X } from 'lucide-react'
+import { useLanguage } from '../../i18n/LanguageContext'
+import { trackTicketClick, TICKETS_URL } from '../../lib/tracking'
+import LanguageSwitcher from './language-switcher'
 
 interface NavItem {
   number: string
@@ -11,20 +13,7 @@ interface NavItem {
   external?: boolean
 }
 
-const TICKETS_URL = 'https://www.sympla.com.br/evento/a-l-m-a-reveillon-2027-boipeba/3254347?referrer=www.google.com'
 const INSTAGRAM_URL = 'https://www.instagram.com/almareveillonboipeba/'
-
-const navItems: NavItem[] = [
-  { number: '01', label: 'Experiência', href: '#experiencia', tagline: 'A virada que muda o estado de espírito' },
-  { number: '02', label: 'Mídia', href: '#midia', tagline: 'Fotos, vídeos e reportagens' },
-  { number: '03', label: 'Programação', href: '#programacao', tagline: '5 noites · Open Bar Premium' },
-  { number: '04', label: 'Pacotes ALMA com hospedagem', href: '#hospedagem', tagline: 'Ingresso + estadia em Boipeba' },
-  { number: '05', label: 'Ingressos', href: TICKETS_URL, tagline: 'Comprar no Sympla', external: true },
-  { number: '06', label: 'Ilha de Boipeba', href: '#ilha', tagline: 'A ilha, as praias e os caminhos de areia' },
-  { number: '07', label: 'Como chegar', href: '#avisos', tagline: 'Rotas, transfer e lancha' },
-  { number: '08', label: 'Onde ficar', href: '#hospedagem', tagline: 'Pousadas e casas em Boipeba' },
-  { number: '09', label: 'Dúvidas', href: '#faq', tagline: 'Perguntas frequentes' },
-]
 
 function CloudBackground() {
   return (
@@ -63,8 +52,21 @@ export default function CircularMenu({
   ticketsUrl = TICKETS_URL,
   instagramUrl = INSTAGRAM_URL,
 }: CircularMenuProps) {
+  const { t, language } = useLanguage()
   const [isOpen, setIsOpen] = useState(false)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+
+  const navItems: NavItem[] = [
+    { number: '01', label: t.nav.items.experience.label, href: '#experiencia', tagline: t.nav.items.experience.tagline },
+    { number: '02', label: t.nav.items.media.label, href: '#midia', tagline: t.nav.items.media.tagline },
+    { number: '03', label: t.nav.items.lineup.label, href: '#programacao', tagline: t.nav.items.lineup.tagline },
+    { number: '04', label: t.nav.items.lodgingPackages.label, href: '#hospedagem', tagline: t.nav.items.lodgingPackages.tagline },
+    { number: '05', label: t.nav.items.tickets.label, href: ticketsUrl, tagline: t.nav.items.tickets.tagline, external: true },
+    { number: '06', label: t.nav.items.island.label, href: '#ilha', tagline: t.nav.items.island.tagline },
+    { number: '07', label: t.nav.items.howToArrive.label, href: '#avisos', tagline: t.nav.items.howToArrive.tagline },
+    { number: '08', label: t.nav.items.whereToStay.label, href: '#hospedagem', tagline: t.nav.items.whereToStay.tagline },
+    { number: '09', label: t.nav.items.faq.label, href: '#faq', tagline: t.nav.items.faq.tagline },
+  ]
 
   // Bloqueia scroll do body quando aberto
   useEffect(() => {
@@ -122,7 +124,7 @@ export default function CircularMenu({
         <motion.button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          aria-label={isOpen ? 'Fechar menu de navegação' : 'Abrir menu de navegação'}
+          aria-label={isOpen ? t.nav.ariaCloseMenu : t.nav.ariaOpenMenu}
           aria-expanded={isOpen}
           className={`circular-menu-btn ${isOpen ? 'circular-menu-btn--active' : ''}`}
           animate={{
@@ -203,7 +205,7 @@ export default function CircularMenu({
               onClick={(e) => e.stopPropagation()}
               role="dialog"
               aria-modal="true"
-              aria-label="Menu principal ALMA Réveillon"
+              aria-label={t.nav.ariaMenuPanel}
             >
               {/* Efeito de Nuvens em Movimento e Vidro Fosco Claro (ambos com pointer-events-none) */}
               <CloudBackground />
@@ -211,17 +213,20 @@ export default function CircularMenu({
 
               <div className="circular-menu__content">
                 {/* Cabeçalho do Menu Lateral com espaço para o botão animado */}
-                <div className="circular-menu__header">
-                  <div className="circular-menu__badge">
-                    <div>
-                      <span>ALMA RÉVEILLON 2027 · BOIPEBA</span>
-                      <a className="circular-menu__header-instagram" href={instagramUrl} target="_blank" rel="noreferrer">@almareveillonboipeba</a>
+                <div className="circular-menu__header flex flex-col gap-3">
+                  <div className="flex items-center justify-between w-full pr-12">
+                    <div className="circular-menu__badge">
+                      <div>
+                        <span>{t.nav.headerBadge}</span>
+                        <a className="circular-menu__header-instagram" href={instagramUrl} target="_blank" rel="noreferrer">@almareveillonboipeba</a>
+                      </div>
                     </div>
+                    <LanguageSwitcher variant="menu" />
                   </div>
                 </div>
 
                 {/* Lista Empilhada de Navegação */}
-                <nav className="circular-menu__nav" aria-label="Navegação do site">
+                <nav className="circular-menu__nav" aria-label={t.nav.ariaMenuPanel}>
                   <ul className="circular-menu__list">
                     {navItems.map((item, index) => {
                       const isHovered = hoveredIndex === index
@@ -245,6 +250,12 @@ export default function CircularMenu({
                             rel={item.external ? 'noreferrer' : undefined}
                             onClick={(e) => {
                               if (item.external) {
+                                trackTicketClick({
+                                  ctaLocation: 'circular_menu_nav_item',
+                                  ctaText: item.label,
+                                  destinationUrl: ticketsUrl,
+                                  language,
+                                })
                                 setIsOpen(false)
                                 return
                               }
@@ -272,15 +283,21 @@ export default function CircularMenu({
                     href={ticketsUrl}
                     target="_blank"
                     rel="noreferrer"
+                    onClick={() => {
+                      trackTicketClick({
+                        ctaLocation: 'circular_menu_footer_btn',
+                        ctaText: t.nav.liveAlmaBtn,
+                        destinationUrl: ticketsUrl,
+                        language,
+                      })
+                    }}
                     className="ticket circular-menu__ticket-btn justify-center relative text-center"
                   >
-                    <span className="ticket-label text-center">VIVER O ALMA</span>
+                    <span className="ticket-label text-center">{t.nav.liveAlmaBtn}</span>
                     <span className="ticket-icon-wrapper absolute right-2">
                       <ArrowRight size={17} />
                     </span>
                   </a>
-
-
                 </motion.div>
               </div>
             </motion.aside>

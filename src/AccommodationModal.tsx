@@ -4,6 +4,8 @@ import { AnimatePresence, motion } from 'motion/react'
 import { ArrowUpRight, X } from 'lucide-react'
 import type { Accommodation } from './data/accommodations'
 import { googleMapsSearchUrl } from './data/accommodations'
+import { useLanguage } from './i18n/LanguageContext'
+import { trackTicketClick } from './lib/tracking'
 
 interface AccommodationModalProps {
   accommodation: Accommodation | null
@@ -12,6 +14,7 @@ interface AccommodationModalProps {
 }
 
 export default function AccommodationModal({ accommodation, ticketsUrl, onClose }: AccommodationModalProps) {
+  const { t, language } = useLanguage()
   const [activeImage, setActiveImage] = useState<string | null>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
 
@@ -65,6 +68,7 @@ export default function AccommodationModal({ accommodation, ticketsUrl, onClose 
   if (typeof document === 'undefined') return null
 
   const currentVisual = activeImage || accommodation?.images[0]
+  const m = t.accommodation.modal
 
   return createPortal(
     <AnimatePresence>
@@ -74,14 +78,14 @@ export default function AccommodationModal({ accommodation, ticketsUrl, onClose 
             className="accommodation-modal"
             role="dialog"
             aria-modal="true"
-            aria-label={`Detalhes da hospedagem ${accommodation.name}`}
+            aria-label={m.ariaDialog(accommodation.name)}
             initial={{ opacity: 0, y: 52, scale: .98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 60, scale: .98 }}
             transition={{ duration: .48, ease: [.22, 1, .36, 1] }}
             onMouseDown={(event) => event.stopPropagation()}
           >
-            <button ref={closeRef} className="accommodation-modal__close" onClick={onClose} aria-label="Fechar detalhes da hospedagem"><X size={20} /></button>
+            <button ref={closeRef} className="accommodation-modal__close" onClick={onClose} aria-label={m.ariaClose}><X size={20} /></button>
             <div className="accommodation-modal__visual">
               {accommodation.images.length ? (
                 <>
@@ -94,7 +98,7 @@ export default function AccommodationModal({ accommodation, ticketsUrl, onClose 
                           type="button"
                           className={`accommodation-modal__thumb-btn ${currentVisual === image ? 'accommodation-modal__thumb-btn--active' : ''}`}
                           onClick={() => setActiveImage(image)}
-                          aria-label={`Ver foto ${idx + 2} de ${accommodation.name}`}
+                          aria-label={m.ariaThumb(idx + 2, accommodation.name)}
                         >
                           <img src={image} alt={`${accommodation.name} foto ${idx + 2}`} />
                         </button>
@@ -109,16 +113,39 @@ export default function AccommodationModal({ accommodation, ticketsUrl, onClose 
               )}
             </div>
             <div className="accommodation-modal__body">
-              <div className={`accommodation-modal__status accommodation-modal__status--${accommodation.status}`}>{accommodation.statusLabel}</div>
+              <div className={`accommodation-modal__status accommodation-modal__status--${accommodation.status}`}>
+                {accommodation.status === 'sold-out' ? t.accommodation.soldOut : accommodation.statusLabel}
+              </div>
               <div className="accommodation-badges">{accommodation.badges.map((badge) => <span key={badge}>{badge}</span>)}</div>
-              <span className="accommodation-modal__period">PACOTE · {accommodation.period}</span>
+              <span className="accommodation-modal__period">
+                {m.packagePrefix}{accommodation.status === 'sold-out' ? t.accommodation.soldOut : accommodation.period}
+              </span>
               <h3>{accommodation.name}</h3>
               <p>{accommodation.description}</p>
-              <div className="accommodation-modal__location"><span>LOCALIZAÇÃO</span><strong>{accommodation.location}</strong></div>
+              <div className="accommodation-modal__location"><span>{m.locationLabel}</span><strong>{accommodation.location}</strong></div>
               <ul className="accommodation-amenities">{accommodation.amenities.map((item) => <li key={item}>{item}</li>)}</ul>
               <div className="accommodation-modal__actions">
-                <a href={googleMapsSearchUrl(accommodation.mapsQuery)} target="_blank" rel="noreferrer">VER NO GOOGLE MAPS <ArrowUpRight size={15} /></a>
-                {accommodation.status === 'available' ? <a className="accommodation-modal__primary" href={ticketsUrl} target="_blank" rel="noreferrer">VER PACOTE + HOSPEDAGEM <ArrowUpRight size={15} /></a> : <span className="accommodation-modal__sold-out">PACOTE ESGOTADO</span>}
+                <a href={googleMapsSearchUrl(accommodation.mapsQuery)} target="_blank" rel="noreferrer">{m.viewOnMaps} <ArrowUpRight size={15} /></a>
+                {accommodation.status === 'available' ? (
+                  <a
+                    className="accommodation-modal__primary"
+                    href={ticketsUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => {
+                      trackTicketClick({
+                        ctaLocation: `accommodation_modal_${accommodation.id}`,
+                        ctaText: m.viewPackage,
+                        destinationUrl: ticketsUrl,
+                        language,
+                      })
+                    }}
+                  >
+                    {m.viewPackage} <ArrowUpRight size={15} />
+                  </a>
+                ) : (
+                  <span className="accommodation-modal__sold-out">{m.packageSoldOut}</span>
+                )}
               </div>
             </div>
           </motion.article>

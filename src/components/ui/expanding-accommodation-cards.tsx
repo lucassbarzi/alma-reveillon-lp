@@ -2,6 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import { motion } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
 import type { Accommodation } from '../../data/accommodations'
+import { useLanguage } from '../../i18n/LanguageContext'
 
 // Soft, slightly bouncy spring: mimics dynamic acceleration/deceleration
 // instead of a linear/cubic-bezier ease — feels alive on hover and tap.
@@ -18,6 +19,7 @@ export default function ExpandingAccommodationCards({ items, onOpen }: {
   items: Accommodation[]
   onOpen: (item: Accommodation) => void
 }) {
+  const { t } = useLanguage()
   const [activeIndex, setActiveIndex] = useState(0)
   const [isDesktop, setIsDesktop] = useState(false)
   const [containerWidth, setContainerWidth] = useState(0)
@@ -62,7 +64,7 @@ export default function ExpandingAccommodationCards({ items, onOpen }: {
   }, [isDesktop, activeIndex, onOpen, handleActivate])
 
   return (
-    <div className="expanding-cards" role="region" aria-roledescription="carousel" aria-label="Hospedagens ALMA">
+    <div className="expanding-cards" role="region" aria-roledescription={t.accommodation.carouselAriaRole} aria-label={t.accommodation.carouselAria}>
       <ul className="expanding-cards__list" ref={listRef}>
         {items.map((item, index) => {
           const isActive = index === activeIndex
@@ -70,6 +72,7 @@ export default function ExpandingAccommodationCards({ items, onOpen }: {
           const desktopAnimate = measured
             ? { width: isActive ? activeWidth : closedWidth, flexGrow: 0, height: '100%' }
             : { flexGrow: 1, flexBasis: 0, height: '100%' }
+          const displayStatus = item.status === 'sold-out' ? t.accommodation.soldOut : item.statusLabel
           return (
             <motion.li
               key={item.id}
@@ -93,10 +96,10 @@ export default function ExpandingAccommodationCards({ items, onOpen }: {
 
               <span
                 className={`expanding-cards__status expanding-cards__status--${item.status}${isActive ? ' is-open' : ' is-closed'}`}
-                aria-label={item.status === 'sold-out' ? 'Esgotado' : item.statusLabel}
+                aria-label={displayStatus}
               >
                 <i className="expanding-cards__status-dot" aria-hidden="true" />
-                <em className="expanding-cards__status-label">{item.status === 'sold-out' ? 'ESGOTADO' : item.statusLabel}</em>
+                <em className="expanding-cards__status-label">{displayStatus}</em>
               </span>
 
               <h3 className="expanding-cards__title-collapsed">{item.name}</h3>
@@ -112,7 +115,7 @@ export default function ExpandingAccommodationCards({ items, onOpen }: {
                   className="expanding-cards__detail-btn"
                   onClick={(event) => { event.stopPropagation(); onOpen(item) }}
                 >
-                  VER DETALHES <ArrowRight size={13} />
+                  {t.accommodation.cardDetailsBtn} <ArrowRight size={13} />
                 </button>
               </div>
             </motion.li>
