@@ -285,7 +285,7 @@ em{font-style:normal;color:#2b829d}
 /* Expanding cards: pure DOM/CSS grid, no canvas — stable on mobile, no flicker */
 .expanding-cards{margin-top:10px}
 .expanding-cards__list{list-style:none;margin:0;padding:0;display:grid;gap:10px;width:100%;height:280px;aspect-ratio:auto;grid-template-columns:1fr;transition:grid-template-columns .55s cubic-bezier(.22,1,.36,1)}
-@media(min-width:900px){.expanding-cards__list{grid-template-rows:1fr!important;height:min(27vw,340px)}}
+@media(min-width:900px){.expanding-cards__list{grid-template-rows:1fr!important;height:min(31vw,400px)}}
 @media(max-width:899px){.expanding-cards__list{display:flex;flex-direction:column;height:auto;min-height:0}}
 .expanding-cards__card{position:relative;overflow:hidden;border-radius:18px;background:#03120e;color:#fff;cursor:pointer;min-width:0;min-height:56px;outline:none;-webkit-tap-highlight-color:transparent;contain:layout paint}
 @media(max-width:899px){.expanding-cards__card{width:100%;height:72px;min-height:72px;max-height:72px;aspect-ratio:unset;flex:0 0 72px;touch-action:manipulation;transition:height .5s cubic-bezier(.22,1,.36,1),min-height .5s cubic-bezier(.22,1,.36,1),max-height .5s cubic-bezier(.22,1,.36,1),flex-basis .5s cubic-bezier(.22,1,.36,1);will-change:height}.expanding-cards__card.is-active{height:440px;min-height:440px;max-height:440px;flex-basis:440px}}
