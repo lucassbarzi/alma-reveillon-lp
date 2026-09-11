@@ -17,8 +17,9 @@ export default function ExpandingAccommodationCards({ items, onOpen }: {
   }, [])
 
   const gridStyle = useMemo(() => {
+    if (!isDesktop) return undefined
     const tracks = items.map((_, i) => (i === activeIndex ? '5fr' : '1fr')).join(' ')
-    return isDesktop ? { gridTemplateColumns: tracks } : { gridTemplateRows: tracks }
+    return { gridTemplateColumns: tracks }
   }, [activeIndex, items.length, isDesktop])
 
   const handleActivate = useCallback((index: number) => setActiveIndex(index), [])
