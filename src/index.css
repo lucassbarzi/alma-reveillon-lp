@@ -112,10 +112,10 @@ em{font-style:normal;color:#2b829d}
 /* Stacked Nav List */
 .circular-menu__nav{margin:28px 0;pointer-events:auto!important;display:flex;flex-direction:column;align-items:flex-end}
 .circular-menu__list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;align-items:flex-end;gap:8px;width:100%;pointer-events:auto!important}
-.circular-menu__item{display:block;width:52%;margin-left:auto;pointer-events:auto!important}
+.circular-menu__item{display:block;width:100%;max-width:100%;margin-left:auto;pointer-events:auto!important}
 .circular-menu__link{pointer-events:auto!important;display:flex;align-items:center;justify-content:flex-end;width:100%;padding:12px 16px;border-radius:12px;border:1px solid transparent;background:rgba(20,56,71,0);transition:background .3s,border-color .3s,transform .35s cubic-bezier(.22,1,.36,1);cursor:pointer!important;color:#143847;text-align:right}
 .circular-menu__link:hover,.circular-menu__link--hovered{background:rgba(20,56,71,.06);border-color:rgba(20,56,71,.14);transform:translateX(-6px)}
-.circular-menu__title{font-family:Tusker,"Arial Narrow",Impact,sans-serif;font-size:clamp(1.9rem,3vw,2.6rem);font-weight:500;text-transform:uppercase;line-height:.95;letter-spacing:.01em;color:#143847;text-align:right;width:100%;white-space:nowrap}
+.circular-menu__title{font-family:Tusker,"Arial Narrow",Impact,sans-serif;font-size:clamp(1.6rem,2.6vw,2.4rem);font-weight:500;text-transform:uppercase;line-height:1;letter-spacing:.01em;color:#143847;text-align:right;width:100%;white-space:normal;overflow-wrap:break-word;word-break:normal;hyphens:none}
 
 /* Menu Footer (Dark Navy CTA) */
 .circular-menu__footer{display:flex;flex-direction:column;align-items:flex-end;gap:14px;padding-top:20px;border-top:1px solid rgba(20,56,71,.12);pointer-events:auto!important;position:relative;z-index:15}
@@ -140,7 +140,7 @@ em{font-style:normal;color:#2b829d}
   .circular-menu__header{min-height:58px;padding-bottom:12px;flex-shrink:0}
   .circular-menu__nav{flex:1;justify-content:center;margin:10px 0}
   .circular-menu__list{gap:2px}
-  .circular-menu__item{width:74%}
+  .circular-menu__item{width:100%}
   .circular-menu__link{padding:8px 12px}
   .circular-menu__ticket-btn{width:74%!important}
   .circular-menu__title{font-size:clamp(1.65rem,7.5vw,1.9rem)}
