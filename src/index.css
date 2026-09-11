@@ -999,3 +999,6 @@ em{font-style:normal;color:#2b829d}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   .cloud{display:none}
 }
+
+.hero-slogan{display:flex;flex-direction:column;gap:.15em;margin-top:1.4rem;font-family:inherit;font-style:italic;font-weight:300;letter-spacing:.08em;text-transform:uppercase;font-size:clamp(.85rem,1.6vw,1.05rem);opacity:.92}
+.hero-slogan span{display:block}

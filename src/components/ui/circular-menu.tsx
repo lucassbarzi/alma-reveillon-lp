@@ -8,20 +8,23 @@ interface NavItem {
   label: string
   href: string
   tagline: string
+  external?: boolean
 }
-
-const navItems: NavItem[] = [
-  { number: '01', label: 'Experiência', href: '#experiencia', tagline: 'A virada que muda o estado de espírito' },
-  { number: '02', label: 'Boipeba', href: '#ilha', tagline: 'A ilha, as praias e os caminhos de areia' },
-  { number: '03', label: 'Programação', href: '#programacao', tagline: '5 noites · Open Bar Premium' },
-  { number: '04', label: 'Hospedagem', href: '#hospedagem', tagline: 'Ingresso + estadia em Boipeba' },
-  { number: '05', label: 'Histórias', href: '#historias', tagline: 'O que fica depois da virada' },
-  { number: '06', label: 'Dúvidas', href: '#faq', tagline: 'Local, ingressos e transfer' },
-
-]
 
 const TICKETS_URL = 'https://www.sympla.com.br/evento/a-l-m-a-reveillon-2027-boipeba/3254347?referrer=www.google.com'
 const INSTAGRAM_URL = 'https://www.instagram.com/almareveillonboipeba/'
+
+const navItems: NavItem[] = [
+  { number: '01', label: 'Experiência', href: '#experiencia', tagline: 'A virada que muda o estado de espírito' },
+  { number: '02', label: 'Mídia', href: '#midia', tagline: 'Fotos, vídeos e reportagens' },
+  { number: '03', label: 'Programação', href: '#programacao', tagline: '5 noites · Open Bar Premium' },
+  { number: '04', label: 'Pacotes ALMA com hospedagem', href: '#hospedagem', tagline: 'Ingresso + estadia em Boipeba' },
+  { number: '05', label: 'Ingressos', href: TICKETS_URL, tagline: 'Comprar no Sympla', external: true },
+  { number: '06', label: 'Ilha de Boipeba', href: '#ilha', tagline: 'A ilha, as praias e os caminhos de areia' },
+  { number: '07', label: 'Como chegar', href: '#avisos', tagline: 'Rotas, transfer e lancha' },
+  { number: '08', label: 'Onde ficar', href: '#hospedagem', tagline: 'Pousadas e casas em Boipeba' },
+  { number: '09', label: 'Dúvidas', href: '#faq', tagline: 'Perguntas frequentes' },
+]
 
 function CloudBackground() {
   return (
@@ -238,7 +241,13 @@ export default function CircularMenu({
                         >
                           <a
                             href={item.href}
+                            target={item.external ? '_blank' : undefined}
+                            rel={item.external ? 'noreferrer' : undefined}
                             onClick={(e) => {
+                              if (item.external) {
+                                setIsOpen(false)
+                                return
+                              }
                               e.preventDefault()
                               handleNavClick(item.href)
                             }}

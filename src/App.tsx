@@ -135,14 +135,16 @@ function App() {
 
     <section className="hero" id="top" ref={heroRef}>
       <video autoPlay muted loop playsInline preload="auto" poster={asset('/media/alma-hero-poster.jpg')} aria-label="Paisagens de Boipeba entre nuvens ensolaradas">
+        <source media="(max-width: 780px)" src={asset('/media/alma-hero-mobile.mp4')} type="video/mp4" />
         <source src={asset('/media/alma-hero-web.mp4')} type="video/mp4" />
       </video>
       <motion.div className="cloud cloud-a" style={{ y: cloudY }}/><motion.div className="cloud cloud-b" style={{ y: cloudY }}/>
       <div className="hero-wash" />
       <motion.div className="hero-copy" style={{ y: titleY, opacity: titleOpacity }}>
         <span className="eyebrow">27 — 31 DEZ 2026 · PRAIA DA CUEIRA</span>
-        <h1>O ano novo<br/>nasce com<br/><em>toda ALMA.</em></h1>
-        <p className="hero-subtitle">Cinco noites na ilha. O mar por perto. O pé na areia. E a sensação rara de estar exatamente onde você queria estar.</p>
+        <h1>ANO NOVO<br/><em>ILHA NOVA</em></h1>
+        <p className="hero-subtitle">1 ano de espera<br/>5 festas Open Bar Premium<br/>7 dias em uma ilha paradisíaca na Bahia<br/>E aquela sensação rara de estar exatamente onde você queria estar</p>
+        <p className="hero-slogan"><span>Alma salgada</span><span>Alma lavada</span></p>
         <a className="ticket" href={TICKETS} target="_blank" rel="noreferrer">
           <span className="ticket-label">Viver o ALMA</span>
           <span className="ticket-icon-wrapper">
@@ -172,7 +174,7 @@ function App() {
 
     <SqueezeCarousel />
 
-    <StackedGallery items={gallery.map(([src, alt]) => ({ src, alt }))} />
+    <div id="midia"><StackedGallery items={gallery.map(([src, alt]) => ({ src, alt }))} /></div>
 
     <section className="nights light" id="programacao">
       <Reveal><span className="kicker">CINCO NOITES · OPEN BAR PREMIUM</span><h2>Cada noite,<br/><em>uma nova maré.</em></h2></Reveal>
