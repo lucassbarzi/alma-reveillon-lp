@@ -1002,3 +1002,25 @@ em{font-style:normal;color:#2b829d}
 
 .hero-slogan{display:flex;flex-direction:column;gap:.15em;margin-top:1.4rem;font-family:inherit;font-style:italic;font-weight:300;letter-spacing:.08em;text-transform:uppercase;font-size:clamp(.85rem,1.6vw,1.05rem);opacity:.92}
 .hero-slogan span{display:block}
+
+/* Watermark ALMA icon — blocks 4 (squeeze), 7 (bar), 10 (notices) */
+.squeeze-section::before,
+.bar-section::before,
+.notices-section::before{
+  content:"";
+  position:absolute;
+  top:50%;left:50%;
+  width:140vmax;height:140vmax;
+  transform:translate(-50%,-50%) rotate(-8deg);
+  background:url('/alma-reveillon-lp/brand/alma-favicon.png') center/contain no-repeat;
+  opacity:.06;
+  pointer-events:none;
+  z-index:1;
+  filter:brightness(1.4);
+}
+.squeeze-section::before{opacity:.05;filter:brightness(0) invert(1)}
+.bar-section::before{opacity:.07}
+.notices-section::before{opacity:.06}
+.squeeze-section > *:not(::before),
+.bar-section > *:not(::before),
+.notices-section > *:not(::before){position:relative;z-index:2}
