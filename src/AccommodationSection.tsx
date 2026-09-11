@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import { ArrowUpRight } from 'lucide-react'
 import AccommodationModal from './AccommodationModal'
-import AccommodationCarousel from './components/ui/accommodation-carousel'
+import ExpandingAccommodationCards from './components/ui/expanding-accommodation-cards'
 import { accommodations, type Accommodation } from './data/accommodations'
 
 function Reveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
@@ -29,7 +29,7 @@ export default function AccommodationSection({ ticketsUrl }: { ticketsUrl: strin
           <span>AR-CONDICIONADO</span><i /> <span>TV</span><i /> <span>BANHO QUENTE</span><i /> <span>CAFÉ DA MANHÃ</span><i /> <span>LIMPEZA DIÁRIA</span>
         </Reveal>
 
-        <Reveal delay={.1}><AccommodationCarousel items={accommodations} onOpen={setSelected} /></Reveal>
+        <Reveal delay={.1}><ExpandingAccommodationCards items={accommodations} onOpen={setSelected} /></Reveal>
 
         <Reveal className="accommodation-location" delay={.12}>
           <span>MARINA · RUA DAS PEDRAS · PRAÇA SANTO ANTÔNIO</span>
