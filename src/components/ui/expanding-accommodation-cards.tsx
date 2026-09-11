@@ -44,7 +44,7 @@ export default function ExpandingAccommodationCards({ items, onOpen }: {
               className={`expanding-cards__card${isActive ? ' is-active' : ''}`}
               data-active={isActive}
               onMouseEnter={() => isDesktop && handleActivate(index)}
-              onFocus={() => handleActivate(index)}
+              onFocus={() => isDesktop && handleActivate(index)}
               onClick={() => handleCardClick(index, item)}
               tabIndex={0}
               aria-label={item.name}
