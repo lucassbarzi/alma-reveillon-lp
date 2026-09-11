@@ -27,21 +27,21 @@ export default function ImportantNotices({ ticketsUrl, instagramUrl }: { tickets
     {
       id: 2,
       title: 'PAGAMENTO',
-      bg: 'linear-gradient(165deg, rgba(14, 48, 36, 0.82) 0%, rgba(6, 25, 18, 0.88) 100%)',
-      borderColor: 'rgba(124, 229, 119, 0.35)',
+      bg: 'linear-gradient(165deg, rgba(16, 67, 89, 0.86) 0%, rgba(6, 29, 43, 0.92) 100%)',
+      borderColor: 'rgba(87, 210, 244, 0.35)',
       content: (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '4px' }}>
-              <strong style={{ fontSize: '11px', letterSpacing: '0.16em', color: '#7ce577', textTransform: 'uppercase' }}>PIX À VISTA</strong>
-              <span style={{ fontSize: '9px', fontWeight: 700, padding: '2px 7px', borderRadius: '4px', background: 'rgba(124,229,119,0.15)', color: '#7ce577', border: '1px solid rgba(124,229,119,0.3)' }}>10% OFF DA TAXA</span>
+              <strong style={{ fontSize: '11px', letterSpacing: '0.16em', color: '#57d2f4', textTransform: 'uppercase' }}>PIX À VISTA</strong>
+              <span style={{ fontSize: '9px', fontWeight: 700, padding: '2px 7px', borderRadius: '4px', background: 'rgba(87,210,244,0.15)', color: '#57d2f4', border: '1px solid rgba(87,210,244,0.3)' }}>10% OFF DA TAXA</span>
             </div>
             <p style={{ fontSize: '13px', lineHeight: 1.5, color: 'rgba(255,255,255,0.8)', margin: 0, textWrap: 'balance' }}>
               Pagamento único: 1 pessoa realiza o PIX no valor total do grupo/quarto.
             </p>
           </div>
           <div style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '10px' }}>
-            <strong style={{ display: 'block', fontSize: '11px', letterSpacing: '0.16em', color: '#7ce577', textTransform: 'uppercase', marginBottom: '4px' }}>CARTÃO DE CRÉDITO</strong>
+            <strong style={{ display: 'block', fontSize: '11px', letterSpacing: '0.16em', color: '#57d2f4', textTransform: 'uppercase', marginBottom: '4px' }}>CARTÃO DE CRÉDITO</strong>
             <p style={{ fontSize: '13px', lineHeight: 1.5, color: 'rgba(255,255,255,0.8)', margin: 0, textWrap: 'balance' }}>
               Via Sympla. Para grupos de 2–5 pessoas, cada integrante pode passar seu cartão no mesmo dia para garantir seu ingresso e sua vaga no quarto escolhido.
             </p>
@@ -93,7 +93,7 @@ export default function ImportantNotices({ ticketsUrl, instagramUrl }: { tickets
       id: 4,
       title: 'SEGURANÇA',
       bg: 'linear-gradient(165deg, rgba(24, 38, 47, 0.82) 0%, rgba(11, 21, 27, 0.88) 100%)',
-      borderColor: 'rgba(244, 255, 199, 0.35)',
+      borderColor: 'rgba(87, 210, 244, 0.35)',
       content: (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '9px' }}>
           <p style={{ fontSize: '13px', lineHeight: 1.5, color: 'rgba(255,255,255,0.85)', margin: 0, textWrap: 'balance' }}>
@@ -105,8 +105,8 @@ export default function ImportantNotices({ ticketsUrl, instagramUrl }: { tickets
           <p style={{ fontSize: '13px', lineHeight: 1.5, color: 'rgba(255,255,255,0.85)', margin: 0, textWrap: 'balance' }}>
             Sua ajuda é fundamental para proteger a comunidade ALMA.
           </p>
-          <div style={{ marginTop: '6px', padding: '7px 12px', borderRadius: '8px', background: 'rgba(244,255,199,0.06)', border: '1px solid rgba(244,255,199,0.2)' }}>
-            <span style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#f4ffc7' }}>
+          <div style={{ marginTop: '6px', padding: '7px 12px', borderRadius: '8px', background: 'rgba(87,210,244,0.08)', border: '1px solid rgba(87,210,244,0.24)' }}>
+            <span style={{ fontSize: '9.5px', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#d7f3fa' }}>
               Comunidade Protegida
             </span>
           </div>
@@ -117,11 +117,11 @@ export default function ImportantNotices({ ticketsUrl, instagramUrl }: { tickets
 
   return (
     <section className="notices-section" id="avisos">
-      <SilkShader variant="openbar" />
+      <SilkShader variant="ice-aqua" />
       <div
         className="shader-bg-overlay"
         style={{
-          background: 'radial-gradient(ellipse at 50% 30%, rgba(3, 18, 14, 0.72) 0%, rgba(3, 18, 14, 0.90) 65%, rgba(3, 18, 14, 0.98) 100%)',
+          background: 'radial-gradient(ellipse at 50% 30%, rgba(11, 82, 104, 0.64) 0%, rgba(7, 47, 63, 0.88) 65%, rgba(4, 25, 36, 0.97) 100%)',
         }}
       />
       <div className="shader-content-layer" style={{ position: 'relative', zIndex: 2, width: '100%' }}>
