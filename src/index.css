@@ -241,6 +241,7 @@ em{font-style:normal;color:#2b829d}
 .accommodation-location a,.accommodation-modal__actions a,.notice-links a{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;border-radius:999px;padding:0 20px;background:#143847;color:#fff;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
 /* Stacked accommodation carousel — CSS-only adaptation of carousel-07 */
 .lodging-carousel{margin-top:10px;overflow:hidden;user-select:none}
+@media(min-width:1024px){.lodging-carousel{width:calc(100% + 14vw);margin-left:-7vw;margin-right:-7vw;padding-left:2vw;padding-right:2vw}.lodging-carousel__stage{width:100%}}
 .lodging-carousel__stage{position:relative;height:590px;display:flex;align-items:center;justify-content:center;overflow:visible}
 .lodging-carousel__drag{position:absolute;inset:0;z-index:150;cursor:grab;touch-action:pan-y;outline:none}
 .lodging-carousel__drag:active{cursor:grabbing}

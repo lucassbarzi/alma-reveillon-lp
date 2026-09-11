@@ -24,7 +24,7 @@ interface CarouselConfig {
 const getConfig = (width: number): CarouselConfig => {
   if (width < 640) return { distanceDivisor: 120, velocityDivisor: 500, sensitivity: 180, xMultiplier: 86, yMultiplier: 13, rotationMultiplier: 7, scaleReduction: .055 }
   if (width < 1024) return { distanceDivisor: 160, velocityDivisor: 650, sensitivity: 220, xMultiplier: 108, yMultiplier: 20, rotationMultiplier: 8, scaleReduction: .075 }
-  return { distanceDivisor: 200, velocityDivisor: 800, sensitivity: 250, xMultiplier: 125, yMultiplier: 20, rotationMultiplier: 9, scaleReduction: .08 }
+  return { distanceDivisor: 200, velocityDivisor: 800, sensitivity: 250, xMultiplier: 155, yMultiplier: 20, rotationMultiplier: 10, scaleReduction: .08 }
 }
 
 const wrap = (value: number, total: number) => ((value % total) + total) % total
