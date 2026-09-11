@@ -18,7 +18,7 @@ export default function ExpandingAccommodationCards({ items, onOpen }: {
 
   const gridStyle = useMemo(() => {
     if (!isDesktop) return undefined
-    const tracks = items.map((_, i) => (i === activeIndex ? '5fr' : '1fr')).join(' ')
+    const tracks = items.map((_, i) => (i === activeIndex ? 'min(23.25vw, 300px)' : '1fr')).join(' ')
     return { gridTemplateColumns: tracks }
   }, [activeIndex, items.length, isDesktop])
 
