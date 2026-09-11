@@ -239,6 +239,46 @@ em{font-style:normal;color:#2b829d}
 .accommodation-location>span{font-size:10px;font-weight:700;letter-spacing:.18em}
 .accommodation-location p{font-size:13px;line-height:1.55;margin:0;text-wrap:balance}
 .accommodation-location a,.accommodation-modal__actions a,.notice-links a{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;border-radius:999px;padding:0 20px;background:#143847;color:#fff;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+/* Stacked accommodation carousel — CSS-only adaptation of carousel-07 */
+.lodging-carousel{margin-top:10px;overflow:hidden;user-select:none}
+.lodging-carousel__stage{position:relative;height:590px;display:flex;align-items:center;justify-content:center;overflow:visible}
+.lodging-carousel__drag{position:absolute;inset:0;z-index:150;cursor:grab;touch-action:pan-y;outline:none}
+.lodging-carousel__drag:active{cursor:grabbing}
+.lodging-carousel__drag:focus-visible{outline:2px solid #0e7c5a;outline-offset:-8px;border-radius:20px}
+.lodging-carousel-card{position:absolute;width:330px;height:465px;border-radius:22px;overflow:hidden;background:#03120e;color:#fff;pointer-events:none;box-shadow:0 26px 65px rgba(3,18,14,.28);transform-origin:center bottom}
+.lodging-carousel-card>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
+.lodging-carousel-card__shade{position:absolute;inset:0;background:#03120e;pointer-events:none}
+.lodging-carousel-card__gradient{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,18,14,.08) 20%,rgba(3,18,14,.18) 42%,rgba(3,18,14,.94) 100%)}
+.lodging-carousel-card__copy{position:absolute;left:25px;right:25px;bottom:28px;z-index:2;color:#fff}
+.lodging-carousel-card__copy>div{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.lodging-carousel-card__copy>div span{padding:5px 8px;border:1px solid rgba(255,255,255,.45);border-radius:999px;font-size:7px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;background:rgba(3,18,14,.25);backdrop-filter:blur(8px)}
+.lodging-carousel-card__copy h3{font-family:Tusker,"Arial Narrow",Impact,sans-serif;font-size:3.8rem;font-weight:500;line-height:.9;text-transform:uppercase;margin:0 0 12px}
+.lodging-carousel-card__copy p{font-size:12px;line-height:1.5;color:rgba(255,255,255,.76);margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.lodging-status{position:absolute;top:18px;right:18px;z-index:12;display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:9px 13px;background:rgba(3,18,14,.46);backdrop-filter:blur(14px);color:#fff;font-size:8px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 8px 25px rgba(0,0,0,.2)}
+.lodging-status--sold-out{background:linear-gradient(135deg,rgba(110,19,29,.82),rgba(28,9,12,.72))}
+.lodging-status--sold-out i{width:6px;height:6px;border-radius:50%;background:#ff5263;box-shadow:0 0 0 4px rgba(255,82,99,.14),0 0 14px rgba(255,82,99,.65)}
+.lodging-status--available{background:linear-gradient(135deg,rgba(14,124,90,.86),rgba(3,18,14,.72));border-color:rgba(124,229,119,.52);color:#f4ffc7}
+.lodging-carousel__meta{max-width:780px;margin:4px auto 0;display:grid;grid-template-columns:auto auto 1fr;gap:22px;align-items:center}
+.lodging-carousel__count-wrap{display:flex;align-items:center;gap:12px}
+.lodging-carousel__count{display:flex;align-items:baseline;gap:5px;font-size:11px;color:rgba(20,56,71,.5)}
+.lodging-meta-status{display:inline-flex;align-items:center;border-radius:999px;padding:7px 10px;font-size:7px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+.lodging-meta-status--sold-out{background:#6e131d;color:#fff}
+.lodging-meta-status--available{background:#0e7c5a;color:#f4ffc7}
+.lodging-carousel__count strong{font-family:Tusker,"Arial Narrow",Impact,sans-serif;font-size:2.5rem;font-weight:500;color:#143847}
+.lodging-carousel__actions{display:flex;gap:7px}
+.lodging-carousel__actions button{width:42px;height:42px;border:1px solid rgba(20,56,71,.24);border-radius:50%;background:transparent;color:#143847;display:grid;place-items:center;cursor:pointer;transition:background .25s,color .25s}
+.lodging-carousel__actions button:hover{background:#143847;color:#fff}
+.lodging-carousel__links{display:flex;justify-content:flex-end;gap:8px}
+.lodging-carousel__links button,.lodging-carousel__links a{min-height:46px;border:1px solid #143847;border-radius:999px;padding:0 16px;background:transparent;color:#143847;display:inline-flex;align-items:center;justify-content:center;gap:7px;font-size:8px;font-weight:800;letter-spacing:.14em;cursor:pointer}
+.lodging-carousel__links button{background:#143847;color:#fff}
+.lodging-carousel__dots{display:flex;justify-content:center;gap:7px;margin-top:24px}
+.lodging-carousel__dots button{width:7px;height:7px;padding:0;border:0;border-radius:50%;background:rgba(20,56,71,.23);cursor:pointer;transition:width .35s,background .35s,border-radius .35s}
+.lodging-carousel__dots button.is-active{width:28px;border-radius:999px;background:#0e7c5a}
+.accommodation-modal__status{display:inline-flex;align-items:center;border-radius:999px;padding:8px 11px;margin-bottom:14px;font-size:8px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.accommodation-modal__status--sold-out{background:#6e131d;color:#fff}
+.accommodation-modal__status--available{background:#0e7c5a;color:#f4ffc7}
+.accommodation-modal__sold-out{display:inline-flex;align-items:center;justify-content:center;min-height:50px;border-radius:999px;padding:0 20px;background:#6e131d;color:#fff;font-size:9px;font-weight:800;letter-spacing:.15em}
+
 .accommodation-backdrop{position:fixed;inset:0;z-index:300;background:rgba(2,10,15,.78);backdrop-filter:blur(10px);display:grid;place-items:center;padding:32px}
 .accommodation-modal{position:relative;width:min(1120px,94vw);max-height:90vh;overflow:auto;display:grid;grid-template-columns:.92fr 1.08fr;border-radius:28px;background:#eef7f3;color:#143847;box-shadow:0 35px 100px rgba(0,0,0,.45)}
 .accommodation-modal__close{position:absolute;right:18px;top:18px;z-index:4;width:45px;height:45px;border-radius:50%;border:1px solid rgba(20,56,71,.2);background:rgba(244,255,255,.86);color:#143847;display:grid;place-items:center;cursor:pointer}
@@ -816,7 +856,19 @@ em{font-style:normal;color:#2b829d}
   .accommodation-intro h2,.notices-hero h2{font-size:clamp(3.8rem,16vw,5.6rem)}
   .accommodation-intro>p{font-size:15px}
   .accommodation-benefits{margin:45px 0 28px;gap:9px;font-size:8px;line-height:1.5}
-  .accommodation-grid{grid-template-columns:1fr;gap:14px;padding-bottom:20px}
+  .accommodation-grid{grid-template-columns:1fr;gap:14px}
+  .lodging-carousel{margin-left:-20px;margin-right:-20px;padding:0 20px}
+  .lodging-carousel__stage{height:455px}
+  .lodging-carousel-card{width:min(74vw,330px);height:400px;border-radius:18px}
+  .lodging-carousel-card__copy{left:19px;right:19px;bottom:21px}
+  .lodging-carousel-card__copy h3{font-size:3.15rem}
+  .lodging-carousel-card__copy p{font-size:11px}
+  .lodging-status{top:13px;right:13px;padding:8px 10px;font-size:7px}
+  .lodging-carousel__meta{grid-template-columns:1fr auto;gap:13px;padding:0 4px}
+  .lodging-carousel__count strong{font-size:2.1rem}
+  .lodging-carousel__links{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr}
+  .lodging-carousel__links button,.lodging-carousel__links a{min-height:50px;padding:0 11px}
+  .lodging-carousel__dots{margin-top:18px}
   .accommodation-card{min-height:515px}
   .accommodation-card__visual{height:235px}
   .accommodation-card__body{padding:22px 21px 76px}

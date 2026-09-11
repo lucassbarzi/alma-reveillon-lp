@@ -1,8 +1,9 @@
 import { useCallback, useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
-import { ArrowRight, ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import AccommodationModal from './AccommodationModal'
-import { accommodations, googleMapsSearchUrl, type Accommodation } from './data/accommodations'
+import AccommodationCarousel from './components/ui/accommodation-carousel'
+import { accommodations, type Accommodation } from './data/accommodations'
 
 function Reveal({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const reduce = useReducedMotion()
@@ -28,26 +29,7 @@ export default function AccommodationSection({ ticketsUrl }: { ticketsUrl: strin
           <span>AR-CONDICIONADO</span><i /> <span>TV</span><i /> <span>BANHO QUENTE</span><i /> <span>CAFÉ DA MANHÃ</span><i /> <span>LIMPEZA DIÁRIA</span>
         </Reveal>
 
-        <div className="accommodation-grid">
-          {accommodations.map((item, index) => (
-            <Reveal key={item.id} delay={index * .07}>
-              <article className={`accommodation-card accommodation-card--${item.id}`} onClick={() => setSelected(item)}>
-                <button className="accommodation-card__open" onClick={() => setSelected(item)} aria-label={`Ver detalhes de ${item.name}`}>
-                  <div className={`accommodation-card__visual accommodation-placeholder--${item.id}`}>
-                    {item.images[0] && <img src={item.images[0]} alt={`${item.name} em Boipeba`} />}
-                  </div>
-                  <div className="accommodation-card__body">
-                    <div className="accommodation-badges">{item.badges.map((badge) => <span key={badge}>{badge}</span>)}</div>
-                    <h3>{item.name}</h3>
-                    <p>{item.description}</p>
-                    <span className="accommodation-card__details">VER DETALHES <ArrowRight size={15} /></span>
-                  </div>
-                </button>
-                <a className="accommodation-card__map" href={googleMapsSearchUrl(item.mapsQuery)} target="_blank" rel="noreferrer" onClick={(event) => event.stopPropagation()}>VER LOCALIZAÇÃO <ArrowUpRight size={14} /></a>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal delay={.1}><AccommodationCarousel items={accommodations} onOpen={setSelected} /></Reveal>
 
         <Reveal className="accommodation-location" delay={.12}>
           <span>MARINA · RUA DAS PEDRAS · PRAÇA SANTO ANTÔNIO</span>

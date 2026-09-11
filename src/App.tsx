@@ -43,7 +43,7 @@ const faqs = [
   ['O passaporte inclui todas as noites?', 'A página oficial apresenta cinco festas Open Bar Premium. As categorias, lotes e disponibilidade devem ser conferidos no fluxo atualizado da Sympla antes da compra.'],
   ['O que está incluído no Open Bar Premium?', 'A carta publicada inclui Beefeater, Absolut, Jameson, cerveja premium, Aperol Spritz, Red Bull, tônica, refrigerantes, sucos, água de coco e água. Na virada, também há Prosecco Ponto Nero Brut by Casa Valduga.'],
   ['Existe pacote com hospedagem?', 'Sim. O ALMA possui opções de pacotes com ingresso + hospedagem entre 26/12 e 02/01, sujeitas à disponibilidade. Consulte as opções e valores atualizados no canal oficial de vendas.'],
-  ['Quais são as opções de hospedagem?', 'As opções apresentadas atualmente são Pedra de Sal, Pousada Nativa e Casa Verde, em diferentes categorias e localizações na vila de Boipeba.'],
+  ['Quais são as opções de hospedagem?', 'As opções apresentadas são Maravilha, Pousada Nativa, Pousada da Vila, Casa Verde, Caminho de Pedras, Pedra de Sal e Vila Jesuíta. A disponibilidade e as datas de cada pacote aparecem no carrossel e devem ser confirmadas no canal oficial de vendas.'],
   ['O evento é Open Food?', 'Não. As cinco festas possuem Open Bar Premium. Alimentação não está incluída e poderá ser adquirida separadamente na praça gastronômica.'],
   ['Posso chegar dia 28 ou 29 mesmo tendo Full Pass?', 'Sim. O kit de acesso permanece reservado em nome do comprador até a sua chegada.'],
   ['Como chegar a Boipeba?', 'Boipeba exige planejamento de deslocamento. Há opções por lancha e transfer semiterrestre. Confirme rotas, horários e disponibilidade diretamente com os fornecedores.'],

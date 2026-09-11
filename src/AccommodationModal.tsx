@@ -75,15 +75,15 @@ export default function AccommodationModal({ accommodation, ticketsUrl, onClose 
                   <img className="accommodation-modal__primary-image" src={currentVisual} alt={`${accommodation.name} em Boipeba`} />
                   {accommodation.images.length > 1 && (
                     <div className="accommodation-modal__thumbs">
-                      {accommodation.images.map((image, idx) => (
+                      {accommodation.images.slice(1).map((image, idx) => (
                         <button
                           key={image}
                           type="button"
                           className={`accommodation-modal__thumb-btn ${currentVisual === image ? 'accommodation-modal__thumb-btn--active' : ''}`}
                           onClick={() => setActiveImage(image)}
-                          aria-label={`Ver foto ${idx + 1} de ${accommodation.name}`}
+                          aria-label={`Ver foto ${idx + 2} de ${accommodation.name}`}
                         >
-                          <img src={image} alt={`${accommodation.name} foto ${idx + 1}`} />
+                          <img src={image} alt={`${accommodation.name} foto ${idx + 2}`} />
                         </button>
                       ))}
                     </div>
@@ -96,6 +96,7 @@ export default function AccommodationModal({ accommodation, ticketsUrl, onClose 
               )}
             </div>
             <div className="accommodation-modal__body">
+              <div className={`accommodation-modal__status accommodation-modal__status--${accommodation.status}`}>{accommodation.statusLabel}</div>
               <div className="accommodation-badges">{accommodation.badges.map((badge) => <span key={badge}>{badge}</span>)}</div>
               <span className="accommodation-modal__period">PACOTE · {accommodation.period}</span>
               <h3>{accommodation.name}</h3>
@@ -104,7 +105,7 @@ export default function AccommodationModal({ accommodation, ticketsUrl, onClose 
               <ul className="accommodation-amenities">{accommodation.amenities.map((item) => <li key={item}>{item}</li>)}</ul>
               <div className="accommodation-modal__actions">
                 <a href={googleMapsSearchUrl(accommodation.mapsQuery)} target="_blank" rel="noreferrer">VER NO GOOGLE MAPS <ArrowUpRight size={15} /></a>
-                <a className="accommodation-modal__primary" href={ticketsUrl} target="_blank" rel="noreferrer">VER PACOTE + HOSPEDAGEM <ArrowUpRight size={15} /></a>
+                {accommodation.status === 'available' ? <a className="accommodation-modal__primary" href={ticketsUrl} target="_blank" rel="noreferrer">VER PACOTE + HOSPEDAGEM <ArrowUpRight size={15} /></a> : <span className="accommodation-modal__sold-out">PACOTE ESGOTADO</span>}
               </div>
             </div>
           </motion.article>
