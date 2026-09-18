@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://alma-reveillon-2027.vercel.app/sitemap.xml
+Sitemap: https://www.almareveillon.com.br/sitemap.xml

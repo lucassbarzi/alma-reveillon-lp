@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion, useReducedMotion, useScroll, useSpring, useTransform, AnimatePresence } from 'motion/react'
-import { ArrowDown, ArrowRight, ArrowUp } from 'lucide-react'
+import { ArrowDown, ArrowRight, ArrowUp, Star } from 'lucide-react'
 import ExpandableGallery from './components/ui/gallery-animation'
 import StackedGallery from './components/ui/stacked-gallery'
 import PipVideoPlayer from './components/ui/pip-video-player'
@@ -11,6 +11,8 @@ import HoverFooter from './components/ui/hover-footer'
 import CircularMenu from './components/ui/circular-menu'
 import AccommodationSection from './AccommodationSection'
 import ImportantNotices from './ImportantNotices'
+import Subpage, { reviews, type SubpageKey } from './Subpages'
+import ReviewCarousel from './components/ui/review-carousel'
 import { LanguageProvider, useLanguage } from './i18n/LanguageContext'
 import { trackTicketClick, TICKETS_URL } from './lib/tracking'
 
@@ -237,23 +239,19 @@ function AppContent() {
       <AccommodationSection ticketsUrl={LODGING_TICKETS_URL} />
 
       <section className="stories light" id="historias">
-        <Reveal>
-          <span className="kicker">{t.stories.kicker}</span>
-          <h2>{t.stories.h2Part1}<br/><em>{t.stories.h2Part2}</em></h2>
-        </Reveal>
-        <div className="story-grid">
-          {t.stories.cards.map((card, idx) => (
-            <Reveal className="story-card" key={card.tag} delay={idx * .1}>
-              <div className="story-card__top">
-                <span className="story-card__tag">{card.tag}</span>
-              </div>
-              <div className="story-card__content">
-                <h3>{card.title}</h3>
-                <p>{card.p}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
+        <ReviewCarousel
+          items={reviews}
+          kicker={t.stories.kicker}
+          titlePart1={t.stories.h2Part1}
+          titlePart2={t.stories.h2Part2}
+          intro={
+            language === 'en'
+              ? 'Some messages stay forever. Stories and impressions from those who lived the ALMA atmosphere.'
+              : language === 'es'
+              ? 'Algunos mensajes perduran. Historias e impresiones de quienes vivieron la atmósfera de ALMA.'
+              : 'Algumas mensagens ficam. Histórias e momentos de quem viveu a energia do ALMA na Praia da Cueira.'
+          }
+        />
       </section>
 
       <ImportantNotices ticketsUrl={TICKETS} instagramUrl={INSTAGRAM} />
@@ -339,10 +337,17 @@ function AppContent() {
   )
 }
 
+function RoutedApp() {
+  const pathname = window.location.pathname.replace(/\/$/, '') || '/'
+  const subpage = pathname.slice(1) as SubpageKey
+  const validSubpages: SubpageKey[] = ['como-chegar', 'onde-ficar', 'programacao', 'experiencia']
+  return pathname !== '/' && validSubpages.includes(subpage) ? <Subpage path={subpage} /> : <AppContent />
+}
+
 export default function App() {
   return (
     <LanguageProvider>
-      <AppContent />
+      <RoutedApp />
     </LanguageProvider>
   )
 }

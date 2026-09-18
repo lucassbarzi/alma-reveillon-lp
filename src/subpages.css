@@ -1,0 +1,193 @@
+@font-face{font-family:TuskerBalanced;src:url("/fonts/TuskerGrotesk-4500Medium.otf") format("opentype");font-weight:500;font-style:normal;font-display:swap}
+
+/* ALMA island pages — scoped to preserve the home page's visual identity. */
+.island-page{--ink:#143847;--muted:#52717a;--paper:#f4fbfd;--line:rgba(20,56,71,.18);--aqua:#2b829d;color:var(--ink);background:var(--paper);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
+.island-page button{font:inherit;cursor:pointer}
+.island-page :is(a,button,summary):focus-visible{outline:3px solid #2b829d;outline-offset:5px}
+.island-page :is(h1,h2,h3,p,figure){margin:0}
+.island-page :is(h1,h2,h3){font-family:TuskerBalanced,Tusker,"Arial Narrow",sans-serif;font-weight:500;font-synthesis:none;letter-spacing:.015em;text-transform:uppercase;line-height:1.12}
+.island-page em{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-style:italic;color:inherit;letter-spacing:-.045em;text-transform:none}
+.island-page p{font-size:16px;line-height:1.8;color:var(--muted)}
+.island-page img{display:block;max-width:100%;object-fit:cover}
+.island-kicker{display:block;font-size:10px;line-height:1.6;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
+.island-header{height:100px;position:absolute;top:0;left:0;width:100%;z-index:95;display:flex;align-items:center;justify-content:center;padding:0 4vw}
+.island-logo{width:150px;display:block}
+.island-logo img{width:100%;height:70px;object-fit:contain}
+.island-back{position:absolute;left:4vw;top:25px;display:flex;align-items:center;gap:10px;min-height:44px;padding:0 15px;border-radius:100px;background:rgba(244,251,253,.94);font-size:11px;letter-spacing:.08em}
+.island-skip{position:fixed;top:10px;left:10px;z-index:200;background:var(--paper);padding:15px;transform:translateY(-160%)}
+.island-skip:focus{transform:translateY(0)}
+.island-hero{position:relative;min-height:680px;height:86svh;max-height:1050px;display:flex;align-items:center;justify-content:center;isolation:isolate;background:var(--ink);color:white;text-align:center}
+.island-hero__image{position:absolute;inset:0;width:100%;height:100%;z-index:-3;object-position:50% 50%}
+.island-hero__shade{position:absolute;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(244,251,253,.76) 0,rgba(244,251,253,.02) 23%,rgba(6,32,40,.23) 43%,rgba(6,32,40,.42) 100%)}
+.island-hero--party .island-hero__shade{background:linear-gradient(180deg,rgba(6,32,40,.42) 0%,rgba(6,32,40,.14) 26%,rgba(6,32,40,.34) 62%,rgba(6,32,40,.7) 100%)}
+.island-hero__copy{padding:140px 24px 130px;max-width:1100px;text-shadow:0 2px 24px rgba(0,15,20,.25)}
+.island-hero__copy .island-kicker{letter-spacing:.28em;margin-bottom:30px}
+.island-hero h1{font-family:TuskerBalanced,Tusker,"Arial Narrow",sans-serif;font-size:clamp(58px,6.5vw,88px);font-weight:500;line-height:1.05;text-wrap:balance;letter-spacing:.02em}
+.island-hero h1 em{display:block;font-size:.72em;line-height:1.12;margin-top:.12em}
+.island-hero__copy p{max-width:490px;margin:28px auto 0;color:white;font-size:16px;line-height:1.7;text-wrap:balance}
+.island-hero__bottom{position:absolute;left:5vw;right:5vw;bottom:30px;display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;gap:16px;font-size:9px;font-weight:500;letter-spacing:.16em}
+.island-hero__bottom>span:first-child{text-align:left}
+.island-hero__bottom>span:last-child{text-align:right}
+.island-hero__bottom a{display:flex;justify-content:center;align-items:center;gap:12px;min-height:44px;font-size:10px;text-transform:uppercase}
+.island-nav{display:flex;align-items:center;justify-content:center;gap:32px;padding:0 24px;min-height:76px;border-bottom:1px solid var(--line)}
+.island-nav a{font-size:11px;letter-spacing:.045em;white-space:nowrap;position:relative;display:flex;align-items:center;min-height:76px;color:var(--muted)}
+.island-nav a[aria-current=page]{color:var(--ink)}
+.island-nav a[aria-current=page]:after{content:"";position:absolute;bottom:0;height:2px;background:var(--ink);left:0;right:0}
+.island-content{scroll-margin-top:20px}
+.island-section{max-width:1440px;padding:100px 7vw;margin:0 auto}
+.island-section-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:56px;margin-bottom:50px}
+.island-section-heading .island-kicker{margin-bottom:18px;color:var(--aqua)}
+.island-section-heading h2{font-size:clamp(32px,3.5vw,48px);max-width:600px}
+.island-section-heading>p{max-width:360px;font-size:14px;flex:0 1 360px}
+.island-editorial{display:grid;grid-template-columns:.8fr 1.2fr;align-items:center;gap:8vw}
+.island-editorial__copy .island-kicker{color:var(--aqua);margin-bottom:26px}
+.island-editorial h2{font-family:TuskerBalanced,Tusker,sans-serif;font-size:clamp(40px,4.2vw,58px);margin-bottom:28px}
+.island-editorial p{max-width:400px;margin-bottom:24px}
+.island-editorial figure img{width:100%;height:580px;object-fit:cover}
+.island-page figcaption{font-size:11px;color:var(--muted);line-height:1.5;margin-top:14px;letter-spacing:.035em}
+.island-text-link{display:inline-flex;align-items:center;justify-content:space-between;gap:20px;font-size:12px;font-weight:500;min-height:44px;border:0;border-bottom:1px solid var(--line);padding:7px 0;background:none;color:inherit;text-align:left}
+.island-text-link:hover{color:var(--aqua);border-color:currentColor}
+.island-panoramic{position:relative;min-height:600px;display:flex;align-items:center;color:white;background:var(--ink);isolation:isolate}
+.island-panoramic>img{position:absolute;width:100%;height:100%;inset:0;z-index:-2}
+.island-panoramic:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,32,40,.76),rgba(6,32,40,.08));z-index:-1}
+.island-panoramic>div{padding:85px 7vw;max-width:760px}
+.island-panoramic h2{font-family:TuskerBalanced,Tusker,sans-serif;font-size:clamp(40px,4.2vw,58px);margin:25px 0}
+.island-panoramic p{max-width:430px;color:white;margin-bottom:22px}
+.island-panoramic .island-text-link{border-color:rgba(255,255,255,.5)}
+.island-panoramic .island-text-link:hover{color:white}
+.island-principles{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.island-principles article{border-top:1px solid var(--line);padding-top:28px}
+.island-principles article>span{font-size:11px;color:var(--aqua)}
+.island-principles h3{font-size:25px;margin:25px 0 16px}
+.island-principles p{font-size:14px}
+.island-next{display:block;position:relative;height:390px;isolation:isolate;background:var(--ink);color:white;overflow:hidden}
+.island-next>img{position:absolute;inset:0;width:100%;height:100%;z-index:-2;transition:transform .8s ease}
+.island-next:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,32,40,.64),rgba(6,32,40,.12));z-index:-1}
+.island-next>div{position:relative;display:flex;flex-direction:column;justify-content:center;height:100%;padding:65px 7vw}
+.island-next h2{font-family:TuskerBalanced,Tusker,sans-serif;font-size:clamp(38px,4.2vw,58px);max-width:75%;margin-top:20px}
+.island-next__arrow{position:absolute;right:7vw;top:calc(50% - 32px);width:64px;height:64px;border:1px solid rgba(255,255,255,.65);border-radius:50%;display:grid;place-items:center}
+.island-next:hover>img{transform:scale(1.035)}
+.island-footer{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:44px 7vw}
+.island-footer>a:first-child{width:110px}
+.island-footer img{width:110px;height:52px;object-fit:contain}
+.island-footer>span{font-size:12px;line-height:1.7;color:var(--muted);text-align:center}
+.island-footer>a:last-child{display:flex;align-items:center;gap:10px;min-height:44px;font-size:12px}
+/* Photographs are the only editorial content on Mídia. */
+.island-page--gallery .island-hero{height:72svh;min-height:580px}
+.island-gallery-section{padding-top:55px}
+.island-gallery-heading{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:32px}
+.island-gallery-heading>span:last-child{font-size:12px;color:var(--muted)}
+.island-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.island-gallery__item{display:block;position:relative;width:100%;padding:0;border:0;background:#dff3f8;margin:0;overflow:hidden;aspect-ratio:4/3}
+.island-gallery__item img{width:100%;height:100%;transition:transform .65s ease}
+.island-gallery__item img{object-fit:cover}
+.island-gallery__item:hover img{transform:scale(1.035)}
+.island-gallery__zoom{position:absolute;bottom:14px;right:14px;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:rgba(244,251,253,.94);color:var(--ink)}
+.island-lightbox{position:fixed;inset:0;width:100vw;height:100dvh;max-width:100vw;max-height:100dvh;border:0;padding:76px 80px;margin:0;background:rgba(4,22,29,.98);color:white;z-index:200}
+.island-lightbox[open]{display:flex;align-items:center;justify-content:center}
+.island-lightbox::backdrop{background:rgba(4,22,29,.9)}
+.island-lightbox figure{max-width:100%;display:flex;flex-direction:column;align-items:center}
+.island-lightbox figure img{max-width:100%;width:auto;height:auto;max-height:calc(100dvh - 190px);object-fit:contain}
+.island-lightbox figcaption{display:flex;justify-content:space-between;gap:30px;width:100%;color:white;font-size:12px;max-width:1100px}
+.island-lightbox button{position:absolute;background:rgba(255,255,255,.1);color:white;border:1px solid rgba(255,255,255,.35);border-radius:50%;display:grid;place-items:center;width:48px;height:48px;z-index:1}
+.island-lightbox__close{top:20px;right:24px}
+.island-lightbox__prev{left:16px;top:calc(50% - 24px)}
+.island-lightbox__next{right:16px;top:calc(50% - 24px)}
+/* Itinerary */
+.island-schedule{border-top:1px solid var(--line)}
+.island-schedule article{display:grid;grid-template-columns:180px 1fr 130px;align-items:center;gap:35px;padding:32px 0;border-bottom:1px solid var(--line)}
+.island-schedule__date{display:flex;align-items:center;gap:18px}
+.island-schedule__date strong{font-size:60px;letter-spacing:-.06em;line-height:1;font-weight:300}
+.island-schedule__date span{font-size:9px;line-height:1.8;letter-spacing:.12em;color:var(--muted)}
+.island-schedule h2{font-size:clamp(25px,2.7vw,38px)}
+.island-schedule p{font-size:13px;margin-top:8px}
+.island-schedule__time{font-size:12px;text-align:right;white-space:nowrap;color:var(--muted)}
+.island-schedule article:last-child{background:#e8f3f2;padding-left:20px;padding-right:20px}
+.island-booking-row{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-top:35px}
+.island-booking-row>span{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.island-party-story{display:grid;grid-template-columns:.75fr 1.25fr;gap:7vw;align-items:center}
+.island-party-story h2{font-size:clamp(38px,4.2vw,58px);margin:20px 0 24px}
+.island-party-story p{max-width:390px}
+.island-party-story__grid{display:grid;grid-template-columns:1.15fr .85fr;grid-template-rows:repeat(2,250px);gap:16px}
+.island-party-story__grid img{width:100%;height:100%;border-radius:var(--photo-radius);object-fit:cover}
+.island-party-story__grid img:first-child{grid-row:1 / 3}
+/* Accommodation details reuse the existing modal and data. */
+.island-stays{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:45px 30px}
+.island-stay__visual{position:relative;padding:0;border:0;display:block;width:100%;overflow:hidden;background:#dff3f8;color:var(--ink)}
+.island-stay__visual>img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;transition:transform .6s}
+.island-stay__visual:hover>img{transform:scale(1.035)}
+.island-stay__visual>span:first-of-type{position:absolute;top:20px;left:20px;background:var(--paper);padding:10px 14px;border-radius:100px;font-size:11px}
+.island-stay__plus{position:absolute;bottom:20px;right:20px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--paper)}
+.island-stay__body{padding:25px 0 0;display:flex;flex-direction:column;align-items:flex-start}
+.island-stay__body .island-kicker{color:var(--aqua);font-size:9px}
+.island-stay h3{font-size:34px;margin:12px 0}
+.island-stay p{font-size:14px;max-width:440px;min-height:50px}
+.island-stay__location{display:flex;gap:6px;align-items:center;font-size:11px;color:var(--muted);margin:18px 0 8px}
+.island-soldout{margin-top:50px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.island-soldout>summary{list-style:none;display:flex;justify-content:space-between;align-items:center;min-height:72px;font-size:14px;cursor:pointer}
+.island-soldout .island-stays{padding:20px 0 50px}
+.island-page summary::-webkit-details-marker{display:none}
+.island-page details[open]>summary>svg{transform:rotate(45deg)}
+/* Region guide */
+.island-places{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:60px 32px}
+.island-places figure{position:relative;margin-bottom:26px}
+.island-places figure img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+.island-places figure>span{position:absolute;bottom:18px;left:20px;color:white;font-size:40px;font-weight:300;text-shadow:0 2px 15px #143847}
+.island-places .island-kicker{color:var(--aqua);font-size:9px}
+.island-places h3{font-size:34px;margin:12px 0 16px}
+.island-places p{font-size:14px;max-width:470px;margin-bottom:12px}
+.island-note{margin-top:65px;padding:32px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;grid-template-columns:200px 1fr;gap:20px 40px;align-items:start}
+.island-note .island-kicker{color:var(--aqua);padding-top:6px}
+.island-note p{font-size:14px;max-width:670px}
+.island-note>a{grid-column:2;justify-self:start}
+/* Arrival routes */
+.island-arrival{display:grid;grid-template-columns:1fr 1.1fr;gap:65px;align-items:start}
+.island-arrival>figure img{height:610px;width:100%;object-fit:cover}
+.island-routes details{border-bottom:1px solid var(--line)}
+.island-routes details:first-child{border-top:1px solid var(--line)}
+.island-routes summary{display:flex;align-items:center;gap:20px;padding:27px 0;list-style:none;cursor:pointer}
+.island-routes summary>span{font-size:10px;color:var(--aqua)}
+.island-routes summary>h3{font-size:28px;flex:1;letter-spacing:.015em}
+.island-routes summary>svg{flex-shrink:0}
+.island-routes details>div{padding:0 0 28px 34px}
+.island-routes p,.island-routes li{font-size:14px;line-height:1.8;color:var(--muted)}
+.island-routes ol{padding-left:18px;margin:20px 0}
+.island-routes li{padding:5px 0}
+.island-quotes{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.island-quotes blockquote{margin:0;border-top:1px solid var(--line);padding:25px 0}
+.island-quotes p{font-size:22px;color:var(--ink)}
+.island-quotes cite{display:block;font-style:normal;font-size:12px;color:var(--muted);margin-top:20px}
+@media(min-width:1600px){.island-section{padding-left:100px;padding-right:100px}}
+@media(max-width:1000px){.island-nav{gap:22px}.island-section{padding:75px 5vw}.island-editorial{gap:5vw}.island-editorial figure img{height:470px}.island-section-heading{gap:30px}.island-section-heading>p{flex-basis:300px}.island-arrival{gap:35px}.island-routes summary>h3{font-size:26px}.island-schedule article{grid-template-columns:145px 1fr 110px;gap:20px}.island-principles{gap:25px}.island-principles h3{font-size:23px}}
+@media(max-width:700px){
+ .island-header{height:88px}.island-logo{width:120px}.island-logo img{height:60px}.island-back{left:20px;top:22px;width:44px;padding:0;justify-content:center}.island-back span{display:none}
+ .island-hero{height:85svh;min-height:620px;max-height:850px}.island-hero__copy{padding:135px 24px 125px}.island-hero h1{font-size:clamp(40px,10.8vw,66px);line-height:1.05}.island-hero__copy .island-kicker{font-size:9px;letter-spacing:.17em;margin-bottom:24px}.island-hero__copy p{font-size:14px;max-width:330px;margin-top:24px}
+ .island-hero__shade{background:linear-gradient(180deg,rgba(244,251,253,.8),rgba(244,251,253,.02) 25%,rgba(6,32,40,.35) 50%,rgba(6,32,40,.5))}
+ .island-hero__bottom{left:24px;right:24px;bottom:24px;grid-template-columns:1fr auto;font-size:8px;letter-spacing:.12em}.island-hero__bottom>span:last-child{display:none}.island-hero__bottom a{font-size:9px;gap:6px}
+ .island-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 16px;padding:14px 20px;text-align:center}.island-nav a{justify-content:center;min-height:44px;font-size:10px;letter-spacing:0}
+ .island-section{padding:64px 24px}.island-section-heading{display:block;margin-bottom:32px}.island-section-heading h2{font-size:34px}.island-section-heading>p{margin-top:22px;max-width:450px}
+ .island-editorial{grid-template-columns:1fr;gap:36px}.island-editorial h2{font-size:42px}.island-editorial p{font-size:15px}.island-editorial figure img{height:420px}.island-editorial__copy .island-kicker{margin-bottom:20px}
+ .island-panoramic{min-height:560px}.island-panoramic>div{padding:65px 24px}.island-panoramic h2{font-size:42px}.island-panoramic p{font-size:15px}.island-panoramic:after{background:linear-gradient(90deg,rgba(6,32,40,.78),rgba(6,32,40,.3))}
+ .island-principles{grid-template-columns:1fr;gap:28px}.island-principles article{padding-top:20px}.island-principles h3{margin:16px 0 12px;font-size:26px}
+ .island-next{height:340px}.island-next>div{padding:45px 24px}.island-next h2{font-size:38px;max-width:80%}.island-next__arrow{right:24px;width:44px;height:44px;top:auto;bottom:36px}.island-next .island-kicker{font-size:9px}
+ .island-footer{padding:35px 24px;flex-wrap:wrap;gap:25px}.island-footer>span{text-align:right;font-size:11px}.island-footer>a:last-child{width:100%;justify-content:center;border-top:1px solid var(--line);padding-top:20px}
+ .island-page--gallery .island-hero{height:70svh;min-height:530px}.island-gallery-section{padding:35px 16px 60px}.island-gallery-heading{padding:0 8px}.island-gallery-heading .island-kicker{font-size:8px;letter-spacing:.14em}.island-gallery-heading>span:last-child{font-size:10px}.island-gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.island-gallery__item{margin:0;aspect-ratio:4/5}.island-gallery__zoom{width:30px;height:30px;bottom:9px;right:9px}.island-gallery__zoom svg{width:16px}
+ .island-lightbox{padding:80px 16px 100px}.island-lightbox figure img{max-height:calc(100dvh - 240px)}.island-lightbox figcaption{gap:16px;font-size:11px}.island-lightbox figcaption span:last-child{white-space:nowrap}.island-lightbox__prev,.island-lightbox__next{top:auto;bottom:25px}.island-lightbox__prev{left:calc(50% - 60px)}.island-lightbox__next{right:calc(50% - 60px)}
+ .island-schedule article{grid-template-columns:83px 1fr;gap:12px 18px;padding:25px 0}.island-schedule__date{gap:10px;align-items:flex-start;flex-direction:column;grid-row:span 2}.island-schedule__date strong{font-size:48px}.island-schedule__date span{font-size:8px}.island-schedule__date span br{display:none}.island-schedule h2{font-size:26px}.island-schedule__time{grid-column:2;text-align:left;font-size:11px}.island-schedule article:last-child{padding-left:12px;padding-right:12px}.island-schedule p{font-size:12px}
+ .island-booking-row{flex-direction:column;align-items:flex-start;gap:24px;margin-top:28px}.island-booking-row .ticket{min-height:50px}
+ .island-party-story{grid-template-columns:1fr;gap:34px}.island-party-story h2{font-size:42px}.island-party-story__grid{grid-template-columns:1fr 1fr;grid-template-rows:270px 180px;gap:10px}.island-party-story__grid img:first-child{grid-column:1 / 3;grid-row:auto}
+ .island-stays,.island-places{grid-template-columns:1fr;gap:42px}.island-stay h3,.island-places h3{font-size:32px}.island-stay p{min-height:0}.island-stay__visual>span:first-of-type{top:14px;left:14px}.island-places figure{margin-bottom:22px}
+ .island-note{margin-top:42px;padding:28px 0;grid-template-columns:1fr;gap:15px}.island-note>a{grid-column:1}.island-note p{font-size:14px}
+ .island-arrival{grid-template-columns:1fr;gap:35px}.island-arrival>figure img{height:360px}.island-routes summary{padding:25px 0;gap:16px}.island-routes summary>h3{font-size:26px}.island-routes details>div{padding-left:29px}
+ .island-quotes{grid-template-columns:1fr;gap:20px}
+}
+@media(prefers-reduced-motion:reduce){.island-page *,.island-page *:before,.island-page *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.accommodation-modal.accommodation-modal--island h3{font-family:TuskerBalanced,Tusker,"Arial Narrow",sans-serif;font-size:clamp(30px,3.4vw,46px);font-weight:500;letter-spacing:.015em;line-height:1.12;text-transform:uppercase}
+
+.island-editorial h2 em,.island-panoramic h2 em{font-size:.78em;line-height:1.2}
+
+/* Rounded photographic cards; full-bleed landscapes retain their edge-to-edge composition. */
+.island-page{--photo-radius:22px}
+.island-editorial figure img,.island-arrival>figure img,.island-gallery__item,.island-stay__visual,.island-places figure{border-radius:var(--photo-radius)}
+.island-places figure{overflow:hidden}
+@media(max-width:700px){.island-page{--photo-radius:16px}.island-gallery__item{border-radius:14px}}
