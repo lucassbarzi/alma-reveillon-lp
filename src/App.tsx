@@ -13,6 +13,8 @@ import AccommodationSection from './AccommodationSection'
 import ImportantNotices from './ImportantNotices'
 import Subpage, { reviews, type SubpageKey } from './Subpages'
 import ReviewCarousel from './components/ui/review-carousel'
+import BoiPeopleSection from './components/ui/boi-people-section'
+import PartnersGrid from './components/ui/partners-grid'
 import { LanguageProvider, useLanguage } from './i18n/LanguageContext'
 import { trackTicketClick, TICKETS_URL } from './lib/tracking'
 
@@ -37,7 +39,8 @@ function SqueezeCarousel() {
   ], [t])
 
   return (
-    <section className="squeeze-section relative-section" aria-labelledby="squeeze-title">
+    <section className="squeeze-section relative-section" id="quatro-movimentos" aria-labelledby="squeeze-title">
+      <div id="experiencia" style={{ position: 'absolute', top: '-40px' }} />
       <SilkShader variant="ice-aqua" />
       <div className="shader-bg-overlay shader-bg-overlay--squeeze" style={{ background: 'rgba(3, 18, 14, 0.10)' }} />
       <div className="shader-content-layer">
@@ -100,6 +103,19 @@ function AppContent() {
     }
   }, [])
 
+  useEffect(() => {
+    if (window.location.hash) {
+      const hash = window.location.hash
+      const timer = setTimeout(() => {
+        const target = document.querySelector(hash)
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' })
+        }
+      }, 350)
+      return () => clearTimeout(timer)
+    }
+  }, [])
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -145,7 +161,7 @@ function AppContent() {
               </span>
             ))}
           </p>
-          <p className="hero-slogan"><span>{t.hero.slogan1}</span><span>{t.hero.slogan2}</span></p>
+          <p className="hero-slogan"><span>{t.hero.slogan2}</span></p>
           <a
             className="ticket"
             href={TICKETS}
@@ -166,13 +182,13 @@ function AppContent() {
             </span>
           </a>
         </motion.div>
-        <a className="scroll-cue" href="#experiencia" aria-label={t.hero.scrollCueAria}>
+        <a className="scroll-cue" href="#manifesto" aria-label={t.hero.scrollCueAria}>
           <span>{t.hero.scrollCueText}</span>
           <ArrowDown size={17}/>
         </a>
       </section>
 
-      <section className="manifesto light relative-section" id="experiencia" ref={manifestoRef}>
+      <section className="manifesto light relative-section" id="manifesto" ref={manifestoRef}>
         <MeshDriftShader />
         <div className="shader-bg-overlay" style={{ background: 'rgba(244, 251, 253, 0.72)' }} />
         <div className="shader-content-layer">
@@ -200,6 +216,7 @@ function AppContent() {
 
       <div id="midia">
         <StackedGallery items={gallery.map(([src, alt]) => ({ src, alt }))} />
+        <BoiPeopleSection />
       </div>
 
       <section className="nights light" id="programacao">
@@ -228,11 +245,14 @@ function AppContent() {
             <h2>{t.openBar.h2Part1}<br/><em>{t.openBar.h2Part2}</em></h2>
             <p>{t.openBar.p}</p>
             <div className="bar-brands" aria-label={t.openBar.brandsAria}>
-              <span>Beefeater</span><span>Absolut</span><span>Jameson</span><span>Sol Premium</span><span>Aperol Spritz</span><span>Red Bull</span>
+              <span>Corona Extra</span><span>Absolut</span><span>Beefeater London</span><span>Sol Premium</span><span>Red Bull</span><span>Prata Mixers</span>
             </div>
             <div className="bar-highlight">{t.openBar.highlight}</div>
           </Reveal>
           <div className="orb" aria-hidden="true"><span>27 — 31</span><strong>{t.openBar.month}</strong></div>
+        </div>
+        <div className="shader-content-layer" style={{ maxWidth: '1240px', margin: '40px auto 0', padding: '0 4vw', width: '100%' }}>
+          <PartnersGrid title="PATROCINADORES &amp; PARCEIROS DO FESTIVAL" />
         </div>
       </section>
 
@@ -340,7 +360,7 @@ function AppContent() {
 function RoutedApp() {
   const pathname = window.location.pathname.replace(/\/$/, '') || '/'
   const subpage = pathname.slice(1) as SubpageKey
-  const validSubpages: SubpageKey[] = ['como-chegar', 'onde-ficar', 'programacao', 'experiencia']
+  const validSubpages: SubpageKey[] = ['como-chegar', 'onde-ficar', 'ilha-de-boipeba', 'programacao', 'experiencia', 'midia', 'pacotes-alma-com-hospedagem', 'historias', 'boi-people']
   return pathname !== '/' && validSubpages.includes(subpage) ? <Subpage path={subpage} /> : <AppContent />
 }
 

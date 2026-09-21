@@ -174,13 +174,22 @@ export default function HoverFooter() {
   const footerCardRef = useRef<HTMLElement>(null)
   const [isHowToArriveOpen, setIsHowToArriveOpen] = useState(false)
 
-  const footerLinks = [
+  const footerLinks: {
+    title: string
+    links: {
+      label: string
+      href: string
+      pulse?: boolean
+      external?: boolean
+      isModal?: boolean
+    }[]
+  }[] = [
     {
       title: t.footer.sectionEvent,
       links: [
-        { label: t.footer.navExperience, href: '#experiencia' },
+        { label: t.footer.navExperience, href: '#quatro-movimentos' },
         { label: t.footer.navLineup, href: '#programacao' },
-        { label: t.footer.navIsland, href: '#ilha' },
+        { label: t.footer.navIsland, href: '/ilha-de-boipeba' },
         { label: t.footer.navOpenBar, href: '#openbar' },
         { label: t.footer.navLodging, href: '#hospedagem' },
       ],
@@ -189,7 +198,7 @@ export default function HoverFooter() {
       title: t.footer.sectionInfo,
       links: [
         { label: t.footer.navFaq, href: '#faq' },
-        { label: t.footer.navHowToArrive, href: '#como-chegar', isModal: true },
+        { label: t.footer.navHowToArrive, href: '/como-chegar' },
         { label: t.footer.navSymplaTickets, href: TICKETS, pulse: true, external: true },
       ],
     },
