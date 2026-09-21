@@ -12,7 +12,6 @@ import AccommodationSection from './AccommodationSection'
 import ImportantNotices from './ImportantNotices'
 import Subpage, { reviews, type SubpageKey } from './Subpages'
 import ReviewCarousel from './components/ui/review-carousel'
-import { ShaderBackground } from './components/ui/halftone-dots'
 import BoiPeopleSection from './components/ui/boi-people-section'
 import PartnersGrid from './components/ui/partners-grid'
 import { LanguageProvider, useLanguage } from './i18n/LanguageContext'
@@ -262,23 +261,20 @@ function AppContent() {
 
       <AccommodationSection ticketsUrl={LODGING_TICKETS_URL} />
 
-      <section className="stories light relative-section" id="historias">
-        <ShaderBackground className="stories-halftone-shader" />
-        <div className="shader-content-layer">
-          <ReviewCarousel
-            items={reviews}
-            kicker={t.stories.kicker}
-            titlePart1={t.stories.h2Part1}
-            titlePart2={t.stories.h2Part2}
-            intro={
-              language === 'en'
-                ? 'Some messages stay forever. Stories and impressions from those who lived the ALMA atmosphere.'
-                : language === 'es'
-                ? 'Algunos mensajes perduran. Historias e impresiones de quienes vivieron la atmósfera de ALMA.'
-                : 'Algumas mensagens ficam. Histórias e momentos de quem viveu a energia do ALMA na Praia da Cueira.'
-            }
-          />
-        </div>
+      <section className="stories light" id="historias">
+        <ReviewCarousel
+          items={reviews}
+          kicker={t.stories.kicker}
+          titlePart1={t.stories.h2Part1}
+          titlePart2={t.stories.h2Part2}
+          intro={
+            language === 'en'
+              ? 'Some messages stay forever. Stories and impressions from those who lived the ALMA atmosphere.'
+              : language === 'es'
+              ? 'Algunos mensajes perduran. Historias e impresiones de quienes vivieron la atmósfera de ALMA.'
+              : 'Algumas mensagens ficam. Histórias e momentos de quem viveu a energia do ALMA na Praia da Cueira.'
+          }
+        />
       </section>
 
       <ImportantNotices ticketsUrl={TICKETS} instagramUrl={INSTAGRAM} />

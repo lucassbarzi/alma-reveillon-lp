@@ -2381,12 +2381,9 @@ em{font-style:normal;color:var(--alma-ocean)}
 .hero .scroll-cue{background:transparent;border-radius:0;padding:0}
 .manifesto h2 em{text-decoration:underline;text-decoration-color:var(--alma-paper);text-decoration-thickness:.09em;text-underline-offset:.12em}
 .cinema{color:var(--alma-white)}
-.manifesto,.nights,.accommodation-section,.faq{position:relative;background-color:color-mix(in srgb,var(--alma-paper) 48%,white);overflow:hidden}
-.manifesto::after,.nights::after,.accommodation-section::after,.faq::after{content:"";position:absolute;inset:0;background-image:url('/textures/recycled-paper.jpg');background-repeat:repeat;background-size:512px 512px;mix-blend-mode:multiply;opacity:.38;pointer-events:none;z-index:1}
-.manifesto>*,.nights>*,.accommodation-section>*,.faq>*{position:relative;z-index:2}
-.stories{position:relative;overflow:hidden;background-color:color-mix(in srgb,var(--alma-paper) 48%,white)}
-.stories-halftone-shader{position:absolute;inset:0;width:100%!important;height:100%!important;pointer-events:none;z-index:0;opacity:.88}
-.stories .shader-content-layer{position:relative;z-index:2}
+.manifesto,.nights,.accommodation-section,.stories,.faq{position:relative;background-color:color-mix(in srgb,var(--alma-paper) 48%,white);overflow:hidden}
+.manifesto::after,.nights::after,.accommodation-section::after,.stories::after,.faq::after{content:"";position:absolute;inset:0;background-image:url('/textures/recycled-paper.jpg');background-repeat:repeat;background-size:512px 512px;mix-blend-mode:multiply;opacity:.38;pointer-events:none;z-index:1}
+.manifesto>*,.nights>*,.accommodation-section>*,.stories>*,.faq>*{position:relative;z-index:2}
 .accommodation-section__wash{background:none}
 .bar-section,.notices-section{color:var(--alma-white)}
 .bar-brands,.bar-highlight,.orb{color:var(--alma-white)}
