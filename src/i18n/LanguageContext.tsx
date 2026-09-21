@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState, useMemo } from 'react'
 import { translations, type Language, type Translations } from './translations'
+import { subpageMetadata } from '../data/page-metadata'
 
 interface LanguageContextValue {
   language: Language
@@ -59,25 +60,34 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     document.documentElement.lang = language
 
     const currentT = translations[language]
+    const path = window.location.pathname.replace(/\/$/, '') || '/'
+    const page = subpageMetadata[path]
+    const title = page ? `${page.title} | ALMA Réveillon 2027` : currentT.meta.title
+    const description = page?.description ?? currentT.meta.description
+    const url = `https://www.almareveillon.com.br${page ? path : '/'}`
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', url)
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', url)
+    document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', title)
+    document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', description)
 
     // 2. document.title
-    document.title = currentT.meta.title
+    document.title = title
 
     // 3. meta description
     const descMeta = document.querySelector('meta[name="description"]')
     if (descMeta) {
-      descMeta.setAttribute('content', currentT.meta.description)
+      descMeta.setAttribute('content', description)
     }
 
     // 4. og:description & og:title & og:locale
     const ogDescMeta = document.querySelector('meta[property="og:description"]')
     if (ogDescMeta) {
-      ogDescMeta.setAttribute('content', currentT.meta.ogDescription)
+      ogDescMeta.setAttribute('content', page?.description ?? currentT.meta.ogDescription)
     }
 
     const ogTitleMeta = document.querySelector('meta[property="og:title"]')
     if (ogTitleMeta) {
-      ogTitleMeta.setAttribute('content', currentT.meta.ogTitle)
+      ogTitleMeta.setAttribute('content', page ? title : currentT.meta.ogTitle)
     }
 
     const ogLocaleMeta = document.querySelector('meta[property="og:locale"]')

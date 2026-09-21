@@ -1,3 +1,4 @@
+import { almaShaderColors } from '../../lib/palette'
 import { useEffect, useRef } from 'react'
 
 type Variant = 'silk' | 'mesh' | 'fluted'
@@ -25,11 +26,11 @@ vec3 mesh(vec2 p,float t){vec3 acc=u_colors[0]*.15;float total=.15;for(int i=0;i
 vec3 fluted(vec2 p,float t){float cell=fract((p.x+1.)*19.)-.5;float prism=sin(cell*3.14159)*.10;vec2 sp=p+vec2(prism,sin(p.x*19.+t*.2)*prism*.35);float field=fbm(sp*2.2+vec2(t*.035,-t*.025));float hi=pow(1.-abs(cell)*2.,4.);return palette(clamp(field+hi*.3,0.,1.))*(.72+hi*.42);}
 void main(){vec2 uv=gl_FragCoord.xy/u_resolution.xy;vec2 p=(gl_FragCoord.xy-.5*u_resolution.xy)/min(u_resolution.x,u_resolution.y);float t=u_time;vec3 col=u_mode<.5?silk(p,t):u_mode<1.5?mesh(p,t):fluted(p,t);float contrast=u_mode<.5?1.16:(u_mode<1.5?1.17:1.);float bright=u_mode<.5?-.18:0.;col=(col-.5)*contrast+.5+bright;float vignette=u_mode<.5?.55:(u_mode<1.5?.15:0.);float v=length(uv-.5)*1.414;col*=1.-vignette*smoothstep(.35,1.,v);float grain=u_mode<.5?.06:(u_mode<1.5?.10:.04);col+=(grainHash(gl_FragCoord.xy+vec2(17.,31.))-.5)*grain;gl_FragColor=vec4(clamp(col,0.,1.),1.);}`
 
-const COLORS: Record<Variant, [number, number, number][]> = {
-  silk: [[0,0,0],[.122,.318,1],[0,.898,1],[.918,.992,1]],
-  mesh: [[1,1,1],[.961,.961,.961],[.106,.416,.655],[.341,.824,.957]],
-  fluted: [[.027,.102,.141],[.082,.369,.459],[0,1,.851],[.941,.992,.980]],
-}
+const COLORS = {
+  silk: ['ocean', 'blue', 'blue-soft', 'sand'],
+  mesh: ['sand-light', 'sand', 'blue', 'blue-soft'],
+  fluted: ['ocean', 'blue', 'blue-soft', 'sand-light'],
+} as const
 
 export default function WebGLShaderBackground({ variant, className = '' }: { variant: Variant; className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -43,7 +44,7 @@ export default function WebGLShaderBackground({ variant, className = '' }: { var
     const buffer = gl.createBuffer()!; gl.bindBuffer(gl.ARRAY_BUFFER, buffer); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,3,-1,-1,3]), gl.STATIC_DRAW)
     const position = gl.getAttribLocation(program, 'a_position'); gl.enableVertexAttribArray(position); gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0)
     const resolution = gl.getUniformLocation(program, 'u_resolution'); const time = gl.getUniformLocation(program, 'u_time'); const mode = gl.getUniformLocation(program, 'u_mode'); const colors = gl.getUniformLocation(program, 'u_colors[0]')
-    const palette = COLORS[variant].flat(); gl.uniform3fv(colors, palette); gl.uniform1f(mode, variant === 'silk' ? 0 : variant === 'mesh' ? 1 : 2)
+    const palette = almaShaderColors([...COLORS[variant]], 4); gl.uniform3fv(colors, palette); gl.uniform1f(mode, variant === 'silk' ? 0 : variant === 'mesh' ? 1 : 2)
     let frame = 0; let started = performance.now(); let visible = !document.hidden
     const resize = () => { const dpr = Math.min(window.devicePixelRatio || 1, 2); const rect = canvas.getBoundingClientRect(); canvas.width = Math.max(1, Math.round(rect.width*dpr)); canvas.height = Math.max(1, Math.round(rect.height*dpr)); gl.viewport(0,0,canvas.width,canvas.height); gl.uniform2f(resolution,canvas.width,canvas.height) }
     const render = (now: number) => { if (visible) { gl.uniform1f(time, (now-started)/1000*(variant === 'mesh' ? -1.37 : variant === 'silk' ? .21 : .57)); gl.drawArrays(gl.TRIANGLES,0,3) } frame=requestAnimationFrame(render) }

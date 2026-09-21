@@ -1,0 +1,22 @@
+.boi-people-editorial{padding:100px 7vw 80px;background:var(--alma-ocean)}
+.boi-people-editorial .boi-people-header{max-width:860px;margin-bottom:52px}
+.boi-people-editorial .boi-people-title{font-weight:500;line-height:1.06}
+.boi-people-editorial .boi-people-title em{font-family:Georgia,serif;font-weight:400;font-size:clamp(25px,3vw,40px);line-height:1.3;text-transform:none;letter-spacing:-.035em;margin-top:16px}
+.boi-people-editorial .boi-people-lead{max-width:540px;font-size:15px}
+.boi-people-photo-grid{max-width:1160px;margin:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}
+.boi-people-photo{margin:0;min-width:0}
+.boi-people-photo-link{display:block;position:relative;border-radius:22px;overflow:hidden;background:var(--alma-ocean);aspect-ratio:3/2}
+.boi-people-photo-link img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 70%}
+.boi-people-photo-open{position:absolute;right:20px;bottom:20px;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:rgba(var(--alma-sand-light-rgb),.94);color:var(--alma-ocean);transition:transform .2s}
+.boi-people-photo-link:hover .boi-people-photo-open{transform:translate(2px,-2px)}
+.boi-people-photo figcaption{padding:22px 2px 0}
+.boi-people-photo-heading{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.boi-people-photo-heading h3{font:400 clamp(20px,2.1vw,28px)/1.3 Georgia,serif;margin:0;letter-spacing:-.025em}
+.boi-people-photo-heading time{font:400 11px/1.5 "Helvetica Neue",Arial,sans-serif;color:var(--alma-blue-soft);white-space:nowrap}
+.boi-people-photo figcaption p{margin:10px 0 18px;color:var(--alma-blue-soft);font:400 11px/1.6 "Helvetica Neue",Arial,sans-serif}
+.boi-people-original,.boi-people-footer-link a{display:inline-flex;align-items:center;gap:15px;min-height:44px;font-size:12px;border-bottom:1px solid var(--alma-blue-soft);color:var(--alma-sand-light)}
+.boi-people-original:hover,.boi-people-footer-link a:hover{color:var(--alma-sand-light);border-color:currentColor}
+.boi-people-footer-link{max-width:1160px;margin:46px auto 0;text-align:center}
+.boi-people-editorial a:focus-visible{outline:3px solid var(--alma-sand-light);outline-offset:5px}
+@media(max-width:700px){.boi-people-editorial{padding:70px 24px 55px}.boi-people-editorial .boi-people-header{margin-bottom:34px}.boi-people-editorial .boi-people-badge{font-size:9px;letter-spacing:.14em}.boi-people-editorial .boi-people-title{font-size:clamp(42px,12vw,68px)}.boi-people-editorial .boi-people-title em{font-size:27px}.boi-people-photo-grid{grid-template-columns:1fr;gap:38px}.boi-people-photo-link{border-radius:16px}.boi-people-photo-heading{align-items:flex-start;flex-direction:column;gap:6px}.boi-people-photo-heading h3{font-size:25px}.boi-people-photo figcaption{padding-top:18px}.boi-people-photo figcaption p{margin-bottom:10px}}
+@media(prefers-reduced-motion:reduce){.boi-people-photo-open{transition:none}}

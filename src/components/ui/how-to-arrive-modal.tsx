@@ -117,7 +117,7 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
                 <div className="how-to-arrive-pane">
                   <div className="how-to-arrive-card how-to-arrive-card--highlight">
                     <div className="how-to-arrive-card-header">
-                      <Plane size={20} className="text-[#57d2f4]" />
+                      <Plane size={20} className="text-[var(--alma-sand-light)]" />
                       <div>
                         <h3>{h.plane.card1Title}</h3>
                         <span className="how-to-arrive-badge">{h.plane.card1Badge}</span>
@@ -142,7 +142,7 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
 
                   <div className="how-to-arrive-card">
                     <div className="how-to-arrive-card-header">
-                      <Plane size={20} className="text-[#57d2f4]" />
+                      <Plane size={20} className="text-[var(--alma-sand-light)]" />
                       <div>
                         <h3>{h.plane.card2Title}</h3>
                         <span className="how-to-arrive-badge">{h.plane.card2Badge}</span>
@@ -167,7 +167,7 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
                 <div className="how-to-arrive-pane">
                   <div className="how-to-arrive-card how-to-arrive-card--highlight">
                     <div className="how-to-arrive-card-header">
-                      <Car size={20} className="text-[#57d2f4]" />
+                      <Car size={20} className="text-[var(--alma-sand-light)]" />
                       <div>
                         <h3>{h.car.card1Title}</h3>
                         <span className="how-to-arrive-badge">{h.car.card1Badge}</span>
@@ -196,7 +196,7 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
 
                   <div className="how-to-arrive-card">
                     <div className="how-to-arrive-card-header">
-                      <Car size={20} className="text-[#57d2f4]" />
+                      <Car size={20} className="text-[var(--alma-sand-light)]" />
                       <div>
                         <h3>{h.car.card2Title}</h3>
                         <span className="how-to-arrive-badge">{h.car.card2Badge}</span>
@@ -211,7 +211,7 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
                 <div className="how-to-arrive-pane">
                   <div className="how-to-arrive-card how-to-arrive-card--highlight">
                     <div className="how-to-arrive-card-header">
-                      <Ship size={20} className="text-[#57d2f4]" />
+                      <Ship size={20} className="text-[var(--alma-sand-light)]" />
                       <div>
                         <h3>{h.salvador.card1Title}</h3>
                         <span className="how-to-arrive-badge">{h.salvador.card1Badge}</span>
@@ -238,7 +238,7 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
 
                   <div className="how-to-arrive-card">
                     <div className="how-to-arrive-card-header">
-                      <Ship size={20} className="text-[#57d2f4]" />
+                      <Ship size={20} className="text-[var(--alma-sand-light)]" />
                       <div>
                         <h3>{h.salvador.card2Title}</h3>
                         <span className="how-to-arrive-badge">{h.salvador.card2Badge}</span>
@@ -253,7 +253,7 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
                 <div className="how-to-arrive-pane">
                   <div className="how-to-arrive-card how-to-arrive-card--attention">
                     <div className="how-to-arrive-card-header">
-                      <Clock size={20} className="text-[#57d2f4]" />
+                      <Clock size={20} className="text-[var(--alma-sand-light)]" />
                       <div>
                         <h3>{h.tips.card1Title}</h3>
                         <span className="how-to-arrive-badge how-to-arrive-badge--attention">{h.tips.card1Badge}</span>
@@ -267,7 +267,7 @@ export default function HowToArriveModal({ isOpen, onClose }: HowToArriveModalPr
 
                   <div className="how-to-arrive-card">
                     <div className="how-to-arrive-card-header">
-                      <MapPin size={20} className="text-[#57d2f4]" />
+                      <MapPin size={20} className="text-[var(--alma-sand-light)]" />
                       <div>
                         <h3>{h.tips.card2Title}</h3>
                         <span className="how-to-arrive-badge">{h.tips.card2Badge}</span>

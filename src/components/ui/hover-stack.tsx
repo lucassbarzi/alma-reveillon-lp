@@ -41,10 +41,10 @@ export interface HoverStackProps {
 }
 
 const DEFAULT_CARDS: HoverStackCard[] = [
-  { quote: "A must-have for anyone looking to save time and boost productivity.", tag: "Efficiency", bg: "#0d2836", accent: "text-white" },
-  { quote: "This tech has completely streamlined my daily tasks.", tag: "Workflow", bg: "#0e3024", accent: "text-white" },
-  { quote: "Innovative and powerful, yet so easy to use!", tag: "Simplicity", bg: "#132e40", accent: "text-white" },
-  { quote: "It made everything smoother. Highly recommend!", tag: "Reliability", bg: "#18262f", accent: "text-white" },
+  { quote: "A must-have for anyone looking to save time and boost productivity.", tag: "Efficiency", bg: "var(--alma-ocean)", accent: "text-white" },
+  { quote: "This tech has completely streamlined my daily tasks.", tag: "Workflow", bg: "var(--alma-ocean)", accent: "text-white" },
+  { quote: "Innovative and powerful, yet so easy to use!", tag: "Simplicity", bg: "var(--alma-ocean)", accent: "text-white" },
+  { quote: "It made everything smoother. Highly recommend!", tag: "Reliability", bg: "var(--alma-ocean)", accent: "text-white" },
 ];
 
 function ArrowUpRight({ className = "", style }: { className?: string; style?: React.CSSProperties }) {
@@ -74,7 +74,7 @@ function CardFooter({ index, label, isHovered }: { index: number; label?: string
           className="hover-stack-action-circle"
           style={{
             transform: isHovered ? "scale(1.1) rotate(45deg)" : "scale(1) rotate(0deg)",
-            background: isHovered ? "#7ce577" : "#57d2f4",
+            background: isHovered ? "var(--alma-sand-light)" : "var(--alma-sand-light)",
           }}
         >
           <ArrowUpRight style={{ width: "13px", height: "13px" }} />
@@ -110,11 +110,11 @@ export function HoverStack({
               style={{
                 background: card.bg,
                 border: isHovered
-                  ? `1px solid ${card.borderColor || "rgba(87,210,244,0.7)"}`
-                  : "1px solid rgba(255,255,255,0.12)",
+                  ? `1px solid ${card.borderColor || "rgba(var(--alma-sand-light-rgb),0.7)"}`
+                  : "1px solid rgba(var(--alma-sand-light-rgb),0.12)",
                 boxShadow: isHovered
-                  ? `0 24px 50px rgba(0,0,0,0.65), 0 0 0 1.5px ${card.borderColor || "rgba(87,210,244,0.5)"}, 0 0 28px rgba(87,210,244,0.2)`
-                  : "0 10px 30px rgba(0,0,0,0.35)",
+                  ? `0 24px 50px rgba(var(--alma-ocean-rgb),0.65), 0 0 0 1.5px ${card.borderColor || "rgba(var(--alma-sand-light-rgb),0.5)"}, 0 0 28px rgba(var(--alma-sand-light-rgb),0.2)`
+                  : "0 10px 30px rgba(var(--alma-ocean-rgb),0.35)",
                 opacity: isOtherHovered ? 0.84 : 1,
                 transform: isHovered ? "translateY(-8px) scale(1.015)" : "translateY(0) scale(1)",
               }}

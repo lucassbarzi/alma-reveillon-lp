@@ -1,3 +1,4 @@
+import { almaShaderColors } from '../../lib/palette'
 import { useEffect, useRef } from 'react'
 
 const VERTEX_SHADER = `
@@ -213,7 +214,7 @@ export default function MeshDriftShader({ className = '' }: MeshDriftShaderProps
       started = true
 
       const gl = canvas.getContext('webgl', { alpha: false, antialias: false, preserveDrawingBuffer: false, powerPreference: 'low-power', failIfMajorPerformanceCaveat: false })
-      if (!gl) { canvas.style.background = '#d8edf2'; return }
+      if (!gl) { canvas.style.background = 'var(--alma-sand)'; return }
 
       const isMobile = window.innerWidth <= 780 || ('ontouchstart' in window)
       const scale = isMobile ? 0.5 : Math.min(window.devicePixelRatio || 1, 1.5)
@@ -229,18 +230,18 @@ export default function MeshDriftShader({ className = '' }: MeshDriftShaderProps
       const vs = gl.createShader(gl.VERTEX_SHADER)!
       gl.shaderSource(vs, VERTEX_SHADER)
       gl.compileShader(vs)
-      if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS)) { canvas.style.background = '#d8edf2'; return }
+      if (!gl.getShaderParameter(vs, gl.COMPILE_STATUS)) { canvas.style.background = 'var(--alma-sand)'; return }
 
       const fs = gl.createShader(gl.FRAGMENT_SHADER)!
       gl.shaderSource(fs, FRAGMENT_SHADER)
       gl.compileShader(fs)
-      if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS)) { canvas.style.background = '#d8edf2'; return }
+      if (!gl.getShaderParameter(fs, gl.COMPILE_STATUS)) { canvas.style.background = 'var(--alma-sand)'; return }
 
       const program = gl.createProgram()!
       gl.attachShader(program, vs)
       gl.attachShader(program, fs)
       gl.linkProgram(program)
-      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) { canvas.style.background = '#d8edf2'; return }
+      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) { canvas.style.background = 'var(--alma-sand)'; return }
       gl.useProgram(program)
 
     const vertices = new Float32Array([-1, -1, 3, -1, -1, 3])
@@ -261,14 +262,7 @@ export default function MeshDriftShader({ className = '' }: MeshDriftShaderProps
     const uSpace = gl.getUniformLocation(program, 'u_space')
     const uCursor = gl.getUniformLocation(program, 'u_cursor')
 
-    // Mesh drift colors: #FFFFFF, #F5F5F5, #1B6AA7, #57D2F4
-    const colors = [
-      1.000, 1.000, 1.000,
-      0.961, 0.961, 0.961,
-      0.106, 0.416, 0.655,
-      0.341, 0.824, 0.957,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    ]
+    const colors = almaShaderColors(['sand-light', 'sand', 'blue', 'blue-soft'])
     gl.uniform3fv(uColors, colors)
     gl.uniform4f(uShape, 1.30, 0.56, 0.67, 0.19)
     gl.uniform4f(uSurface, 2.02, 1.17, 0.00, 1.00)

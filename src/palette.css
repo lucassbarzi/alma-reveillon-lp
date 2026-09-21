@@ -1,0 +1,16 @@
+/* Identidade ALMA: as cinco cores aprovadas. RGB compartilhado com os shaders. */
+:root {
+  --alma-blue-rgb: 115, 172, 191;
+  --alma-ocean-rgb: 19, 88, 111;
+  --alma-blue-soft-rgb: 123, 175, 189;
+  --alma-sand-rgb: 241, 210, 167;
+  --alma-sand-light-rgb: 251, 221, 160;
+  --alma-blue: #73ACBF;
+  --alma-ocean: #13586F;
+  --alma-blue-soft: #7BAFBD;
+  --alma-sand: #F1D2A7;
+  --alma-sand-light: #FBDDA0;
+}
+
+::selection { background: var(--alma-ocean); color: var(--alma-sand-light); }
+:focus-visible { outline: 3px solid var(--alma-blue); outline-offset: 4px; }

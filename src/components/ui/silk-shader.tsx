@@ -1,3 +1,4 @@
+import { almaShaderColors } from '../../lib/palette'
 import { useEffect, useRef } from 'react'
 
 const VERTEX_SHADER = `
@@ -280,25 +281,9 @@ export default function SilkShader({ className = '', variant = 'openbar' }: Silk
 
     const isIceAqua = variant === 'ice-aqua'
     const isGreen = variant === 'green'
-    const colors = isIceAqua ? [
-      0.020, 0.110, 0.150, // deep aquatic navy
-      0.075, 0.440, 0.540, // teal-aqua midtone
-      0.260, 0.810, 0.920, // vibrant light cyan/sky blue
-      0.820, 0.980, 0.965, // ultra light blue com um toque sutil de verde
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    ] : isGreen ? [
-      0.016, 0.106, 0.133,
-      0.055, 0.486, 0.525,
-      0.173, 0.812, 0.706,
-      0.788, 1.000, 0.953,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    ] : [
-      0.020, 0.094, 0.125,
-      0.055, 0.486, 0.525,
-      0.231, 0.910, 0.820,
-      0.910, 0.988, 0.980,
-      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    ]
+    const colors = almaShaderColors(isIceAqua
+      ? ['ocean', 'blue', 'blue-soft', 'sand']
+      : ['ocean', 'ocean', 'blue', 'blue-soft'])
     gl.uniform3fv(uColors, colors)
     gl.uniform4f(uShape, ...(isIceAqua ? [0.95, 0.34, 0.50, 0.00] : isGreen ? [0.58, 0.20, 0.50, 0.00] : [1.18, 0.36, 0.48, 0.00]) as [number, number, number, number])
     gl.uniform4f(uSurface, ...(isIceAqua ? [2.25, 1.20, -0.05, 0.75] : isGreen ? [2.40, 0.81, 0.00, 1.00] : [2.20, 1.25, -0.12, 0.65]) as [number, number, number, number])
@@ -347,9 +332,7 @@ export default function SilkShader({ className = '', variant = 'openbar' }: Silk
     return () => { cleanup?.() }
   }, [variant])
 
-  const fallbackBg = variant === 'green'
-    ? 'radial-gradient(ellipse at 40% 50%, #0c3e2e 0%, #03120e 100%)'
-    : 'radial-gradient(ellipse at 40% 50%, #0b3d4f 0%, #051820 100%)'
+  const fallbackBg = 'radial-gradient(ellipse at 40% 50%, var(--alma-blue) 0%, var(--alma-ocean) 100%)'
 
   return (
     <canvas

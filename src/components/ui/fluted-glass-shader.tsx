@@ -1,3 +1,4 @@
+import { almaShaderColors } from '../../lib/palette'
 import { useEffect, useRef } from 'react'
 
 const VERTEX_SHADER = `
@@ -312,16 +313,7 @@ export default function WavesShader({ className = '' }: WavesShaderProps) {
     const uSpace = gl.getUniformLocation(program, 'u_space')
     const uCursor = gl.getUniformLocation(program, 'u_cursor')
 
-    // ALMA Brand Colours (Deep Navy, Dark Cyan, Ocean Blue, Lagoon Cyan, Soft Mist)
-    // #071A24, #143847, #2B829D, #57D2F4, #EBF6FA
-    const colors = [
-      0.027, 0.102, 0.141, // #071A24 Deep Navy
-      0.078, 0.220, 0.278, // #143847 Brand Dark Cyan
-      0.169, 0.510, 0.616, // #2B829D Ocean Blue
-      0.341, 0.824, 0.957, // #57D2F4 Lagoon Cyan
-      0.922, 0.965, 0.980, // #EBF6FA Soft Mist
-      0, 0, 0, 0, 0, 0, 0, 0, 0
-    ]
+    const colors = almaShaderColors(['ocean', 'blue', 'blue-soft', 'sand', 'sand-light'])
     gl.uniform3fv(uColors, colors)
     gl.uniform4f(uShape, 1.26, 0.35, 0.28, 0.00)
     gl.uniform4f(uSurface, 1.82, 1.00, 0.00, 1.00)

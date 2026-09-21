@@ -11,9 +11,10 @@ interface AccommodationModalProps {
   accommodation: Accommodation | null
   ticketsUrl: string
   onClose: () => void
+  variant?: 'default' | 'island'
 }
 
-export default function AccommodationModal({ accommodation, ticketsUrl, onClose }: AccommodationModalProps) {
+export default function AccommodationModal({ accommodation, ticketsUrl, onClose, variant = 'default' }: AccommodationModalProps) {
   const { t, language } = useLanguage()
   const [activeImage, setActiveImage] = useState<string | null>(null)
   const closeRef = useRef<HTMLButtonElement>(null)
@@ -75,7 +76,7 @@ export default function AccommodationModal({ accommodation, ticketsUrl, onClose 
       {accommodation && (
         <motion.div className="accommodation-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onMouseDown={onClose}>
           <motion.article
-            className="accommodation-modal"
+            className={`accommodation-modal${variant === 'island' ? ' accommodation-modal--island' : ''}`}
             role="dialog"
             aria-modal="true"
             aria-label={m.ariaDialog(accommodation.name)}

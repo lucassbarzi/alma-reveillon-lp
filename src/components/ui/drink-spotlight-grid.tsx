@@ -32,7 +32,7 @@ export default function DrinkSpotlightGrid() {
             
             <div className="relative z-10 flex flex-col justify-between h-full gap-3">
               <div className="flex items-center justify-between text-white/80">
-                <span className="text-[10px] uppercase tracking-wider font-semibold text-[#f4fbfd]/90">
+                <span className="text-[10px] uppercase tracking-wider font-semibold text-[var(--alma-sand-light)]/90">
                   {item.category}
                 </span>
                 <Icon size={14} className="text-white/60 transition-transform duration-300 group-hover:scale-110 group-hover:text-white" />

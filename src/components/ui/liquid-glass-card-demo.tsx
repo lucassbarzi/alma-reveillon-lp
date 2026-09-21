@@ -19,12 +19,12 @@ export default function DemoOne() {
 
           <div className="absolute bottom-0 left-0 w-full rounded-b-md bg-gradient-to-t from-black/85 via-black/60 to-transparent p-6">
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-widest text-[#57d2f4]">01 · Chegada</span>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-[var(--alma-sand-light)]">01 · Chegada</span>
               <h3 className="text-2xl text-white font-bold tracking-tight mt-1">CHEGA DIA 28 OU 29?</h3>
               <p className="text-xs text-white/80 leading-relaxed mt-1.5">
                 Comprou o Full Pass? Sem stress. Seu kit de acesso ficará reservado em seu nome até o dia da sua chegada.
               </p>
-              <Button className="mt-3 bg-[#57d2f4] text-[#04151f] hover:bg-[#7de0f8] font-bold text-xs uppercase tracking-wider">
+              <Button className="mt-3 bg-[var(--alma-sand-light)] text-[var(--alma-ocean)] hover:bg-[var(--alma-sand-light)] font-bold text-xs uppercase tracking-wider">
                 Kit Garantido
               </Button>
             </div>
