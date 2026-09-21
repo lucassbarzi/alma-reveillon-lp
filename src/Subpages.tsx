@@ -294,7 +294,13 @@ function HowToArrivePage() {
       photo="galeria-canoa-cristalina"
       intro="Chegar a Boipeba já faz parte da magia da viagem. O trecho final acontece entre mar azul turquesa, rios calmos e caminhos de areia sob o sol da Bahia. Planeje sua travessia com antecedência e sinta o tempo desacelerar."
     >
-      <section className="island-section" style={{ paddingTop: '20px' }}>
+      <section className="island-section" style={{ paddingTop: '60px' }}>
+        <SectionHeading
+          label="ROTAS, TRANSFER & LANCHAS"
+          title="Todas as opções para sua viagem."
+        >
+          Planeje sua chegada com antecedência e aproveite cada instante do percurso pela Costa do Dendê.
+        </SectionHeading>
         <div className="island-arrival">
           <figure>
             <Photo id="galeria-costa-turquesa" sizes="(max-width: 800px) 100vw, 45vw" />
