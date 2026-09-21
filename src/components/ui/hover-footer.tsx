@@ -74,11 +74,11 @@ export const TextHoverEffect = ({
           x2="100%"
           y2="0%"
         >
-          <stop offset="0%" stopColor="var(--alma-sand-light)" />
-          <stop offset="25%" stopColor="var(--alma-ocean)" />
-          <stop offset="50%" stopColor="var(--alma-sand-light)" />
-          <stop offset="75%" stopColor="var(--alma-sand-light)" />
-          <stop offset="100%" stopColor="var(--alma-sand-light)" />
+          <stop offset="0%" stopColor="#57d2f4" />
+          <stop offset="25%" stopColor="#2b829d" />
+          <stop offset="50%" stopColor="#80eeb4" />
+          <stop offset="75%" stopColor="#57d2f4" />
+          <stop offset="100%" stopColor="#ffffff" />
         </linearGradient>
 
         <motion.radialGradient
@@ -124,7 +124,7 @@ export const TextHoverEffect = ({
         textAnchor="middle"
         dominantBaseline="middle"
         strokeWidth="1.4"
-        className="fill-transparent stroke-[var(--alma-sand-light)]/35 font-[Tusker,Impact,sans-serif] font-bold"
+        className="fill-transparent stroke-[#57d2f4]/35 font-[Tusker,Impact,sans-serif] font-bold"
         style={{ fontSize: '460px', letterSpacing: '0.04em' }}
         initial={{ strokeDashoffset: 4000, strokeDasharray: 4000 }}
         animate={{
@@ -163,7 +163,7 @@ export const FooterBackgroundGradient = () => {
       className="absolute inset-0 z-0 pointer-events-none"
       style={{
         background:
-          'radial-gradient(125% 125% at 50% 10%, rgba(var(--alma-ocean-rgb),0.95) 40%, rgba(var(--alma-ocean-rgb),0.98) 100%)',
+          'radial-gradient(125% 125% at 50% 10%, rgba(20, 56, 71, 0.95) 40%, rgba(7, 26, 36, 0.98) 100%)',
       }}
     />
   )
@@ -279,11 +279,11 @@ export default function HoverFooter() {
               <h4 className="hover-footer-title">{t.footer.sectionWhenWhere}</h4>
               <ul className="hover-footer-info-list">
                 <li className="hover-footer-info-item">
-                  <Calendar size={17} className="text-[var(--alma-sand-light)] shrink-0" />
+                  <Calendar size={17} className="text-[#57d2f4] shrink-0" />
                   <span>{t.footer.whenDates}</span>
                 </li>
                 <li className="hover-footer-info-item">
-                  <MapPin size={17} className="text-[var(--alma-sand-light)] shrink-0" />
+                  <MapPin size={17} className="text-[#57d2f4] shrink-0" />
                   <span>{t.footer.whereLocation}</span>
                 </li>
               </ul>

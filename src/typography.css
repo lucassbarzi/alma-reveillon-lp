@@ -1,0 +1,16 @@
+@font-face{font-family:Tusker;src:url('/fonts/TuskerGrotesk-3500Medium.woff2') format('woff2');font-display:swap;font-weight:500;font-style:normal}
+@font-face{font-family:Tusker;src:url('/fonts/TuskerGrotesk-7700Bold.woff2') format('woff2');font-display:swap;font-weight:700;font-style:normal}
+@font-face{font-family:Lato;src:url('/fonts/Lato-Regular.ttf') format('truetype');font-display:swap;font-weight:400;font-style:normal}
+@font-face{font-family:Lato;src:url('/fonts/Lato-Bold.ttf') format('truetype');font-display:swap;font-weight:700;font-style:normal}
+@font-face{font-family:Lato;src:url('/fonts/Lato-Italic.ttf') format('truetype');font-display:swap;font-weight:400;font-style:italic}
+@font-face{font-family:'FG Jason';src:url('/fonts/FGJason-Regular.ttf') format('truetype');font-display:swap;font-weight:400;font-style:normal}
+
+:root{
+  --font-title:Tusker,'Arial Narrow',Impact,sans-serif;
+  --font-body:Lato,Arial,sans-serif;
+  --font-accent:'FG Jason',cursive,sans-serif;
+}
+
+body,button,input,select,textarea{font-family:var(--font-body)}
+h1,h2,h3,h4,h5,h6{font-family:var(--font-title);font-weight:500;font-synthesis:none}
+.font-accent,.font-handwritten,.hero-slogan{font-family:var(--font-accent)}

@@ -13,6 +13,7 @@ import AccommodationSection from './AccommodationSection'
 import ImportantNotices from './ImportantNotices'
 import Subpage, { reviews, type SubpageKey } from './Subpages'
 import ReviewCarousel from './components/ui/review-carousel'
+import { ShaderBackground } from './components/ui/halftone-dots'
 import BoiPeopleSection from './components/ui/boi-people-section'
 import PartnersGrid from './components/ui/partners-grid'
 import { LanguageProvider, useLanguage } from './i18n/LanguageContext'
@@ -42,7 +43,7 @@ function SqueezeCarousel() {
     <section className="squeeze-section relative-section" id="quatro-movimentos" aria-labelledby="squeeze-title">
       <div id="experiencia" style={{ position: 'absolute', top: '-40px' }} />
       <SilkShader variant="ice-aqua" />
-      <div className="shader-bg-overlay shader-bg-overlay--squeeze" style={{ background: 'rgba(3, 18, 14, 0.10)' }} />
+      <div className="shader-bg-overlay shader-bg-overlay--squeeze" style={{ background: 'rgba(var(--alma-ocean-rgb),0.10)' }} />
       <div className="shader-content-layer">
         <div className="squeeze-header">
           <Reveal>
@@ -144,9 +145,17 @@ function AppContent() {
       </header>
 
       <section className="hero" id="top" ref={heroRef}>
-        <video autoPlay muted loop playsInline preload="auto" poster={asset('/media/alma-hero-poster.jpg')} aria-label={t.hero.videoAria}>
-          <source media="(max-width: 780px)" src={asset('/media/alma-hero-mobile.mp4')} type="video/mp4" />
-          <source src={asset('/media/alma-hero-web.mp4')} type="video/mp4" />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          src={asset('/media/alma-hero-mobile.mp4')}
+          poster={asset('/media/alma-hero-poster.jpg')}
+          aria-label={t.hero.videoAria}
+        >
+          <source src={asset('/media/alma-hero-mobile.mp4')} type="video/mp4" />
         </video>
         <motion.div className="cloud cloud-a" style={{ y: cloudY }}/><motion.div className="cloud cloud-b" style={{ y: cloudY }}/>
         <div className="hero-wash" />
@@ -190,7 +199,7 @@ function AppContent() {
 
       <section className="manifesto light relative-section" id="manifesto" ref={manifestoRef}>
         <MeshDriftShader />
-        <div className="shader-bg-overlay" style={{ background: 'rgba(244, 251, 253, 0.72)' }} />
+        <div className="manifesto-paper-overlay" />
         <div className="shader-content-layer">
           <Reveal>
             <span className="kicker">{t.manifesto.kicker}</span>
@@ -238,7 +247,7 @@ function AppContent() {
 
       <section className="bar-section relative-section" id="openbar">
         <SilkShader />
-        <div className="shader-bg-overlay" style={{ background: 'linear-gradient(135deg, rgba(5, 24, 32, 0.38) 0%, rgba(14, 70, 86, 0.20) 50%, rgba(5, 24, 32, 0.42) 100%)' }} />
+        <div className="shader-bg-overlay" style={{ background: 'linear-gradient(135deg, rgba(var(--alma-ocean-rgb),0.38) 0%, rgba(var(--alma-ocean-rgb),0.20) 50%, rgba(var(--alma-ocean-rgb),0.42) 100%)' }} />
         <div className="bar-grid shader-content-layer">
           <Reveal className="bar-copy">
             <span className="kicker">{t.openBar.kicker}</span>
@@ -258,20 +267,23 @@ function AppContent() {
 
       <AccommodationSection ticketsUrl={LODGING_TICKETS_URL} />
 
-      <section className="stories light" id="historias">
-        <ReviewCarousel
-          items={reviews}
-          kicker={t.stories.kicker}
-          titlePart1={t.stories.h2Part1}
-          titlePart2={t.stories.h2Part2}
-          intro={
-            language === 'en'
-              ? 'Some messages stay forever. Stories and impressions from those who lived the ALMA atmosphere.'
-              : language === 'es'
-              ? 'Algunos mensajes perduran. Historias e impresiones de quienes vivieron la atmósfera de ALMA.'
-              : 'Algumas mensagens ficam. Histórias e momentos de quem viveu a energia do ALMA na Praia da Cueira.'
-          }
-        />
+      <section className="stories light relative-section" id="historias">
+        <ShaderBackground className="stories-halftone-shader" />
+        <div className="shader-content-layer">
+          <ReviewCarousel
+            items={reviews}
+            kicker={t.stories.kicker}
+            titlePart1={t.stories.h2Part1}
+            titlePart2={t.stories.h2Part2}
+            intro={
+              language === 'en'
+                ? 'Some messages stay forever. Stories and impressions from those who lived the ALMA atmosphere.'
+                : language === 'es'
+                ? 'Algunos mensajes perduran. Historias e impresiones de quienes vivieron la atmósfera de ALMA.'
+                : 'Algumas mensagens ficam. Histórias e momentos de quem viveu a energia do ALMA na Praia da Cueira.'
+            }
+          />
+        </div>
       </section>
 
       <ImportantNotices ticketsUrl={TICKETS} instagramUrl={INSTAGRAM} />

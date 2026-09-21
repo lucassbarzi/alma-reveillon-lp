@@ -1,12 +1,11 @@
-@font-face{font-family:TuskerBalanced;src:url("/fonts/TuskerGrotesk-4500Medium.otf") format("opentype");font-weight:500;font-style:normal;font-display:swap}
 
 /* ALMA island pages — scoped to preserve the home page's visual identity. */
-.island-page{--ink:var(--alma-ocean);--muted:var(--alma-ocean);--paper:var(--alma-sand-light);--line:rgba(var(--alma-ocean-rgb),.18);--aqua:var(--alma-ocean);color:var(--ink);background:var(--paper);font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
+.island-page{--ink:var(--alma-ocean);--muted:var(--alma-ocean);--paper:var(--alma-sand);--line:rgba(var(--alma-ocean-rgb),.18);--aqua:var(--alma-ocean);color:var(--ink);background:var(--paper);font-family:var(--font-body)}
 .island-page button{font:inherit;cursor:pointer}
 .island-page :is(a,button,summary):focus-visible{outline:3px solid var(--alma-ocean);outline-offset:5px}
 .island-page :is(h1,h2,h3,p,figure){margin:0}
-.island-page :is(h1,h2,h3){font-family:TuskerBalanced,Tusker,"Arial Narrow",sans-serif;font-weight:500;font-synthesis:none;letter-spacing:.015em;text-transform:uppercase;line-height:1.12}
-.island-page em{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-style:italic;color:inherit;letter-spacing:-.045em;text-transform:none}
+.island-page :is(h1,h2,h3){font-family:var(--font-title);font-weight:500;font-synthesis:none;letter-spacing:.015em;text-transform:uppercase;line-height:1.12}
+.island-page em{font-family:var(--font-title);font-weight:500;font-style:normal;color:inherit;letter-spacing:-.045em;text-transform:none}
 .island-page p{font-size:16px;line-height:1.8;color:var(--muted)}
 .island-page img{display:block;max-width:100%;object-fit:cover}
 .island-kicker{display:block;font-size:10px;line-height:1.6;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
@@ -24,7 +23,7 @@
 .island-hero--party .island-hero__shade{background:linear-gradient(180deg,rgba(var(--alma-ocean-rgb),.42) 0%,rgba(var(--alma-ocean-rgb),.14) 26%,rgba(var(--alma-ocean-rgb),.34) 62%,rgba(var(--alma-ocean-rgb),.7) 100%)}
 .island-hero__copy{padding:140px 24px 130px;max-width:1100px;text-shadow:0 2px 24px rgba(var(--alma-ocean-rgb),.35)}
 .island-hero__copy .island-kicker{letter-spacing:.28em;margin-bottom:30px}
-.island-hero h1{font-family:TuskerBalanced,Tusker,"Arial Narrow",sans-serif;font-size:clamp(58px,6.5vw,88px);font-weight:500;line-height:1.05;text-wrap:balance;letter-spacing:.02em}
+.island-hero h1{font-family:var(--font-title);font-size:clamp(58px,6.5vw,88px);font-weight:500;line-height:1.05;text-wrap:balance;letter-spacing:.02em}
 .island-hero h1 em{display:block;font-size:.72em;line-height:1.12;margin-top:.12em}
 .island-hero__copy p{max-width:540px;margin:28px auto 0;color:var(--alma-sand-light);font-size:16px;line-height:1.75;text-wrap:balance;text-shadow:0 2px 14px rgba(var(--alma-ocean-rgb),.5)}
 .island-hero__bottom{position:absolute;left:5vw;right:5vw;bottom:30px;display:grid;grid-template-columns:1fr 1fr 1fr;align-items:center;gap:16px;font-size:9px;font-weight:500;letter-spacing:.16em}
@@ -38,7 +37,7 @@
 .island-page--no-hero .island-back{top:20px}
 .island-page-header{max-width:1440px;margin:0 auto;padding:36px 7vw 10px}
 .island-page-header .island-kicker{color:var(--aqua);margin-bottom:16px}
-.island-page-header h1{font-family:TuskerBalanced,Tusker,sans-serif;font-size:clamp(38px,4.8vw,68px);margin-bottom:20px;color:var(--ink);text-transform:uppercase}
+.island-page-header h1{font-family:var(--font-title);font-size:clamp(38px,4.8vw,68px);margin-bottom:20px;color:var(--ink);text-transform:uppercase}
 .island-page-header p{max-width:640px;font-size:16px;line-height:1.75;color:var(--muted)}
 
 /* Grid de Praias de Boipeba */
@@ -52,7 +51,7 @@
 .island-beach-card:hover figure img{transform:scale(1.05)}
 .island-beach-card__body{padding:24px;display:flex;flex-direction:column;flex:1}
 .island-beach-card__body .island-kicker{color:var(--aqua);margin-bottom:8px}
-.island-beach-card__body h3{font-family:TuskerBalanced,Tusker,sans-serif;font-size:22px;margin-bottom:12px;color:var(--ink);text-transform:uppercase}
+.island-beach-card__body h3{font-family:var(--font-title);font-size:22px;margin-bottom:12px;color:var(--ink);text-transform:uppercase}
 .island-beach-card__body p{font-size:14px;line-height:1.65;color:var(--muted);margin:0}
 
 .island-content{scroll-margin-top:20px}
@@ -63,7 +62,7 @@
 .island-section-heading>p{max-width:360px;font-size:14px;flex:0 1 360px}
 .island-editorial{display:grid;grid-template-columns:.8fr 1.2fr;align-items:center;gap:8vw}
 .island-editorial__copy .island-kicker{color:var(--aqua);margin-bottom:26px}
-.island-editorial h2{font-family:TuskerBalanced,Tusker,sans-serif;font-size:clamp(40px,4.2vw,58px);margin-bottom:28px}
+.island-editorial h2{font-family:var(--font-title);font-size:clamp(40px,4.2vw,58px);margin-bottom:28px}
 .island-editorial p{max-width:400px;margin-bottom:24px}
 .island-editorial figure img{width:100%;height:580px;object-fit:cover}
 .island-page figcaption{font-size:11px;color:var(--muted);line-height:1.5;margin-top:14px;letter-spacing:.035em}
@@ -73,7 +72,7 @@
 .island-panoramic>img{position:absolute;width:100%;height:100%;inset:0;z-index:-2}
 .island-panoramic:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(var(--alma-ocean-rgb),.76),rgba(var(--alma-ocean-rgb),.08));z-index:-1}
 .island-panoramic>div{padding:85px 7vw;max-width:760px}
-.island-panoramic h2{font-family:TuskerBalanced,Tusker,sans-serif;font-size:clamp(40px,4.2vw,58px);margin:25px 0}
+.island-panoramic h2{font-family:var(--font-title);font-size:clamp(40px,4.2vw,58px);margin:25px 0}
 .island-panoramic p{max-width:430px;color:var(--alma-sand-light);margin-bottom:22px}
 .island-panoramic .island-text-link{border-color:rgba(var(--alma-sand-light-rgb),.5)}
 .island-panoramic .island-text-link:hover{color:var(--alma-sand-light)}
@@ -86,14 +85,14 @@
 .island-next>img{position:absolute;inset:0;width:100%;height:100%;z-index:-2;transition:transform .8s ease}
 .island-next:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(var(--alma-ocean-rgb),.64),rgba(var(--alma-ocean-rgb),.12));z-index:-1}
 .island-next>div{position:relative;display:flex;flex-direction:column;justify-content:center;height:100%;padding:65px 7vw}
-.island-next h2{font-family:TuskerBalanced,Tusker,sans-serif;font-size:clamp(38px,4.2vw,58px);max-width:75%;margin-top:20px}
+.island-next h2{font-family:var(--font-title);font-size:clamp(38px,4.2vw,58px);max-width:75%;margin-top:20px}
 .island-next__arrow{position:absolute;right:7vw;top:calc(50% - 32px);width:64px;height:64px;border:1px solid rgba(var(--alma-sand-light-rgb),.65);border-radius:50%;display:grid;place-items:center}
 .island-next:hover>img{transform:scale(1.035)}
 .island-next--cta{height:auto;min-height:430px;padding:60px 0}
 .island-next--cta:after{background:linear-gradient(90deg,rgba(var(--alma-ocean-rgb),.82) 0%,rgba(var(--alma-ocean-rgb),.48) 55%,rgba(var(--alma-ocean-rgb),.15) 100%)}
-.island-next__desc{max-width:620px;font-size:15px;line-height:1.7;color:rgba(255,255,255,.94);margin:16px 0 24px;text-shadow:0 2px 14px rgba(0,15,20,.65)}
-.island-next__btn{display:inline-flex;align-items:center;gap:12px;background:#051c24;color:#ffffff;padding:15px 32px;border-radius:100px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(87,210,244,.4);box-shadow:0 12px 36px rgba(0,10,15,.55);transition:all .3s ease;width:fit-content}
-.island-next:hover .island-next__btn{background:#0a2d38;border-color:#57d2f4;color:#57d2f4;transform:translateY(-2px);box-shadow:0 16px 44px rgba(0,15,22,.7)}
+.island-next p.island-next__desc{max-width:620px;font-size:15px;line-height:1.7;color:rgba(var(--alma-sand-light-rgb),.94);margin:16px 0 24px;text-shadow:0 2px 14px rgba(var(--alma-ocean-rgb),.65)}
+.island-next__btn{display:inline-flex;align-items:center;gap:12px;background:var(--alma-ocean);color:var(--alma-sand-light);padding:15px 32px;border-radius:100px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(var(--alma-blue-rgb),.4);box-shadow:0 12px 36px rgba(var(--alma-ocean-rgb),.55);transition:all .3s ease;width:fit-content}
+.island-next:hover .island-next__btn{background:var(--alma-ocean);border-color:var(--alma-sand-light);color:var(--alma-sand-light);transform:translateY(-2px);box-shadow:0 16px 44px rgba(var(--alma-ocean-rgb),.7)}
 .island-footer{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:44px 7vw}
 .island-footer>a:first-child{width:110px}
 .island-footer img{width:110px;height:52px;object-fit:contain}
@@ -162,7 +161,7 @@
 .island-places{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:60px 32px}
 .island-places figure{position:relative;margin-bottom:26px}
 .island-places figure img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
-.island-places figure>span{position:absolute;bottom:18px;left:20px;color:var(--alma-sand-light);font-size:40px;font-weight:300;text-shadow:0 2px 15px var(--alma-ocean)}
+.island-places figure>span{background:var(--alma-ocean);padding:4px 12px;border-radius:8px;position:absolute;bottom:18px;left:20px;color:var(--alma-sand-light);font-size:40px;font-weight:300;text-shadow:0 2px 15px var(--alma-ocean)}
 .island-places .island-kicker{color:var(--aqua);font-size:9px}
 .island-places h3{font-size:34px;margin:12px 0 16px}
 .island-places p{font-size:14px;max-width:470px;margin-bottom:12px}
@@ -300,7 +299,7 @@
 }
 
 @media(prefers-reduced-motion:reduce){.island-page *,.island-page *:before,.island-page *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
-.accommodation-modal.accommodation-modal--island h3{font-family:TuskerBalanced,Tusker,"Arial Narrow",sans-serif;font-size:clamp(30px,3.4vw,46px);font-weight:500;letter-spacing:.015em;line-height:1.12;text-transform:uppercase}
+.accommodation-modal.accommodation-modal--island h3{font-family:var(--font-title);font-size:clamp(30px,3.4vw,46px);font-weight:500;letter-spacing:.015em;line-height:1.12;text-transform:uppercase}
 .island-editorial h2 em,.island-panoramic h2 em{font-size:.78em;line-height:1.2}
 
 /* Arredondamento elegante */

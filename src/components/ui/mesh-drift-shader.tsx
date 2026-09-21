@@ -214,7 +214,7 @@ export default function MeshDriftShader({ className = '' }: MeshDriftShaderProps
       started = true
 
       const gl = canvas.getContext('webgl', { alpha: false, antialias: false, preserveDrawingBuffer: false, powerPreference: 'low-power', failIfMajorPerformanceCaveat: false })
-      if (!gl) { canvas.style.background = 'var(--alma-sand)'; return }
+      if (!gl) { canvas.style.background = 'var(--alma-blue-soft)'; return }
 
       const isMobile = window.innerWidth <= 780 || ('ontouchstart' in window)
       const scale = isMobile ? 0.5 : Math.min(window.devicePixelRatio || 1, 1.5)
@@ -262,7 +262,8 @@ export default function MeshDriftShader({ className = '' }: MeshDriftShaderProps
     const uSpace = gl.getUniformLocation(program, 'u_space')
     const uCursor = gl.getUniformLocation(program, 'u_cursor')
 
-    const colors = almaShaderColors(['sand-light', 'sand', 'blue', 'blue-soft'])
+    // Tons de azul claro no fundo e saindo nos tons de bege do ALMA
+    const colors = almaShaderColors(['blue-soft', 'blue', 'sand-light', 'sand'])
     gl.uniform3fv(uColors, colors)
     gl.uniform4f(uShape, 1.30, 0.56, 0.67, 0.19)
     gl.uniform4f(uSurface, 2.02, 1.17, 0.00, 1.00)

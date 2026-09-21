@@ -10,7 +10,11 @@
   --alma-blue-soft: #7BAFBD;
   --alma-sand: #F1D2A7;
   --alma-sand-light: #FBDDA0;
+  --alma-paper: #FEE0B5;
+  --alma-white: #FFFFFF;
+  --alma-available: #7CE577;
+  --alma-sold-out: #FF5263;
 }
 
 ::selection { background: var(--alma-ocean); color: var(--alma-sand-light); }
-:focus-visible { outline: 3px solid var(--alma-blue); outline-offset: 4px; }
+:focus-visible { outline: 3px solid var(--alma-ocean); outline-offset: 4px; }

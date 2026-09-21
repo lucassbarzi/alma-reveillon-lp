@@ -31,7 +31,7 @@ export default function ExpandableGallery({ items, className = '' }: ExpandableG
         onMouseLeave={() => setHoveredIndex(null)}
       >
         <img src={item.image} alt={item.alt} loading={index === 0 ? 'eager' : 'lazy'} />
-        <motion.span className="expandable-gallery__shade" animate={{ opacity: hoveredIndex === index ? .18 : .42 }} transition={{ duration: .45 }} />
+        <motion.span className="expandable-gallery__shade" animate={{ opacity: hoveredIndex === index ? .96 : 1 }} transition={{ duration: .45 }} />
         <span className="expandable-gallery__number">0{index + 1}</span>
         <span className="expandable-gallery__copy"><strong>{item.title}</strong><small>{item.subtitle}</small></span>
       </motion.article>)}
