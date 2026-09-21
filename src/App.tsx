@@ -5,7 +5,6 @@ import ExpandableGallery from './components/ui/gallery-animation'
 import StackedGallery from './components/ui/stacked-gallery'
 import PipVideoPlayer from './components/ui/pip-video-player'
 import SilkShader from './components/ui/silk-shader'
-import MeshDriftShader from './components/ui/mesh-drift-shader'
 
 import HoverFooter from './components/ui/hover-footer'
 import CircularMenu from './components/ui/circular-menu'
@@ -197,19 +196,15 @@ function AppContent() {
         </a>
       </section>
 
-      <section className="manifesto light relative-section" id="manifesto" ref={manifestoRef}>
-        <MeshDriftShader />
-        <div className="manifesto-paper-overlay" />
-        <div className="shader-content-layer">
-          <Reveal>
-            <span className="kicker">{t.manifesto.kicker}</span>
-            <h2>{t.manifesto.h2Part1}<br/><em>{t.manifesto.h2Part2}</em></h2>
-          </Reveal>
-          <Reveal className="manifesto-grid" delay={.1}>
-            <p className="lead">{t.manifesto.lead}</p>
-            <p>{t.manifesto.p2}</p>
-          </Reveal>
-        </div>
+      <section className="manifesto light" id="manifesto" ref={manifestoRef}>
+        <Reveal>
+          <span className="kicker">{t.manifesto.kicker}</span>
+          <h2>{t.manifesto.h2Part1}<br/><em>{t.manifesto.h2Part2}</em></h2>
+        </Reveal>
+        <Reveal className="manifesto-grid" delay={.1}>
+          <p className="lead">{t.manifesto.lead}</p>
+          <p>{t.manifesto.p2}</p>
+        </Reveal>
       </section>
 
       <section className="cinema" id="ilha">
