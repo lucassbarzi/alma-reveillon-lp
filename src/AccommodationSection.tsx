@@ -47,7 +47,7 @@ export default function AccommodationSection({ ticketsUrl }: { ticketsUrl: strin
         <Reveal className="accommodation-intro">
           <span className="kicker">{a.kicker}</span>
           <h2>{a.h2Part1} <em>{a.h2Part2}</em></h2>
-          <p className="accommodation-subhead">{a.subhead}</p>
+          {a.subhead ? <p className="accommodation-subhead">{a.subhead}</p> : null}
           <p>{a.p}</p>
         </Reveal>
 

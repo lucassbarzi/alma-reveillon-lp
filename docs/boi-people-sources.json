@@ -1,0 +1,32 @@
+{
+  "verifiedAt": "2026-09-18",
+  "method": "Publicação original visualizada no Instagram; arquivo de imagem obtido dos recursos da página, sem interface social, e convertido em WebP. Reportagens públicas confirmam Boipeba.",
+  "scope": "Registros de viagens à ilha. Não são depoimentos sobre o ALMA nem confirmação de presença na edição 2027.",
+  "omitted": "Demais cards anteriores retirados até que fotos e publicações correspondentes possam ser verificadas.",
+  "posts": [
+    {
+      "name": "Sasha Meneghel",
+      "handle": "sashameneghel",
+      "published": "2023-01-15",
+      "post": "https://www.instagram.com/p/Cnc3jTxpZSJ/",
+      "verification": "https://caras.com.br/atualidades/sasha-abre-album-de-fotos-das-ferias-ao-lado-do-marido-e-de-bruna-marquezine.phtml",
+      "asset": "public/media/boi-people/sasha-boipeba.webp",
+      "originalSize": [
+        1059,
+        701
+      ]
+    },
+    {
+      "name": "Fernanda Paes Leme",
+      "handle": "fepaesleme",
+      "published": "2020-01-03",
+      "post": "https://www.instagram.com/p/B63XEsxFlIv/",
+      "verification": "https://www.metropoles.com/colunas/pipocando/fernanda-paes-leme-deixa-fas-hipnotizados-com-foto-de-biquini",
+      "asset": "public/media/boi-people/fernanda-boipeba.webp",
+      "originalSize": [
+        1279,
+        1279
+      ]
+    }
+  ]
+}
