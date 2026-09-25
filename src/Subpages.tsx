@@ -572,17 +572,17 @@ function GalleryPage() {
 
 /* Subpage 5: Programação (mantida para rotas diretas) */
 const nights = [
-  { day: '27', week: 'DOMINGO', title: 'Roda de Praia', subtitle: 'com +5521', time: '23h — 06h' },
-  { day: '28', week: 'SEGUNDA', title: 'Isso Não É Um Sunrise', subtitle: '', time: '23h — 06h' },
-  { day: '29', week: 'TERÇA', title: 'Momo & Biribiri', subtitle: '', time: '23h — 06h' },
-  { day: '30', week: 'QUARTA', title: 'Luau do DDP', subtitle: '', time: '23h — 06h' },
-  { day: '31', week: 'QUINTA', title: 'ALMA Réveillon', subtitle: 'A grande virada', time: '22h — 06h' },
+  { day: '27', week: 'DOMINGO', title: 'Roda de Praia com +5521', subtitle: 'Resenha nova, os crias e muito digui digui diguiê nas areias da Cueira', time: '23h às 06h' },
+  { day: '28', week: 'SEGUNDA', title: '✖️ Isso Não É Um Sunrise by @IssoNaoeUmaFesta', subtitle: 'Uma nova festa e um novo amanhecer no paraíso', time: '23h às 06h' },
+  { day: '29', week: 'TERÇA', title: 'MOMO & Biribiri by @BailedoMomo Crew', subtitle: 'Súditos do MOMO, vocês estão prontos?', time: '23h às 06h' },
+  { day: '30', week: 'QUARTA', title: 'Luau do DDP', subtitle: 'O luau mais famoso do Brasil e a maior Open Vibe', time: '23h às 06h' },
+  { day: '31', week: 'QUINTA', title: 'A L M A Réveillon', subtitle: 'Corpo salgado e alma lavada', time: '22h às 06h' },
 ]
 function ProgramPage() {
   return (
     <Shell path="programacao" label="Programação" title="Cinco noites." accent="Uma nova energia." photo="festa-por-do-sol" intro="De 27 a 31 de dezembro, a Praia da Cueira é o nosso ponto de encontro.">
       <section className="island-section">
-        <SectionHeading label="DEZEMBRO 2026 / JANEIRO 2027" title="Cada noite, uma história.">
+        <SectionHeading label="DEZEMBRO 2026 / JANEIRO 2027" title="Cinco noites para lavar a ALMA">
           Open Bar Premium nas cinco festas. Escolha como viver a sua virada.
         </SectionHeading>
         <div className="island-schedule">

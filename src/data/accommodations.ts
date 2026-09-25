@@ -23,7 +23,7 @@ const asset = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//
 
 export const accommodations: Accommodation[] = [
   {
-    id: 'pedra-de-sal', name: 'Pedra de Sal', badges: ['Economy Plus'], status: 'available', statusLabel: '26/12 → 02/01', period: '26/12 → 02/01',
+    id: 'pedra-de-sal', name: 'Pedra de Sal', badges: ['Economy Plus'], status: 'sold-out', statusLabel: 'Esgotado', period: 'Esgotado',
     description: 'Acomodação reformada na Rua das Pedras, sobre a loja Oxente.',
     amenities: ['Ar-condicionado', 'TV', 'Banho quente', 'Café da manhã', 'Limpeza diária'], location: 'Rua das Pedras · sobreloja Oxente', mapsQuery: 'Oxente Boipeba, Ilha de Boipeba, Cairu, Bahia',
     coverImage: asset('/media/accommodations/pedra-de-sal/cover.png'), images: [asset('/media/accommodations/pedra-de-sal/5.png'), asset('/media/accommodations/pedra-de-sal/8.png'), asset('/media/accommodations/pedra-de-sal/9.png'), asset('/media/accommodations/pedra-de-sal/3.png'), asset('/media/accommodations/pedra-de-sal/6.png')],
